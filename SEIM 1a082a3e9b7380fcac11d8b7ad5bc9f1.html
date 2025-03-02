@@ -1,0 +1,707 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>SEIM</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-transparentGray { background-color: undefined; }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1a082a3e-9b73-80fc-ac11-d8b7ad5bc9f1" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/solid_beige.png" style="object-position:center 40%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="https://www.notion.so/icons/clipping_gray.svg"/></div><h1 class="page-title">SEIM</h1><p class="page-description"></p><table class="properties"><tbody><tr class="property-row property-row-status"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/clipping_gray.svg" style="width:14px;height:14px;display:block"/></span>Note Type</th><td><span class="status-value select-value-color-gray"><div class="status-dot status-dot-color-gray"></div>Notebook Notes</span></td></tr><tr class="property-row property-row-checkbox"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/star_gray.svg" style="width:14px;height:14px;display:block"/></span>Favorite</th><td><div class="checkbox checkbox-off"></div></td></tr><tr class="property-row property-row-checkbox"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/archive_gray.svg" style="width:14px;height:14px;display:block"/></span>Archive</th><td><div class="checkbox checkbox-off"></div></td></tr><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>Created</th><td><time>@February 20, 2025 7:13 PM</time></td></tr><tr class="property-row property-row-last_edited_time"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>Last edited time</th><td><time>@February 24, 2025 2:23 PM</time></td></tr><tr class="property-row property-row-relation"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/book-closed_gray.svg" style="width:14px;height:14px;display:block"/></span>Notebooks</th><td><a href="SOC%20#4%2016382a3e9b73815c8567d0430a6e99a2.html"><img class="icon" src="https://www.notion.so/icons/book-closed_gray.svg"/>SOC #4</a></td></tr></tbody></table></header><div class="page-body"><hr id="1a082a3e-9b73-8178-9c02-df6557c5cbcc"/><h1 id="1a082a3e-9b73-803f-9bc0-d5bbce97abfa" class=""><strong>Security Information and Event Management (SIEM)</strong></h1><h3 id="1a082a3e-9b73-805b-8506-c90029521dfe" class=""><strong>Common Terminologies :-</strong></h3><ol type="1" id="1a082a3e-9b73-80b6-a6bc-faaa89dbe77a" class="numbered-list" start="1"><li><strong>Log:</strong> A log is a <em>record of events or actions </em>that have occurred in a system or application. It provides valuable information for troubleshooting, audit, and security purposes. <ol type="a" id="1a082a3e-9b73-80a2-88cf-e8304f812a3c" class="numbered-list" start="1"><li><em>Example: </em>An authentication failure log would show when users failed to login due to incorrect credentials.</li></ol></li></ol><ol type="1" id="1a082a3e-9b73-801e-9049-e391fce7271b" class="numbered-list" start="2"><li><strong>Events:</strong> Events are <em>security occurrence </em>or occurrences within a system or network. They can be anything from a user accessing a file to an intrusion attempt. Event data is often collected and analyzed by security systems for detection and response. <ol type="a" id="1a082a3e-9b73-8091-81ea-c0eec1b3c571" class="numbered-list" start="1"><li><em>Example: </em>An event could be a successful login attempt, which indicates normal activity in the system.</li></ol></li></ol><ol type="1" id="1a082a3e-9b73-8050-b494-d3473ee4413d" class="numbered-list" start="3"><li><strong>Security Incident:</strong> A security incident is any <em>occurrence that compromises the integrity, confidentiality, or availability </em>of an information system or its data. It may involve unauthorized access, malware attacks, denial of service, etc.<ol type="a" id="1a082a3e-9b73-80a0-ba12-f34d953a6e33" class="numbered-list" start="1"><li><em>Example: </em>A hacker gaining unauthorized access to a company&#x27;s database would be considered a security incident.</li></ol></li></ol><ol type="1" id="1a082a3e-9b73-80a0-822c-d1cb17348c83" class="numbered-list" start="4"><li><strong>Alerts:</strong> An <em>alert is a notification </em>generated by a monitoring system when it detects an event or situation that requires <em>attention or action</em>. Alerts can be triggered by predefined rules, thresholds, or anomaly detection algorithms.<ol type="a" id="1a082a3e-9b73-80ee-9fdc-fabbdf69ae93" class="numbered-list" start="1"><li><em>Example: </em>If a user&#x27;s account suddenly shows multiple failed login attempts from different IP addresses within a short period, the SIEM tool will generate an alert to notify administrators about potential suspicious activity.</li></ol></li></ol><p id="1a082a3e-9b73-80f9-bd72-da836a5c07e7" class="">
+</p><h2 id="1a082a3e-9b73-8074-8dd8-cd0f200a1028" class="">A Security Information and Event Management (SIEM) </h2><p id="1a082a3e-9b73-80a1-aad8-ce59abc869e1" class="">A Security Information and Event Management (SIEM) tool is a software platform that helps organizations<em> monitor, analyze, and visualize data</em> from multiple sources to detect potential security threats. These tools are essential for managing cybersecurity risks by providing real-time alerts and detailed reports on system activity.</p><p id="1a082a3e-9b73-8033-9345-c36a34db5472" class="">Key features of SIEM tools include:</p><ol type="1" id="1a082a3e-9b73-803a-b7ce-f9562845b3cd" class="numbered-list" start="1"><li><strong>Data Collection</strong>: Gathers log data from various sources such as servers, firewalls, applications, etc., to provide a comprehensive view of the organization&#x27;s security posture.</li></ol><ol type="1" id="1a082a3e-9b73-807c-a581-ebeb34029c87" class="numbered-list" start="2"><li><strong>Log Management</strong>: Stores and organizes log data in a centralized repository for easy retrieval and analysis. This helps IT teams identify patterns, trends, and anomalies that could indicate security breaches or vulnerabilities.</li></ol><ol type="1" id="1a082a3e-9b73-80cc-85f0-c252853f6a1f" class="numbered-list" start="3"><li><strong>Alert Correlation</strong>: Identifies relationships between different events to provide context and prioritize incident response efforts.<em> For example</em>, if there are multiple failed login attempts from the same IP address within a short time frame, SIEM tools can flag it as suspicious activity.</li></ol><ol type="1" id="1a082a3e-9b73-80e3-99dd-c9aa715459fa" class="numbered-list" start="4"><li><strong>Analytics and Reporting</strong>: Offers advanced analytics capabilities to generate actionable insights based on collected data. These reports help organizations assess their security posture, identify areas for improvement, and measure the effectiveness of security controls over time.</li></ol><ol type="1" id="1a082a3e-9b73-8093-996b-e46c16ae7695" class="numbered-list" start="5"><li><strong>Threat Intelligence Integration</strong>: SIEM tools can integrate with third-party threat intelligence feeds to provide up-to-date information about known threats and vulnerabilities. This helps organizations stay ahead of emerging cybersecurity risks.</li></ol><ol type="1" id="1a082a3e-9b73-80a7-9188-d76c83e052a8" class="numbered-list" start="6"><li><strong>Compliance Monitoring</strong>: Enables organizations to meet regulatory requirements by providing evidence of proper security controls and procedures. SIEM tools can also alert teams when critical compliance standards are not being met.</li></ol><p id="1a082a3e-9b73-80c3-afed-cc29d542f439" class="">Overall, a SIEM tool plays a crucial role in proactive cybersecurity management by helping organizations detect, investigate, and respond to potential threats while ensuring regulatory compliance and continuous improvement of their security posture.</p><p id="1a082a3e-9b73-8052-9776-e90039d81d90" class="">
+</p><h3 id="1a182a3e-9b73-8074-bf57-f0248701f0d7" class="">SIEM Components</h3><figure id="1a182a3e-9b73-8050-a9f0-e5f7adce5d46" class="image"><a href="image%2049.png"><img style="width:709.9750366210938px" src="image%2049.png"/></a></figure><p id="1a182a3e-9b73-80d5-bf34-d3b6118a7a14" class="">
+</p><p id="1a182a3e-9b73-80a8-9e02-eec9c5f1a956" class="">In a SIEM (Security Information and Event Management) system, there are three main components that work together to provide comprehensive security monitoring:<em> Forwarders, Indexers, and Search Heads</em>. Here&#x27;s an overview of each component:</p><ol type="1" id="1a182a3e-9b73-8075-8edf-d1c437a3725f" class="numbered-list" start="1"><li><strong>Forwarders</strong>: These components<em> collect log data from various sources </em>such as servers, firewalls, applications, etc., and forward it to the SIEM server for storage and analysis. They act as data aggregators, ensuring that all relevant security-related information is available for analysis.</li></ol><ol type="1" id="1a182a3e-9b73-8067-b085-ed68c9f8d4c2" class="numbered-list" start="2"><li><strong>Indexers</strong>: Indexers are responsible for <em>storing, organizing and Indexing </em>collected log data in a way that makes it<em> easily searchable.</em> They create indexes of the stored data, which allows Search Heads to quickly retrieve specific events or patterns during analysis.</li></ol><ol type="1" id="1a182a3e-9b73-805d-8124-f6edafdb7e93" class="numbered-list" start="3"><li><strong>Search Heads</strong>: Search Heads are the primary<em> interface between users and the SIEM system</em>. They process queries and requests from analysts, perform real-time analysis on the stored log data, and generate alerts and reports based on the results. Search Heads also handle correlation and event enrichment, providing context and relationships between different events to help identify potential security threats.</li></ol><p id="1a182a3e-9b73-80eb-8891-c35bcd9841f0" class="">Together, these three components form a powerful system that enables organizations to detect, investigate, and respond to potential cybersecurity threats while ensuring ongoing compliance with relevant regulations.</p><p id="1a182a3e-9b73-80e6-83ca-cd9d8bbd6371" class="">
+</p><h3 id="1a182a3e-9b73-801e-b66e-f7b941c0a0b4" class="">SIEM Deployment Models</h3><figure id="1a182a3e-9b73-8018-9632-ce36aee00d3f" class="image"><a href="image%2050.png"><img style="width:709.9874877929688px" src="image%2050.png"/></a></figure><p id="1a182a3e-9b73-8072-ab75-c914ce39594c" class="">
+</p><p id="1a082a3e-9b73-8066-a3f3-f123b9fe6545" class=""><strong>Log Management </strong></p><ol type="1" id="1a082a3e-9b73-803e-b478-e0e33cd2e86c" class="numbered-list" start="1"><li>Collection</li></ol><ol type="1" id="1a082a3e-9b73-80d3-8c6d-f5ecb32f4256" class="numbered-list" start="2"><li>Aggregation</li></ol><ol type="1" id="1a082a3e-9b73-8091-bafa-ffda6c252231" class="numbered-list" start="3"><li>Parsing and Normalization</li></ol><ol type="1" id="1a082a3e-9b73-8015-b827-ed42917baa3c" class="numbered-list" start="4"><li>Retention</li></ol><ol type="1" id="1a082a3e-9b73-803a-8c9a-db74630117f6" class="numbered-list" start="5"><li>Indexing</li></ol><ol type="1" id="1a082a3e-9b73-8098-8507-e5b5d8bb60eb" class="numbered-list" start="6"><li>Correlation and Analysis</li></ol><p id="1a182a3e-9b73-807f-af94-eafa267b2d9d" class="">
+</p><p id="1a182a3e-9b73-8090-a144-fb7ee93d8393" class=""><strong>Log Types</strong></p><ol type="1" id="1a182a3e-9b73-8062-ab38-d4294715a89a" class="numbered-list" start="1"><li></li></ol><p id="1a082a3e-9b73-8097-9763-c9ce555c577d" class="">
+</p><p id="1a082a3e-9b73-80fd-9e66-c5d4ceaf5962" class=""><strong>Log Formats</strong></p><ol type="1" id="1a082a3e-9b73-8087-b228-f1a7e3e5724f" class="numbered-list" start="1"><li><strong>Unstructured Logs</strong><ol type="a" id="1a082a3e-9b73-80d8-96c9-e01df4a9363a" class="numbered-list" start="1"><li>No predefined format or syntax</li></ol><ol type="a" id="1a082a3e-9b73-800a-a23e-e7772fdbb64f" class="numbered-list" start="2"><li>human readable </li></ol><ol type="a" id="1a082a3e-9b73-8046-901e-e14e2355103c" class="numbered-list" start="3"><li>Eg: Ngnix server logs </li></ol></li></ol><ol type="1" id="1a082a3e-9b73-80a9-96e8-fbfa1c1e8d50" class="numbered-list" start="2"><li><strong>Semi Structured Logs</strong><ol type="a" id="1a082a3e-9b73-8000-b9e8-d43df02329cc" class="numbered-list" start="1"><li>Some syntax structure</li></ol><ol type="a" id="1a082a3e-9b73-80e0-a615-fc993dc30d57" class="numbered-list" start="2"><li>Lack adherence to a schema</li></ol><ol type="a" id="1a082a3e-9b73-8018-83a5-f68ff0eff212" class="numbered-list" start="3"><li>Support both machine and humans </li></ol><ol type="a" id="1a082a3e-9b73-8090-a242-cffaf1651899" class="numbered-list" start="4"><li>Eg: Syslogs, windows logs</li></ol></li></ol><ol type="1" id="1a082a3e-9b73-80b5-82f2-d0e5fc36d809" class="numbered-list" start="3"><li><strong>Structured Logd</strong><ol type="a" id="1a082a3e-9b73-80fd-a535-f27240a461a9" class="numbered-list" start="1"><li>Well-defined syntax and formatting (Easy for machines)</li></ol><ol type="a" id="1a082a3e-9b73-807f-ada7-de142c45eea2" class="numbered-list" start="2"><li>Adherence to an agreed upon schema</li></ol><ol type="a" id="1a082a3e-9b73-8036-90b6-d6e84095bff5" class="numbered-list" start="3"><li>Easy for search, filter &amp; process</li></ol><ol type="a" id="1a082a3e-9b73-809c-ac15-c3c962e085e5" class="numbered-list" start="4"><li>CSV, TSV</li></ol><ol type="a" id="1a082a3e-9b73-801c-82ac-d2ba8ce5ffc5" class="numbered-list" start="5"><li>JavaScript Object Notation (JSON)</li></ol><ol type="a" id="1a082a3e-9b73-80f6-a7b6-c191767ad23e" class="numbered-list" start="6"><li>eXtensible Markup Language (XML)</li></ol></li></ol><p id="1a182a3e-9b73-80a0-832c-d03d45647403" class="">
+</p><p id="1a182a3e-9b73-80c0-899c-c663084f6280" class="">
+</p><h3 id="1a182a3e-9b73-8064-8a47-ccf93d07c158" class="">Log Types</h3><p id="1a182a3e-9b73-806f-baa7-f6e49e518906" class="">In a SIEM (Security Information and Event Management) system, logs are the primary source of data used for security monitoring and analysis. There are several different types of log files generated by various components within an organization&#x27;s IT infrastructure, each providing unique insights into potential security threats or performance issues. Some common log types include:</p><ol type="1" id="1a182a3e-9b73-80f4-9e3c-cd08c451e1ff" class="numbered-list" start="1"><li><strong>System Logs</strong>: These logs track events related to the underlying operating system, such as user account management, process management, and hardware configuration changes.<ol type="a" id="1a182a3e-9b73-80ea-8f0d-d2b71c05c394" class="numbered-list" start="1"><li><strong>Windows Event Logs</strong>: Windows Event Logs are generated by the Windows operating system and provide information about various system components, including applications and services. They are essential for troubleshooting issues and identifying potential security risks.</li></ol><ol type="a" id="1a182a3e-9b73-804d-9734-f073bb04a6a8" class="numbered-list" start="2"><li><strong>Sysmon Logs</strong>: Sysmon is a powerful system monitoring tool that generates logs about process creations, network connections, and other system activities. These logs can help detect advanced persistence threats (APTs) or malicious activity within an organization&#x27;s IT infrastructure.</li></ol><ol type="a" id="1a182a3e-9b73-800f-8d92-cf2ace04ec64" class="numbered-list" start="3"><li><strong>Linux/Unix Syslogs</strong>: Linux and Unix systems use syslog facilities to log various events related to the operating system, applications, and services. These logs provide valuable insights into potential security risks and performance issues.</li></ol></li></ol><ol type="1" id="1a182a3e-9b73-8005-aba7-fbd31ccd0375" class="numbered-list" start="2"><li><strong>Network Logs</strong>: Network logs record information about network traffic, including incoming and outgoing connections, packet sizes, and source IP addresses. Analyzing these logs can help detect potential security threats, such as port scans or denial of service attacks.<ol type="a" id="1a182a3e-9b73-807b-beb3-e05d14da8b5d" class="numbered-list" start="1"><li><strong>Firewall Logs</strong>: Firewall logs document events related to the filtering and management of network traffic by a firewall device. These logs are essential for detecting unauthorized access attempts or other potential security threats.</li></ol><ol type="a" id="1a182a3e-9b73-80b1-9ebb-ecb370f925da" class="numbered-list" start="2"><li><strong>Proxy Logs</strong>: Proxy logs track activities related to proxy servers within an organization&#x27;s IT infrastructure. They can help identify potential security risks or unauthorized activity involving proxied network traffic.</li></ol><ol type="a" id="1a182a3e-9b73-8059-931a-c2c90dd62a82" class="numbered-list" start="3"><li><strong>DNS Logs</strong>: DNS (Domain Name System) logs document events related to the resolution of domain names into IP addresses. Analyzing these logs can help detect potential security threats, such as phishing attacks or DNS tunneling malware.</li></ol></li></ol><ol type="1" id="1a182a3e-9b73-800d-ad5f-fd5dabd1ac97" class="numbered-list" start="3"><li><strong>Security Logs</strong>: Security logs document specific security-related events occurring within an organization&#x27;s IT infrastructure. They can help detect potential security threats or unauthorized access attempts.<ol type="a" id="1a182a3e-9b73-8096-a56c-f20c22c80150" class="numbered-list" start="1"><li><strong>Authentication Logs</strong>: Authentication logs track user login attempts and successful connections to critical IT resources. They are crucial for detecting unauthorized access attempts or insider threats.</li></ol><ol type="a" id="1a182a3e-9b73-80f5-9947-f83f2f2cda28" class="numbered-list" start="2"><li><strong>IDS/IPS Logs</strong>: IDS (Intrusion Detection System) and IPS (Intrusion Prevention System) logs document events related to the detection or prevention of potential security threats within an organization&#x27;s IT infrastructure. These logs play a critical role in threat detection and response efforts.</li></ol><ol type="a" id="1a182a3e-9b73-80af-b0fc-e445e941f3e1" class="numbered-list" start="3"><li><strong>Endpoint Security Logs</strong>: Endpoint security software generates logs that track activities related to end-user devices, such as laptops and workstations. These logs can help identify potential security risks or unauthorized activity within an organization&#x27;s IT infrastructure.</li></ol></li></ol><ol type="1" id="1a182a3e-9b73-8077-8f95-d4e2b61ce925" class="numbered-list" start="4"><li><strong>Application Logs</strong>: Application logs contain information about the operation and behavior of specific applications running on a system. They can help identify potential software vulnerabilities, misconfigurations, or unauthorized access attempts.<ol type="a" id="1a182a3e-9b73-80c7-a52f-f01e100be9d3" class="numbered-list" start="1"><li><strong>Database Logs</strong>: Database logs track activities related to data storage, retrieval, and modification within a database system. They can help identify potential data breaches or malicious activity targeting an organization&#x27;s critical information assets.</li></ol><ol type="a" id="1a182a3e-9b73-80e8-a579-f7a93063d3f7" class="numbered-list" start="2"><li><strong>Web server / HTTP Logs</strong>: Web server and HTTP logs document events related to the serving of web pages and other resources over HTTP protocol. These logs are essential for troubleshooting website performance issues and identifying potential security risks.</li></ol><ol type="a" id="1a182a3e-9b73-80ad-8a92-f7d5a0b74980" class="numbered-list" start="3"><li><strong>App Logs</strong>: App logs are generated by mobile apps or software applications running on user devices. They can help identify potential security risks or unauthorized activity within an organization&#x27;s IT infrastructure.</li></ol></li></ol><p id="1a182a3e-9b73-8023-be2a-c5fd5bb3f4db" class="">
+</p><h2 id="1a182a3e-9b73-80b4-a640-e5d9003e6a8a" class="">User Behavior Indicators</h2><p id="1a182a3e-9b73-80b6-8699-c77c36d9e6b3" class="">User Behavior Indicators (UBIs) are key events or patterns that suggest unusual or potentially malicious behavior by system users. These indicators can be helpful for security analysts when investigating potential security threats or insider attacks. Some common UBIs found in log files include:</p><ol type="1" id="1a182a3e-9b73-80bd-80b2-c49d90498a76" class="numbered-list" start="1"><li>Unusual login times or locations: If a user logs in from an unexpected location or at an unusual time, it may indicate compromised credentials or unauthorized access attempts.</li></ol><ol type="1" id="1a182a3e-9b73-80a4-9528-fd7af9556540" class="numbered-list" start="2"><li>Multiple failed login attempts: This could signify brute-force attacks targeting user accounts or weak password policies.</li></ol><ol type="1" id="1a182a3e-9b73-8097-a4c1-f28cc0d7e944" class="numbered-list" start="3"><li>Access to sensitive data or systems: Unusual access to critical information assets or restricted areas of an organization&#x27;s IT infrastructure may indicate insider threats or unauthorized activity.</li></ol><ol type="1" id="1a182a3e-9b73-80c2-a6a1-f61ea31f267d" class="numbered-list" start="4"><li>Large file transfers: Unexpectedly large file transfers could indicate data theft or exfiltration activities.</li></ol><ol type="1" id="1a182a3e-9b73-80ef-bf63-c405be165379" class="numbered-list" start="5"><li>Privilege escalations: Sudden changes in user privileges may suggest unauthorized access attempts or malicious insiders abusing their elevated access rights.</li></ol><ol type="1" id="1a182a3e-9b73-80f1-a4ca-fb056d19612d" class="numbered-list" start="6"><li>Anomalies in network traffic patterns: Sudden spikes or unusual patterns in network traffic can indicate potential security threats, such as port scans, denial of service attacks, or malware infections.</li></ol><ol type="1" id="1a182a3e-9b73-8059-b177-d6706a552406" class="numbered-list" start="7"><li>Abnormal system activity: Unusual system processes, high CPU utilization, or increased disk I/O could indicate malware infections or other types of unauthorized activity.</li></ol><ol type="1" id="1a182a3e-9b73-8074-bbfa-f83202e149b3" class="numbered-list" start="8"><li>Use of unknown or suspicious software applications: Installing and executing unfamiliar software applications on organization-issued devices may indicate insider threats or compromised systems.</li></ol><ol type="1" id="1a182a3e-9b73-80e4-aa61-c876e8253063" class="numbered-list" start="9"><li>Unusual system configurations: Changes to critical system settings or configurations without proper authorization could signify unauthorized access attempts or malicious insiders attempting to cover their tracks.</li></ol><ol type="1" id="1a182a3e-9b73-8017-afda-c01a44ef085f" class="numbered-list" start="10"><li>Anomalies in user behavior trends: Deviations from established patterns of user activity, such as atypical application usage or extended periods of inactivity, can indicate potential security risks or compromised accounts.</li></ol><p id="1a182a3e-9b73-8003-8d98-d1f52a6897d9" class="">
+</p><ol type="1" id="1a182a3e-9b73-8049-9ffb-ce58482ca8a0" class="numbered-list" start="1"><li><strong>Multiple Failed Login Attempts</strong><ol type="a" id="1a182a3e-9b73-8032-9f4c-fdb971c7ed21" class="numbered-list" start="1"><li>Incorrect usernames or passwords</li></ol><ol type="a" id="1a182a3e-9b73-8059-8e6f-f7b63136f62c" class="numbered-list" start="2"><li>Increase in failures from a single user account</li></ol><ol type="a" id="1a182a3e-9b73-809b-89bf-fab6100b5632" class="numbered-list" start="3"><li>Increase in failures from multiple user accounts</li></ol></li></ol><ol type="1" id="1a182a3e-9b73-8048-947d-ee34962f3a7a" class="numbered-list" start="2"><li><strong>Login Times</strong><ol type="a" id="1a182a3e-9b73-805f-95be-cd2140536c0a" class="numbered-list" start="1"><li>Time of day that logons or access requests are taking place</li></ol><ol type="a" id="1a182a3e-9b73-8084-bf82-e46d720c4ff2" class="numbered-list" start="2"><li>Abnormalities from a user&#x27;s baseline</li></ol></li></ol><ol type="1" id="1a182a3e-9b73-8096-8356-d6f55068629f" class="numbered-list" start="3"><li><strong>Login/Access Locations</strong><ol type="a" id="1a182a3e-9b73-801c-96b2-e1d370492b55" class="numbered-list" start="1"><li>Geographic locations of logons or access requests</li></ol><ol type="a" id="1a182a3e-9b73-80ab-b121-e965377b420b" class="numbered-list" start="2"><li>Unusual countries or regions</li></ol><ol type="a" id="1a182a3e-9b73-807f-91ab-ea1762e7234a" class="numbered-list" start="3"><li>Impossible Travel</li></ol></li></ol><ol type="1" id="1a182a3e-9b73-806e-bd6e-d09d83d6804a" class="numbered-list" start="4"><li><strong>File Access Patterns</strong><ol type="a" id="1a182a3e-9b73-8086-b070-c2a218ec4bfb" class="numbered-list" start="1"><li>File paths, modifications, or other activity</li></ol></li></ol><ol type="1" id="1a182a3e-9b73-805b-a9e5-e57ada8a645c" class="numbered-list" start="5"><li><strong>User-Agent Strings</strong><ol type="a" id="1a182a3e-9b73-809a-b815-c33a8a8cad98" class="numbered-list" start="1"><li>Unusual or associated with known tools</li></ol></li></ol><p id="1a182a3e-9b73-80b7-be9c-c362e603392f" class="">
+</p><h3 id="1a182a3e-9b73-803f-810c-e0de16d8e1d3" class="">SQL injection Behaviour in Logs </h3><p id="1a182a3e-9b73-8005-bbd5-c485a0aba832" class="">SQL injection is a common type of cyberattack where malicious users exploit vulnerabilities in application code to execute arbitrary SQL commands on a database server. This attack can lead to unauthorized access, data theft, or even complete system compromise. The following behaviors may indicate SQL injection attacks in log files:</p><ol type="1" id="1a182a3e-9b73-8029-8dee-d60b45b79357" class="numbered-list" start="1"><li><strong>Unexpected queries: </strong>Logs may reveal unusual SQL queries that were not intended by the application. These queries could be used for data exfiltration or other malicious purposes.</li></ol><ol type="1" id="1a182a3e-9b73-8080-8d91-fe9775ff217e" class="numbered-list" start="2"><li><strong>Error messages:</strong> Application logs often contain error messages related to failed database operations. SQL injection attacks can cause an increase in these errors due to the improper formatting of SQL commands.</li></ol><ol type="1" id="1a182a3e-9b73-8055-aff5-e0c79043d450" class="numbered-list" start="3"><li><strong>Multiple connections from single IP</strong>: Attackers may use multiple concurrent connections to execute SQL injection queries, resulting in a high number of connections originating from the same source IP address.</li></ol><ol type="1" id="1a182a3e-9b73-80b7-822f-ebc8afe1c1dd" class="numbered-list" start="4"><li><strong>Large data transfers: </strong>Unusual patterns of large data transfers within the database system can indicate data theft or exfiltration activities associated with SQL injection attacks.</li></ol><ol type="1" id="1a182a3e-9b73-8093-87dd-dfe573d5abdc" class="numbered-list" start="5"><li><strong>Changes in privilege levels:</strong> Sudden changes in user privileges within the database management system could be a sign of successful SQL injection exploits, allowing attackers to elevate their access rights.</li></ol><ol type="1" id="1a182a3e-9b73-80a7-9a57-c6d974aa6cd2" class="numbered-list" start="6"><li><strong>Unusual activity outside normal business hours:</strong> SQL injection attacks often occur during non-business hours when network traffic is typically lower, making it harder for security teams to detect and respond.</li></ol><ol type="1" id="1a182a3e-9b73-802d-83b7-d2557efc9885" class="numbered-list" start="7"><li><strong>Use of known SQL injection tools</strong>: Some attackers use automated tools to identify vulnerable applications and execute SQL injections. Logs may contain evidence of these tools being used against an organization&#x27;s IT infrastructure.</li></ol><p id="1a182a3e-9b73-8027-b891-c7842bf498c3" class="">By monitoring these behaviors in log files, security analysts can better identify potential SQL injection attacks and take appropriate steps to mitigate the risk of data breaches or other types of unauthorized activity within their organization&#x27;s IT infrastructure.</p><figure id="1a182a3e-9b73-800d-a915-cf376d8b94fa" class="image"><a href="image%2051.png"><img style="width:480px" src="image%2051.png"/></a></figure><p id="1a182a3e-9b73-80a3-aa7e-d6172c76ee8f" class="">
+</p><h3 id="1a182a3e-9b73-8006-a9d6-f574080fac50" class="">Cross-Site Scripting (XSS)</h3><p id="1a182a3e-9b73-808c-96cd-dfbd12663238" class="">Cross-Site Scripting (XSS) is a type of cyberattack where <em>malicious scripts are injected into web pages</em> viewed by other users. These attacks can lead to <em>unauthorized access, data theft, or even complete system compromise</em>. The following behaviors may indicate XSS attacks in log files:</p><ol type="1" id="1a182a3e-9b73-80b5-b628-eaed62864f3c" class="numbered-list" start="1"><li><strong>Unusual HTTP requests:</strong> Logs may reveal unexpected HTTP requests<em> containing HTML or JavaScript code.</em> These requests could be used for executing malicious scripts on victim&#x27;s browsers.</li></ol><ol type="1" id="1a182a3e-9b73-80f9-94c7-d7558f496292" class="numbered-list" start="2"><li><strong>Changes in page content:</strong> An increase in XSS attacks can cause <em>changes in the appearance and functionality of a web application</em>, as malicious scripts alter the intended behavior of pages.</li></ol><ol type="1" id="1a182a3e-9b73-8032-a8f4-c89e8188cd5f" class="numbered-list" start="3"><li><strong>Increase in error messages:</strong> Web servers may generate more error messages due to malformed requests caused by XSS attacks. These errors could indicate a vulnerability within the application&#x27;s code that allows for this type of attack.</li></ol><ol type="1" id="1a182a3e-9b73-80dc-8ace-d0251317cad0" class="numbered-list" start="4"><li><strong>Multiple connections from single IP:</strong> Attackers may use multiple concurrent connections to execute XSS attacks, resulting in a high number of connections originating from the same source IP address.</li></ol><ol type="1" id="1a182a3e-9b73-803c-9e33-eaa08a969ef5" class="numbered-list" start="5"><li><strong>High network traffic</strong>: XSS attacks can significantly increase the amount of network traffic generated by a web application, as attackers attempt to exploit vulnerabilities and inject malicious scripts into pages viewed by users.</li></ol><ol type="1" id="1a182a3e-9b73-80ed-b2d5-d010cf5d342f" class="numbered-list" start="6"><li><strong>Changes in user behavior patterns:</strong> Unexpected changes in user behavior, such as sudden spikes in account registrations or logins, can indicate successful XSS attacks that allow attackers to automate actions within the affected web application.</li></ol><ol type="1" id="1a182a3e-9b73-8026-9a77-fdf9f66c3417" class="numbered-list" start="7"><li><strong>Presence of known XSS toolkits:</strong> Some attackers use automated tools to identify vulnerable applications and execute XSS attacks. Logs may contain evidence of these tools being used against an organization&#x27;s IT infrastructure.</li></ol><p id="1a182a3e-9b73-8031-a2e6-fe4944975ca9" class="">By monitoring these behaviors in log files, security analysts can better identify potential XSS attacks and take appropriate steps to mitigate the risk of data breaches or other types of unauthorized activity within their organization&#x27;s IT infrastructure.</p><figure id="1a182a3e-9b73-80d7-be62-deb514bd2c28" class="image"><a href="image%2052.png"><img style="width:709.9750366210938px" src="image%2052.png"/></a></figure><p id="1a182a3e-9b73-8096-b740-c150e4390e99" class="">
+</p><h3 id="1a182a3e-9b73-8083-b8de-da4714aec771" class="">Command injection Log </h3><p id="1a182a3e-9b73-801d-baf2-f90c67386484" class="">Command injection is a type of cyberattack where malicious users exploit vulnerabilities in application code to<em> execute arbitrary system commands </em>on the server hosting the affected web application. This attack can lead to unauthorized access, data theft, or even complete system compromise. The following behaviors may indicate command injection attacks in log files:</p><ol type="1" id="1a182a3e-9b73-8017-933a-e10e6ad82abd" class="numbered-list" start="1"><li><strong>Unusual commands executed on the server:</strong> Logs may reveal unexpected system commands being executed by the web application&#x27;s backend processes. These commands could be used for malicious purposes such as data exfiltration or gaining unauthorized access to sensitive information.</li></ol><ol type="1" id="1a182a3e-9b73-80de-81bc-fa3d997d869b" class="numbered-list" start="2"><li><strong>Changes in privilege levels: </strong>Sudden changes in user privileges within the operating system could be a sign of successful command injection exploits, allowing attackers to elevate their access rights.</li></ol><ol type="1" id="1a182a3e-9b73-803f-b86c-c9b80c27c53b" class="numbered-list" start="3"><li><strong>Increase in error messages: </strong>Web servers may generate more error messages due to malformed requests caused by command injection attacks. These errors could indicate a vulnerability within the application&#x27;s code that allows for this type of attack.</li></ol><ol type="1" id="1a182a3e-9b73-806c-a525-c7ab7463762b" class="numbered-list" start="4"><li><strong>High network traffic: </strong>Command injection attacks can significantly increase the amount of network traffic generated by a web application, as attackers attempt to exploit vulnerabilities and execute arbitrary system commands on the server.</li></ol><ol type="1" id="1a182a3e-9b73-803e-a8d6-fb75d36b4cfa" class="numbered-list" start="5"><li><strong>Changes in page content: </strong>An increase in command injection attacks can cause changes in the appearance and functionality of a web application, as malicious scripts alter the intended behavior of pages.</li></ol><ol type="1" id="1a182a3e-9b73-801b-a545-dfce6b56c076" class="numbered-list" start="6"><li><strong>Multiple connections from single IP:</strong> Attackers may use multiple concurrent connections to execute command injection attacks, resulting in a high number of connections originating from the same source IP address.</li></ol><ol type="1" id="1a182a3e-9b73-80f8-876d-eb1d9d8016c1" class="numbered-list" start="7"><li><strong>Presence of known command injection tools:</strong> Some attackers use automated tools to identify vulnerable applications and execute command injections. Logs may contain evidence of these tools being used against an organization&#x27;s IT infrastructure.</li></ol><p id="1a182a3e-9b73-80b9-b160-d971a74715b0" class="">By monitoring these behaviors in log files, security analysts can better identify potential command injection attacks and take appropriate steps to mitigate the risk of data breaches or other types of unauthorized activity within their organization&#x27;s IT infrastructure.</p><p id="1a182a3e-9b73-808b-9b56-eccdde899520" class="">
+</p><figure id="1a182a3e-9b73-808a-aa2f-d2ba45f782db" class="image"><a href="image%2053.png"><img style="width:709.9500122070312px" src="image%2053.png"/></a></figure><figure id="1a182a3e-9b73-804e-a421-f93007ba1dba" class="image"><a href="image%2054.png"><img style="width:709.9874877929688px" src="image%2054.png"/></a></figure><p id="1a282a3e-9b73-8085-be67-fa8e47d72c8c" class="">
+</p><h3 id="1a282a3e-9b73-801f-a637-e6b8dabee349" class="">Path Traversal / Local File Inclusion Logs</h3><ol type="1" id="1a282a3e-9b73-8038-937d-ee017a8514e2" class="numbered-list" start="1"><li><strong>Accessing files outside of the web root</strong><ul id="1a282a3e-9b73-804c-a887-de3c3db05ce8" class="bulleted-list"><li style="list-style-type:disc">Include or execute unintended files/scripts</li></ul></li></ol><ol type="1" id="1a282a3e-9b73-800f-9d30-fa92a5b854af" class="numbered-list" start="2"><li><strong>Path Traversal</strong><ul id="1a282a3e-9b73-800e-87b1-c40b3e4963d7" class="bulleted-list"><li style="list-style-type:disc">Access files/directories outside of the web root</li></ul><ul id="1a282a3e-9b73-80e9-a547-f86137ff08a2" class="bulleted-list"><li style="list-style-type:disc">Enumerate the system, read hardcoded credentials.</li></ul></li></ol><ol type="1" id="1a282a3e-9b73-802c-a99e-e9e82252f031" class="numbered-list" start="3"><li><strong>Local File Inclusion (LFI)</strong><ul id="1a282a3e-9b73-8095-a032-d0c64eaf91a3" class="bulleted-list"><li style="list-style-type:disc">Include a local file from the system</li></ul><ul id="1a282a3e-9b73-808c-a5d4-c6d402784ec5" class="bulleted-list"><li style="list-style-type:disc">Enumerate the system, read hardcoded credentials</li></ul><ul id="1a282a3e-9b73-8078-a1cf-ffb3a84dab37" class="bulleted-list"><li style="list-style-type:disc">Execute scripts / remote code execution</li></ul></li></ol><ol type="1" id="1a282a3e-9b73-800a-89bc-ce2ac8154459" class="numbered-list" start="4"><li><strong>Look for path traversal sequences</strong><ul id="1a282a3e-9b73-80a7-a347-e2bef144d51a" class="bulleted-list"><li style="list-style-type:disc">URL-encoded characters</li></ul></li></ol><ol type="1" id="1a282a3e-9b73-8082-93e7-e0fd805ff639" class="numbered-list" start="5"><li><strong>Look for sensitive file paths</strong></li></ol><figure id="1a282a3e-9b73-8076-954f-f742c1e2b28b" class="image"><a href="image%2055.png"><img style="width:709.9625244140625px" src="image%2055.png"/></a></figure><h2 id="1a282a3e-9b73-80ee-a145-cb08f70cb4a6" class="">Command Line Log Analysis</h2><ol type="1" id="1a282a3e-9b73-8029-aad5-cbc7b3376436" class="numbered-list" start="1"><li>Identify the file type your are working with use <strong>command &gt; </strong><em>file filename.</em></li></ol><ol type="1" id="1a282a3e-9b73-80e6-a768-d9ad83e15fdb" class="numbered-list" start="2"><li>list the file size and number of entries (logs) of log file using <ol type="a" id="1a282a3e-9b73-8061-a8ce-dc21c3790dd7" class="numbered-list" start="1"><li><strong>command &gt;</strong><em><strong> </strong></em><em>ls -lh</em> <em>filename</em></li></ol><ol type="a" id="1a282a3e-9b73-809f-8e2e-c433f50b2784" class="numbered-list" start="2"><li><strong>command &gt; </strong><em>wc filename     </em>or use <strong>-l</strong> to return only line count <em>(</em>Returns file line count, word count, bytes<em>)</em></li></ol></li></ol><ol type="1" id="1a282a3e-9b73-8089-86de-c3dfcadf15df" class="numbered-list" start="3"><li>View the first or last entries of the log file use “<em>head “or “tail “ </em>with filename -n to specify display count.</li></ol><ol type="1" id="1a282a3e-9b73-807b-895f-f8f56c8477ab" class="numbered-list" start="4"><li>Use ”<em>more</em>” command to display log file page by page from start or <em>“less” </em>for opposite.</li></ol><ol type="1" id="1a282a3e-9b73-80be-9d83-c5d5a2002fa0" class="numbered-list" start="5"><li><em><strong>sort :  </strong></em>Sort the output <em><strong> </strong></em><strong> </strong></li></ol><p id="1a282a3e-9b73-8020-8e50-c9804855955d" class=""><strong>Cut Command : </strong>It is used to extract section from each line of input and manipulate the text files by selecting specific columns or fields based on a delimiter.<div class="indented"><ol type="1" id="1a282a3e-9b73-80a3-a96f-d0caee22125b" class="numbered-list" start="1"><li>-d = to specify delimiter. like space, comma, etc. (after specifying delimiter field before first delimiter is 1 and after is 2 and so on).</li></ol><ol type="1" id="1a282a3e-9b73-80eb-8084-cce95b5bad49" class="numbered-list" start="2"><li>-f :  To specify fields to display</li></ol></div></p><figure id="1a282a3e-9b73-8005-b454-da23232592e7" class="image"><a href="image%2056.png"><img style="width:480px" src="image%2056.png"/></a></figure><p id="1a282a3e-9b73-8056-89e0-dcfa5c8d10a8" class="">
+</p><p id="1a282a3e-9b73-807c-8480-cb42779fc612" class=""><strong>Uniq Command : F</strong>ilters out repeated lines from the input file or stream. and displays their occurrence.</p><p id="1a282a3e-9b73-806f-a22f-fa60a777c486" class=""> </p><figure id="1a282a3e-9b73-800e-8850-f50bbf995f6b" class="image"><a href="image%2057.png"><img style="width:561.1500244140625px" src="image%2057.png"/></a></figure><p id="1a282a3e-9b73-80ec-b032-fb61b4866b27" class="">
+</p><p id="1a282a3e-9b73-80af-9a74-f557112b1f6b" class=""><em><strong>Grep : </strong></em>Use grep command to <em>s</em>earch for user agents with attacking tools and scanning details.<div class="indented"><ol type="1" id="1a482a3e-9b73-80c8-9f71-d854c651b7f2" class="numbered-list" start="1"><li><strong>use -c :</strong> return the count of the occurrence </li></ol><ol type="1" id="1a482a3e-9b73-80d2-b5d4-d4701165a4df" class="numbered-list" start="2"><li><strong>use -n :</strong> returns the line number with occurrence  </li></ol><ol type="1" id="1a482a3e-9b73-80f1-b5b6-cfcf2f2d8b3f" class="numbered-list" start="3"><li><strong>use -E : </strong>for searching extended regular expressions can be used to search CSS or path traversal in logs  </li></ol><figure id="1a482a3e-9b73-80d6-bc9c-feab1387fee1" class="image"><a href="image%2058.png"><img style="width:685.9874877929688px" src="image%2058.png"/></a></figure></div></p><p id="1a482a3e-9b73-80a9-8572-efab3d435177" class="">
+</p><p id="1a482a3e-9b73-8057-abaf-f5edab9cf06b" class=""><em><strong>AWK:  </strong></em>mawk is pattern scanning and text processing language. It is an interpreter for the AWK Programming Language. The AWK language is useful for manipulation of data files, text retrieval and processing experimenting with algorithms. <br/>An AWK program is a sequence of pattern {action} pairs and function definitions.<br/></p><figure id="1a482a3e-9b73-806e-b024-d1a41dbf2640" class="image"><a href="image%2059.png"><img style="width:709.9375px" src="image%2059.png"/></a></figure><p id="1a482a3e-9b73-8023-9cbd-c167e886b36d" class="">As there is a password brute force attack in log files, we are narrowing the search scope through finding the log of successful log attempt using “200” Response code then searching through any response code “&gt; 200 ” for successful login (can find 301, 304, etc).</p><figure id="1a482a3e-9b73-808c-9a3d-fc4eda3f98aa" class="image"><a href="image%2060.png"><img style="width:709.9750366210938px" src="image%2060.png"/></a></figure><p id="1a482a3e-9b73-8068-ab43-e6458f69e3e3" class="">After finding log with response code greater than 200 narrow down the search with that logs time stamp to find out further details.  </p><figure id="1a482a3e-9b73-80bd-819f-d17c1246d4f6" class="image"><a href="image%2061.png"><img style="width:709.9874877929688px" src="image%2061.png"/></a></figure><p id="1a482a3e-9b73-808d-b6d1-d909ce5b67c2" class="">Read the log files find what pages where accessed, like here there is a brute force attempt to <em>“login.php”</em> page use grep command find pages other than “login.php” (to find if login was successful).</p><figure id="1a482a3e-9b73-804b-a1ee-dd921f6cce9e" class="image"><a href="image%2062.png"><img style="width:709.8500366210938px" src="image%2062.png"/></a></figure><p id="1a482a3e-9b73-8036-9088-c66ddec2fa1f" class="">
+</p><p id="1a482a3e-9b73-80b3-b18b-fc85175a96b7" class="">There are other ways for finding anomalies through response codes (200, 301, 404), network bytes transferred and change in display resolution.   </p><p id="1a482a3e-9b73-8077-8315-d3e9e4463340" class="">
+</p><p id="1a482a3e-9b73-80cd-9840-cf4162445b0e" class=""><strong>JQ : </strong></p><p id="1a482a3e-9b73-80b3-8643-e39586c3e89b" class="">jq is a lightweight and versatile command-line JSON processor for Linux systems. It allows users to manipulate, filter, and transform JSON data quickly and efficiently. With jq, you can extract specific information from JSON files or streams, modify their content, and output the results in various formats such as JSON, YAML, or text.</p><p id="1a482a3e-9b73-8072-9e30-e9bec0c4db2a" class="">The syntax of the jq command in Linux is as follows:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1a482a3e-9b73-8013-b083-dfae2fca686a" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">jq [options] json_expression [file(s)]
+</code></pre><p id="1a482a3e-9b73-8080-a4c5-c049160d380e" class="">Options include:</p><ul id="1a482a3e-9b73-802e-865a-e3f8e8bc6f4d" class="bulleted-list"><li style="list-style-type:disc"><strong>. (doubt) : </strong>to run without filters</li></ul><ul id="1a482a3e-9b73-8076-aaa7-cf79e72cade0" class="bulleted-list"><li style="list-style-type:disc">R, --recursive: Recursively process nested objects and arrays.</li></ul><ul id="1a482a3e-9b73-8056-8048-d01a4f211769" class="bulleted-list"><li style="list-style-type:disc">S, --slurp: Read input in slurp mode (i.e., read the entire input at once).</li></ul><ul id="1a482a3e-9b73-8022-b610-fa7cbd531ef8" class="bulleted-list"><li style="list-style-type:disc">c, --compact-output: Output only the final value of a chain, instead of wrapping it in an object or array.</li></ul><ul id="1a482a3e-9b73-8023-a8cb-e812e3d30e52" class="bulleted-list"><li style="list-style-type:disc">M, --indent &lt;num&gt;: Indent output by given number of spaces.</li></ul><ul id="1a482a3e-9b73-80c7-8bd7-d610eba6b174" class="bulleted-list"><li style="list-style-type:disc">r, --raw-output: Do not pretty-print the output; write it directly as received from the JSON decoder.</li></ul><ul id="1a482a3e-9b73-806b-a6fc-f7088f076f0e" class="bulleted-list"><li style="list-style-type:disc">n, --no-null-input: Disallow input values being <code>null</code>.</li></ul><ul id="1a482a3e-9b73-80c6-86df-ffd023651f87" class="bulleted-list"><li style="list-style-type:disc">e, --jsonpath &lt;expr&gt;: Evaluate JSON expression and print result.</li></ul><p id="1a482a3e-9b73-80f3-bef9-ec65f57f484c" class="">Example usage:<br/>To extract the &#x27;name&#x27; field from a JSON file named &#x27;input_file&#x27;, you would use the following command:<br/></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1a482a3e-9b73-80ae-a2cd-cdff49c86df4" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">jq &#x27;.name&#x27; input_file
+</code></pre><p id="1a482a3e-9b73-8055-8cb9-c8257aebb842" class="">This will output only the &#x27;name&#x27; field of each object, ignoring any other information.</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,695 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Phishing Analysis </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-transparentGray { background-color: undefined; }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="18a82a3e-9b73-801e-9aea-cd2d99263690" class="page mono"><header><img class="page-cover-image" src="https://images.unsplash.com/photo-1714880003292-17685b9999b6?ixlib=rb-4.0.3&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb" style="object-position:center 50%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="https://www.notion.so/icons/clipping_gray.svg"/></div><h1 class="page-title">Phishing Analysis </h1><p class="page-description"></p><table class="properties"><tbody><tr class="property-row property-row-status"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/clipping_gray.svg" style="width:14px;height:14px;display:block"/></span>Note Type</th><td><span class="status-value select-value-color-gray"><div class="status-dot status-dot-color-gray"></div>Notebook Notes</span></td></tr><tr class="property-row property-row-checkbox"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/star_gray.svg" style="width:14px;height:14px;display:block"/></span>Favorite</th><td><div class="checkbox checkbox-off"></div></td></tr><tr class="property-row property-row-checkbox"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/archive_gray.svg" style="width:14px;height:14px;display:block"/></span>Archive</th><td><div class="checkbox checkbox-off"></div></td></tr><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>Created</th><td><time>@January 29, 2025 7:18 PM</time></td></tr><tr class="property-row property-row-last_edited_time"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>Last edited time</th><td><time>@February 4, 2025 8:32 PM</time></td></tr><tr class="property-row property-row-relation"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/book-closed_gray.svg" style="width:14px;height:14px;display:block"/></span>Notebooks</th><td><a href="SOC%20#4%2016382a3e9b73815c8567d0430a6e99a2.html"><img class="icon" src="https://www.notion.so/icons/book-closed_gray.svg"/>SOC #4</a></td></tr></tbody></table></header><div class="page-body"><hr id="18a82a3e-9b73-8104-9f0c-eb5235bb3ef4"/><h2 id="18a82a3e-9b73-8116-bcbb-e0398b541f5c" class="">Phishing Analysis</h2><p id="18a82a3e-9b73-80a4-9179-d37ea43f8c14" class="">
+</p><p id="18a82a3e-9b73-8088-847e-ce6554759638" class="">Phishing is the act of attempting to obtain sensitive information from individuals by using social engineering tactics over various communication platforms such as email, SMS, phone calls, and the Internet.</p><ul id="18a82a3e-9b73-8057-9dec-fae8564d7631" class="bulleted-list"><li style="list-style-type:disc"><strong>Impersonation: </strong>Posing as legitimate organizations or individuals</li></ul><ul id="18a82a3e-9b73-806d-9968-f0a5cbd1989d" class="bulleted-list"><li style="list-style-type:disc"><strong>Stealing sensitive information: </strong>Passwords, credit card numbers, sensitive files</li></ul><ul id="18a82a3e-9b73-80c0-8bed-dc0b060c9c47" class="bulleted-list"><li style="list-style-type:disc"><strong>Deliver and install malware: </strong>Via attachments, embedded files, or URLs</li></ul><ul id="18a82a3e-9b73-8056-8ef1-f9d2d6e5add2" class="bulleted-list"><li style="list-style-type:disc"><strong>Exploiting humans: </strong>Preys on emotions, Human psychology.</li></ul><h2 id="18a82a3e-9b73-8019-b6dc-e917d59124a2" class="">How Does Phishing Work?</h2><ul id="18a82a3e-9b73-8009-91d7-f0e6b824ef85" class="bulleted-list"><li style="list-style-type:disc"><strong>Authority</strong><ul id="18a82a3e-9b73-8092-9ec7-f2293b5d838a" class="bulleted-list"><li style="list-style-type:circle">Spoofing executives, managers, IT staff</li></ul></li></ul><ul id="18a82a3e-9b73-803d-b572-de2b1c72040a" class="bulleted-list"><li style="list-style-type:disc"><strong>Trust</strong><ul id="18a82a3e-9b73-80b8-bd4c-f7c6ff688888" class="bulleted-list"><li style="list-style-type:circle">Spoofing customers, banks, partners.</li></ul></li></ul><ul id="18a82a3e-9b73-8009-a1cc-f0cccf70a59b" class="bulleted-list"><li style="list-style-type:disc"><strong>Intimidation</strong><ul id="18a82a3e-9b73-8067-a511-d32f10277a79" class="bulleted-list"><li style="list-style-type:circle">Instill a sense of fear of consequences.</li></ul></li></ul><ul id="18a82a3e-9b73-801b-8e17-dd606c8758bd" class="bulleted-list"><li style="list-style-type:disc"><strong>Social Proof</strong><ul id="18a82a3e-9b73-8042-8e4a-e7163e052027" class="bulleted-list"><li style="list-style-type:circle">Validate legitimacy through consensus</li></ul></li></ul><ul id="18a82a3e-9b73-8047-939e-e20e15510d50" class="bulleted-list"><li style="list-style-type:disc"><strong>Urgency</strong><ul id="18a82a3e-9b73-8019-95c4-f4d85822a16d" class="bulleted-list"><li style="list-style-type:circle">&quot;Act NOW!&quot;</li></ul></li></ul><ul id="18a82a3e-9b73-8089-be42-f093d6811f38" class="bulleted-list"><li style="list-style-type:disc"><strong>Scarcity</strong><ul id="18a82a3e-9b73-8003-8b0b-fae46be81752" class="bulleted-list"><li style="list-style-type:circle">Instill a fear of missing out</li></ul></li></ul><ul id="18a82a3e-9b73-8099-b440-f62eadf68ab5" class="bulleted-list"><li style="list-style-type:disc"><strong>Familiarity</strong><ul id="18a82a3e-9b73-802a-a63c-db4c4463326b" class="bulleted-list"><li style="list-style-type:circle">Establish credibility through recognition</li></ul><ul id="18f82a3e-9b73-809e-ae4c-d708e80846a4" class="bulleted-list"><li style="list-style-type:circle"></li></ul></li></ul><h3 id="18a82a3e-9b73-80b6-bba7-cb00733a5a37" class="">Email Fundamentals</h3><figure id="18a82a3e-9b73-80e7-b3cf-f93fc49ba686" class="image"><a href="image%204.png"><img style="width:709.9874877929688px" src="image%204.png"/></a></figure><h3 id="18a82a3e-9b73-808f-b770-ffe20cff66db" class="">Mail Agents<br/><br/></h3><ul id="18a82a3e-9b73-8000-b85a-f43791dee636" class="bulleted-list"><li style="list-style-type:disc"><strong>Mail Transfer Agent (MTA)</strong><ul id="18a82a3e-9b73-80b0-8df8-e9be561644dd" class="bulleted-list"><li style="list-style-type:circle">Route and transfer email messages across mail servers</li></ul><ul id="18a82a3e-9b73-80f1-84a0-fedf0246b46c" class="bulleted-list"><li style="list-style-type:circle">Determine appropriate route and relays</li></ul></li></ul><ul id="18a82a3e-9b73-8021-a2ab-d6e89b6e5fd6" class="bulleted-list"><li style="list-style-type:disc"><strong>Mail User Agent (MUA)</strong><ul id="18a82a3e-9b73-8042-be6c-f5ae0d6ac596" class="bulleted-list"><li style="list-style-type:circle">Compose, send, receive, and manage email messages</li></ul><ul id="18a82a3e-9b73-80e1-9810-c4d424014115" class="bulleted-list"><li style="list-style-type:circle">Gmail, Outlook, Yahoo, Thunderbird</li></ul></li></ul><ul id="18a82a3e-9b73-801d-a395-d3b56034d057" class="bulleted-list"><li style="list-style-type:disc"><strong>Mail Delivery Agent (MDA)</strong><ul id="18a82a3e-9b73-8027-b1c8-c6811419c95f" class="bulleted-list"><li style="list-style-type:circle">Accepting incoming email messages from MTAs</li></ul><ul id="18a82a3e-9b73-8045-8809-c401e1363018" class="bulleted-list"><li style="list-style-type:circle">Placing the email in the recipient&#x27;s inbox</li></ul></li></ul><p id="18a82a3e-9b73-8070-b474-ff61e6700eed" class="">
+</p><h3 id="18a82a3e-9b73-801a-ba6e-ca00d01b11fd" class="">Phishing Attack Types</h3><ol type="1" id="18a82a3e-9b73-80b2-a10e-eedee975df65" class="numbered-list" start="1"><li><strong>Information Gathering</strong><ul id="18a82a3e-9b73-8095-be4e-dc34cfb7aedc" class="bulleted-list"><li style="list-style-type:disc">Collecting data through reconnaissance</li></ul><ul id="18a82a3e-9b73-8006-9f9d-db3eaa02c3b5" class="bulleted-list"><li style="list-style-type:disc">Verify existing accounts, craft credible phishes</li></ul></li></ol><ol type="1" id="18a82a3e-9b73-8027-8556-f18bcfafd3fb" class="numbered-list" start="2"><li><strong>Credential Harvesting</strong><ul id="18a82a3e-9b73-8043-8e7b-fe6710cf946e" class="bulleted-list"><li style="list-style-type:disc">Obtain login credentials from victims</li></ul><ul id="18a82a3e-9b73-806f-9f2c-f65ef159d7ba" class="bulleted-list"><li style="list-style-type:disc">Fake login pages, deceptive URLs</li></ul></li></ol><ol type="1" id="18a82a3e-9b73-8029-a1e9-f6debc089113" class="numbered-list" start="3"><li><strong>Malware Delivery</strong><ul id="18a82a3e-9b73-803c-a2fe-e968af25cc56" class="bulleted-list"><li style="list-style-type:disc">Malicious attachments or links</li></ul><ul id="18a82a3e-9b73-8095-99dc-d43e224f1f0a" class="bulleted-list"><li style="list-style-type:disc">Drive-by downloads (Automatic Downloadable content on visit)</li></ul></li></ol><ol type="1" id="18a82a3e-9b73-8061-8b08-d74167648278" class="numbered-list" start="4"><li><strong>Spear Phishing</strong><ul id="18a82a3e-9b73-80ff-9db0-d5c457aec75d" class="bulleted-list"><li style="list-style-type:disc">Targeted and customized phishing</li></ul><ul id="18a82a3e-9b73-8037-967d-deb64e5d27a5" class="bulleted-list"><li style="list-style-type:disc">Research specific individuals or organizations</li></ul></li></ol><ol type="1" id="18a82a3e-9b73-80cd-98a0-c9d9dc5554e1" class="numbered-list" start="5"><li><strong>Whaling</strong><ul id="18a82a3e-9b73-80d2-88b9-e2203d2356a2" class="bulleted-list"><li style="list-style-type:disc">Targeting high-profile individuals (CEOs, executives).</li></ul></li></ol><ol type="1" id="18a82a3e-9b73-80b4-b05b-e1680691daf5" class="numbered-list" start="6"><li><strong>Vishing, SMiShing, and Quishing</strong><ul id="18a82a3e-9b73-8048-a088-e2609d304cbb" class="bulleted-list"><li style="list-style-type:disc">Attempts to obtain information over the phone</li></ul><ul id="18a82a3e-9b73-80b5-b77b-ee909cf7a1f5" class="bulleted-list"><li style="list-style-type:disc">SMS messages containing malicious URLs</li></ul><ul id="18a82a3e-9b73-80b8-8214-da168873c950" class="bulleted-list"><li style="list-style-type:disc">QR codes leading to malicious URLs</li></ul></li></ol><ol type="1" id="18a82a3e-9b73-8090-beec-f4410e1e6847" class="numbered-list" start="7"><li><strong>Business Email Compromise (BEC)</strong><ul id="18a82a3e-9b73-8027-a444-c421caa769d8" class="bulleted-list"><li style="list-style-type:disc">Compromising legitimate email accounts</li></ul><ul id="18a82a3e-9b73-80a3-9095-cc70a6c0f948" class="bulleted-list"><li style="list-style-type:disc">Unauthorized wire transfers, invoice scams.</li></ul></li></ol><ol type="1" id="18a82a3e-9b73-8082-a92a-dfce7d955cb8" class="numbered-list" start="8"><li><strong>Spam</strong><ul id="18a82a3e-9b73-80b4-a46e-f3fe4106268a" class="bulleted-list"><li style="list-style-type:disc">Unsolicited, irrelevant, and unwanted email</li></ul><ul id="18a82a3e-9b73-8069-927b-e8ee2ea36f27" class="bulleted-list"><li style="list-style-type:disc">Not typically with malicious intent</li></ul></li></ol><p id="18a82a3e-9b73-804e-b262-ef9c7b689cf8" class="">
+</p><h3 id="18a82a3e-9b73-8041-8d8a-d98655620f5c" class="">Phishing Attack Techniques</h3><ol type="1" id="18a82a3e-9b73-80c9-b46f-c3bb699b1598" class="numbered-list" start="1"><li><strong>Pretexting</strong><ol type="a" id="18a82a3e-9b73-8082-85c5-dceb2eb84dcf" class="numbered-list" start="1"><li>Fabricating a backstory (Some kind of Story to trick) </li></ol><ol type="a" id="18a82a3e-9b73-805c-a4de-e6718b04f108" class="numbered-list" start="2"><li>Manipulation under false pretense.</li></ol></li></ol><ol type="1" id="18a82a3e-9b73-80de-ab16-cc83296e8148" class="numbered-list" start="2"><li><strong>Spoofing and Impersonation</strong><ol type="a" id="18a82a3e-9b73-80d8-90de-e05f97d55124" class="numbered-list" start="1"><li>Email Address Spoofing: change email headers</li></ol><ol type="a" id="18a82a3e-9b73-808f-bf76-c091b1ea6716" class="numbered-list" start="2"><li>Domain Spoofing: spoof real site with malicious once.</li></ol></li></ol><ol type="1" id="18a82a3e-9b73-8089-890c-cf352aa39b1c" class="numbered-list" start="3"><li><strong>URL Manipulation</strong><ol type="a" id="18a82a3e-9b73-80fd-a98f-f0254b69f963" class="numbered-list" start="1"><li>URL Shortening: Shorten malicious links</li></ol><ol type="a" id="18a82a3e-9b73-8049-a29b-f0ee9c333026" class="numbered-list" start="2"><li>Subdomain Spoofing: Use similar links such as <strong>facebook.malicioussite.com</strong></li></ol><ol type="a" id="18a82a3e-9b73-80fe-8125-daab963ef439" class="numbered-list" start="3"><li>Homograph Attacks: Replacing characters with similar once in links <strong>i ⇒  Î</strong> </li></ol><ol type="a" id="18a82a3e-9b73-80db-b435-f557301e2aaf" class="numbered-list" start="4"><li>Typosquatting: Using similar spelling as of the real one <strong>LinkedIn ⇒ Linkediin</strong></li></ol></li></ol><ol type="1" id="18a82a3e-9b73-8022-a4c1-fbf604544c5c" class="numbered-list" start="4"><li><strong>Encoding</strong><ol type="a" id="18a82a3e-9b73-8019-ad44-e2feb8107292" class="numbered-list" start="1"><li>Obfuscate and evade detection</li></ol><ol type="a" id="18a82a3e-9b73-80f8-b64b-f08d16af4132" class="numbered-list" start="2"><li>Base64, URL encoding, HTML encoding: Encoding url before sending to bypass detection</li></ol><ol type="a" id="18a82a3e-9b73-802f-8ae0-fd9d53f95483" class="numbered-list" start="3"><li>Obscure JavaScript.</li></ol></li></ol><ol type="1" id="18a82a3e-9b73-80a7-930b-ead02db03e2d" class="numbered-list" start="5"><li><strong>Attachments</strong><ol type="a" id="18a82a3e-9b73-80d4-b791-f51b01dc032f" class="numbered-list" start="1"><li>Download and execute : Sending malware in email attachment</li></ol></li></ol><ol type="1" id="18a82a3e-9b73-8063-b3d6-ed40a1d8418f" class="numbered-list" start="6"><li><strong>Abuse of Legitimate Services : </strong>Use Legitimate Services for sharing malware.<ol type="a" id="18a82a3e-9b73-80f0-9a55-f78ed46beafb" class="numbered-list" start="1"><li>Google Drive, Dropbox, etc.</li></ol><ol type="a" id="18a82a3e-9b73-80cd-a4d0-c77d39696f58" class="numbered-list" start="2"><li> Using trusted reputation to send malware.</li></ol></li></ol><p id="18a82a3e-9b73-8026-b552-d19553214124" class="">
+</p><h2 id="18a82a3e-9b73-80f5-81eb-f4be9cc58094" class="">Email Analysis Methodology</h2><ul id="18a82a3e-9b73-80e6-9a31-e5da1996c5d5" class="bulleted-list"><li style="list-style-type:disc"><strong>Initial Triage</strong><ul id="18a82a3e-9b73-8063-ac4c-c18e17191a6d" class="bulleted-list"><li style="list-style-type:circle">Quickly assess and prioritize.</li></ul></li></ul><ul id="18a82a3e-9b73-80f6-9000-dc984e62a633" class="bulleted-list"><li style="list-style-type:disc"><strong>Header and Sender Examination</strong><ul id="18a82a3e-9b73-800f-b14f-e5cc335efc45" class="bulleted-list"><li style="list-style-type:circle">Investigate MTAs, addresses, IPs, etc.</li></ul><ul id="18a82a3e-9b73-80ad-9d98-e16d11e4d35b" class="bulleted-list"><li style="list-style-type:circle">Identify the true origin and check authenticity</li></ul></li></ul><ul id="18a82a3e-9b73-8069-bf88-c796083261a4" class="bulleted-list"><li style="list-style-type:disc"><strong>Content Examination</strong><ul id="18a82a3e-9b73-80b9-8227-d4cd3ef542be" class="bulleted-list"><li style="list-style-type:circle">Analyze email content for language, formatting, etc.</li></ul><ul id="18a82a3e-9b73-80b0-893e-c902c4e54bbe" class="bulleted-list"><li style="list-style-type:circle">Look for social engineering red flags.</li></ul></li></ul><ul id="18a82a3e-9b73-8019-8987-feadd2e69286" class="bulleted-list"><li style="list-style-type:disc"><strong>Web and URL Examination</strong><ul id="18a82a3e-9b73-808f-abaa-fccd4e2a7eda" class="bulleted-list"><li style="list-style-type:circle">Collect web artifacts</li></ul><ul id="18a82a3e-9b73-809d-8c16-cbf96e4eb69e" class="bulleted-list"><li style="list-style-type:circle">Utilize tools to inspect URLs and domains.</li></ul></li></ul><ul id="18a82a3e-9b73-80e6-9b93-e009761c650a" class="bulleted-list"><li style="list-style-type:disc"><strong>Attachment Examination</strong><ul id="18a82a3e-9b73-80e6-a063-d86827e509d7" class="bulleted-list"><li style="list-style-type:circle">Securely extract and analyze attachments.</li></ul><ul id="18a82a3e-9b73-802a-a3e7-d2a8e01a159a" class="bulleted-list"><li style="list-style-type:circle">Checking file reputation and sandboxing.</li></ul></li></ul><ul id="18a82a3e-9b73-80d0-af1f-c6e4d6a8ef33" class="bulleted-list"><li style="list-style-type:disc"><strong>Contextual Examination</strong><ul id="18a82a3e-9b73-806c-bee1-f6ce7d409a72" class="bulleted-list"><li style="list-style-type:circle">Consider broader context, recent or current incidents.</li></ul><ul id="18a82a3e-9b73-80ea-be18-c739b42e177a" class="bulleted-list"><li style="list-style-type:circle">Look for patterns and assess scope.</li></ul></li></ul><ul id="18a82a3e-9b73-807c-9d53-d1d4e0a3b787" class="bulleted-list"><li style="list-style-type:disc"><strong>Defense Measures</strong><ul id="18a82a3e-9b73-8067-83a5-c59bf5145b5a" class="bulleted-list"><li style="list-style-type:circle">Take reactive defense actions (if needed)</li></ul><ul id="18a82a3e-9b73-80e0-86e9-e928e3326f96" class="bulleted-list"><li style="list-style-type:circle">Take proactive defense actions</li></ul><ul id="18a82a3e-9b73-8053-9b83-e78aa4112755" class="bulleted-list"><li style="list-style-type:circle">Communicate with users and stakeholders</li></ul></li></ul><ul id="18a82a3e-9b73-8083-91c3-d374537fc6b1" class="bulleted-list"><li style="list-style-type:disc"><strong>Documentation and Reporting</strong><ul id="18a82a3e-9b73-8006-a00c-f6ac73e17d3e" class="bulleted-list"><li style="list-style-type:circle">Maintain records of findings, verdicts, and actions taken through detailed reports.</li></ul><ul id="18a82a3e-9b73-80df-aa63-f4946cbf5765" class="bulleted-list"><li style="list-style-type:circle">Close out alerts and tickets.</li></ul></li></ul><p id="18f82a3e-9b73-8013-a289-f8df94c43ec6" class="">
+</p><h2 id="18f82a3e-9b73-80d2-a7ac-c27f7ab6706c" class="">Email Analysis Tools:</h2><h3 id="18b82a3e-9b73-800c-a622-dd85293f47d2" class="">Email Header and Sender analysis</h3><ul id="18f82a3e-9b73-807e-b9da-d8b6407698f2" class="bulleted-list"><li style="list-style-type:disc">https://packagecontrol.io/packages/Email%20Header</li></ul><ul id="18f82a3e-9b73-8042-a8c1-ee61324b0e8d" class="bulleted-list"><li style="list-style-type:disc">https://github.com/13Cubed/EmailHeader</li></ul><ul id="18f82a3e-9b73-80f9-8872-efeabbdc6e47" class="bulleted-list"><li style="list-style-type:disc">https://www.iana.org/assignments/message-headers/message headers.xhtml</li></ul><ul id="18f82a3e-9b73-8050-882e-f0d7da05d427" class="bulleted-list"><li style="list-style-type:disc">https://whois.domaintools.com/</li></ul><ul id="18f82a3e-9b73-8020-9229-d4ba7f1e0df5" class="bulleted-list"><li style="list-style-type:disc">https://mha.azurewebsites.net/</li></ul><ul id="18f82a3e-9b73-800e-a2d9-d8f4ba82c85b" class="bulleted-list"><li style="list-style-type:disc">https://github.com/microsoft/MHA</li></ul><ul id="18f82a3e-9b73-8007-a45d-cc970292fd09" class="bulleted-list"><li style="list-style-type:disc">https://mxtoolbox.com/EmailHeaders.aspx</li></ul><p id="18f82a3e-9b73-80cc-8d06-e04426b9f31c" class="">
+</p><h3 id="18f82a3e-9b73-8099-a390-f1a82c3ab1c9" class="">Email URL Analysis:</h3><ul id="18f82a3e-9b73-808d-be7b-c87879394868" class="bulleted-list"><li style="list-style-type:disc">https://gchq.github.io/CyberChef/</li></ul><ul id="18f82a3e-9b73-806b-90f1-ff6c40570983" class="bulleted-list"><li style="list-style-type:disc">https://github.com/MalwareCube/Email-IOC-Extractor</li></ul><ul id="18f82a3e-9b73-80c5-b191-e4a8541c0462" class="bulleted-list"><li style="list-style-type:disc">https://phishtank.org/</li></ul><ul id="18f82a3e-9b73-8036-a60a-e8417aac01ed" class="bulleted-list"><li style="list-style-type:disc">https://www.url2png.com/</li></ul><ul id="18f82a3e-9b73-8028-80a4-f4a750cef45d" class="bulleted-list"><li style="list-style-type:disc">https://urlscan.io/</li></ul><ul id="18f82a3e-9b73-80e6-bfcf-c75efdcc2acf" class="bulleted-list"><li style="list-style-type:disc">https://www.virustotal.com/gui/home/upload</li></ul><ul id="18f82a3e-9b73-80f0-98fb-d8faf628a1b9" class="bulleted-list"><li style="list-style-type:disc">https://www.urlvoid.com/</li></ul><ul id="18f82a3e-9b73-8000-88f6-f9cc4399dad0" class="bulleted-list"><li style="list-style-type:disc">https://www.wannabrowser.net/</li></ul><ul id="18f82a3e-9b73-8065-84f3-eee8ee07987b" class="bulleted-list"><li style="list-style-type:disc">https://unshorten.it/</li></ul><ul id="18f82a3e-9b73-80ba-87d4-e53bb0b9e3bc" class="bulleted-list"><li style="list-style-type:disc">https://urlhaus.abuse.ch/</li></ul><ul id="18f82a3e-9b73-80e0-88e2-d13c070b3616" class="bulleted-list"><li style="list-style-type:disc">https://transparencyreport.google.com/safe-browsing/search</li></ul><ul id="18f82a3e-9b73-8046-9187-f8a949be33f4" class="bulleted-list"><li style="list-style-type:disc">https://www.joesandbox.com/</li></ul><p id="18f82a3e-9b73-80e3-9cf7-c90e8c2a81c4" class="">
+</p><h3 id="18f82a3e-9b73-8016-9bc4-efb69138c25f" class="">Email Attachment:</h3><ul id="18f82a3e-9b73-809c-9d44-df94bc1e7e26" class="bulleted-list"><li style="list-style-type:disc">https://github.com/DidierStevens/DidierStevensSuite/blob/master/emldmp.py</li></ul><ul id="18f82a3e-9b73-8058-842c-f0a49a31b71b" class="bulleted-list"><li style="list-style-type:disc">https://github.com/MalwareCube/Email-IOC-Extractor</li></ul><ul id="18f82a3e-9b73-80e3-8776-d4a266e9ef82" class="bulleted-list"><li style="list-style-type:disc">https://www.virustotal.com/gui/home/upload</li></ul><ul id="18f82a3e-9b73-8058-bef9-f7099142a60f" class="bulleted-list"><li style="list-style-type:disc">https://talosintelligence.com/</li></ul><p id="18f82a3e-9b73-80cb-aa55-d68fc8fc0969" class="">
+</p><h3 id="18f82a3e-9b73-80cf-8a95-d3a3db80953e" class="">Email Dynamic Attachment Analysis &amp; Sandboxing:</h3><ul id="18f82a3e-9b73-80c2-934c-f161230cf607" class="bulleted-list"><li style="list-style-type:disc">https://hybrid-analysis.com/</li></ul><ul id="18f82a3e-9b73-80be-b9e6-c13328570af1" class="bulleted-list"><li style="list-style-type:disc">https://cloud.google.com/blog/topics/threat-intelligence/cve-2017 0199-hta-handler</li></ul><ul id="18f82a3e-9b73-80b2-8e49-d3bd97880a24" class="bulleted-list"><li style="list-style-type:disc">https://medium.com/@asmcybersecurity/diving-deeper-into-themicrosoft-office-cve-2017-0199-vulnerability-11bd3e725ab7</li></ul><ul id="18f82a3e-9b73-80ac-984e-d2887e2f7957" class="bulleted-list"><li style="list-style-type:disc">https://joesandbox.com</li></ul><ul id="18f82a3e-9b73-805b-bcbd-c98ebb7e6470" class="bulleted-list"><li style="list-style-type:disc">https://app.any.run</li></ul><p id="18f82a3e-9b73-80cf-9bcb-d2601b20fed3" class="">
+</p><h3 id="18f82a3e-9b73-801f-8475-c6aca49489f8" class="">Automated Email Analysis with PhishTool</h3><ul id="19082a3e-9b73-80fc-90b2-d0cf614842cf" class="bulleted-list"><li style="list-style-type:disc">Phish tool is a web based phishing analysis tool that helps to quickly automate and categorize email and generate investigate reports.</li></ul><ul id="19082a3e-9b73-805b-b351-cce5455266b6" class="bulleted-list"><li style="list-style-type:disc">It helps us to gather contextual data, URL and Attachments. </li></ul><ul id="19082a3e-9b73-8086-be1e-dbb2209a6129" class="bulleted-list"><li style="list-style-type:disc">This tool automatically dumps all the email contents in one place and helps to analyses email quick and efficiently.</li></ul><p id="19082a3e-9b73-8095-b88f-f223e79a3e33" class="">
+</p><div id="19082a3e-9b73-80b8-b207-c7ac13427417" class="column-list"><div id="19082a3e-9b73-80be-81af-dbe4a2d743c8" style="width:50%" class="column"><figure id="19082a3e-9b73-8004-8329-f8fcaa688b00" class="image"><a href="image%205.png"><img style="width:480px" src="image%205.png"/></a></figure></div><div id="19082a3e-9b73-805f-8c9b-fa65b8081989" style="width:50%" class="column"><figure id="19082a3e-9b73-8096-b12a-fd1008c0fb4f" class="image"><a href="image%206.png"><img style="width:480px" src="image%206.png"/></a></figure></div></div><p id="19082a3e-9b73-8085-b31e-f7525c57b524" class="">
+</p><h2 id="19082a3e-9b73-8072-88e7-c9d34c00b282" class="">Reactive Phishing Defense</h2><ul id="19082a3e-9b73-8085-9144-dce4b6a18327" class="bulleted-list"><li style="list-style-type:disc"><strong>Containment:</strong><ul id="19082a3e-9b73-807d-8bf7-f0a1ece47bc5" class="bulleted-list"><li style="list-style-type:circle">Determine scope (Find out how many received the phishing mail, and who received)</li></ul><ul id="19082a3e-9b73-80e2-913f-ec01a2b181e9" class="bulleted-list"><li style="list-style-type:circle">Quarantine (Quarantine the affected system or user)</li></ul><ul id="19082a3e-9b73-8057-a21e-c5d09bc0cd60" class="bulleted-list"><li style="list-style-type:circle">Block sender artifacts (Block sender email, domain, sub domain)</li></ul><ul id="19082a3e-9b73-805d-9045-fc6d0c96a880" class="bulleted-list"><li style="list-style-type:circle">Block web artifacts (Block malicious urls, keywords, message, attacker server addresses)</li></ul><ul id="19082a3e-9b73-8060-8c21-fce862cdf8b6" class="bulleted-list"><li style="list-style-type:circle">Block File artifacts (Block malicious attachments use name or hashes of files, executable files)</li></ul></li></ul><ul id="19082a3e-9b73-80bc-9720-d420817a8fab" class="bulleted-list"><li style="list-style-type:disc"><strong>Eradication</strong><ul id="19082a3e-9b73-802b-9d19-d7bd6b39d694" class="bulleted-list"><li style="list-style-type:circle">Remove malicious emails (search and remove malicious emails)<ul id="19082a3e-9b73-803f-9454-db9e69c27a4a" class="bulleted-list"><li style="list-style-type:square">Content search and eDiscovery (search email boxes of all)</li></ul></li></ul><ul id="19082a3e-9b73-803a-8f07-cd9fba450bbe" class="bulleted-list"><li style="list-style-type:circle">Remove malicious files</li></ul><ul id="19082a3e-9b73-80df-a435-c52a6d4793bb" class="bulleted-list"><li style="list-style-type:circle">Abuse form submissions (Reporting hosting sites about the malicious URLs).</li></ul><ul id="19082a3e-9b73-8075-99f2-d22d446e6ad5" class="bulleted-list"><li style="list-style-type:circle">Credential changes</li></ul><ul id="19082a3e-9b73-804c-bba0-c7676654d295" class="bulleted-list"><li style="list-style-type:circle">Reimaging (Recover and restore systems image)</li></ul></li></ul><ul id="19082a3e-9b73-80ca-bea5-e4370f066fc3" class="bulleted-list"><li style="list-style-type:disc"><strong>Recovery</strong><ul id="19082a3e-9b73-803d-b7e2-ef660c3b4833" class="bulleted-list"><li style="list-style-type:circle">Restore systems</li></ul></li></ul><ul id="19082a3e-9b73-80d7-a017-f570ec9c0977" class="bulleted-list"><li style="list-style-type:disc"><strong>Communication</strong><ul id="19082a3e-9b73-80e2-be2b-c3e257875d50" class="bulleted-list"><li style="list-style-type:circle">Notify affected users.</li></ul></li></ul><ul id="19082a3e-9b73-80fe-9641-ea87062f8209" class="bulleted-list"><li style="list-style-type:disc"><strong>User Education</strong><ul id="19082a3e-9b73-803c-ad4a-c0c66323c647" class="bulleted-list"><li style="list-style-type:circle">End-user training<br/><br/></li></ul></li></ul><h2 id="19082a3e-9b73-80a4-92bb-d15fd59e144e" class="">Proactive Phishing Defence</h2><ul id="19082a3e-9b73-80df-a730-d3dfda72de24" class="bulleted-list"><li style="list-style-type:disc">Email filtering (block suspcious email, URL before reaching, using rules, pattern matching, ML)</li></ul><ul id="19082a3e-9b73-80cf-bf00-cedce864adc0" class="bulleted-list"><li style="list-style-type:disc">Marking external emails (waring users for potential risks from external senders)</li></ul><ul id="19082a3e-9b73-8072-ae36-d79401357f01" class="bulleted-list"><li style="list-style-type:disc"><strong>URL Scanning and Blocking</strong><ul id="19082a3e-9b73-805f-b72f-e6cd8c103919" class="bulleted-list"><li style="list-style-type:circle">Real-time URL inspection (can use a proxy server for routing urls for detecting, or using Endpoint email detection, Redirections)</li></ul><ul id="19082a3e-9b73-8031-a5c8-cce863920e3d" class="bulleted-list"><li style="list-style-type:circle">Block recently registered domains (use Whois to find registration details)</li></ul></li></ul><ul id="19082a3e-9b73-80f0-be05-e9f654194928" class="bulleted-list"><li style="list-style-type:disc"><strong>Attachment Filtering</strong><ul id="19082a3e-9b73-80d7-b238-c1d7b7e4b6e1" class="bulleted-list"><li style="list-style-type:circle">File extension blocks (like exe, vb.net, pdf, ps1, iso, etc) </li></ul><ul id="19082a3e-9b73-80d7-903d-ec826aa8ae3a" class="bulleted-list"><li style="list-style-type:circle">Attachment sandboxing (Deploying automatic sandbox solutions)</li></ul></li></ul><ul id="19082a3e-9b73-8014-a555-d4f8c0fca952" class="bulleted-list"><li style="list-style-type:disc"><strong>Email Authentication Methods</strong><ul id="19082a3e-9b73-80cb-8a3f-c9d405dd7088" class="bulleted-list"><li style="list-style-type:circle">SPF</li></ul><ul id="19082a3e-9b73-80bf-918b-fe455dcc8219" class="bulleted-list"><li style="list-style-type:circle">DKIM</li></ul><ul id="19082a3e-9b73-8030-b663-c6b2d5e0b3f9" class="bulleted-list"><li style="list-style-type:circle">DMARC</li></ul></li></ul><ul id="19082a3e-9b73-802b-ad0c-d8bb511d7fa1" class="bulleted-list"><li style="list-style-type:disc"><strong>User Training</strong><ul id="19082a3e-9b73-80cc-b9cd-c66c08409a45" class="bulleted-list"><li style="list-style-type:circle">Security awareness training</li></ul><ul id="19082a3e-9b73-8022-a21a-f957499dda9e" class="bulleted-list"><li style="list-style-type:circle">Phishing simulation exercises</li></ul><ul id="19082a3e-9b73-809d-9acb-f7e8b120ee0f" class="bulleted-list"><li style="list-style-type:circle">Reporting Functionality </li></ul></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

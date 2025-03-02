@@ -1,0 +1,698 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Network Analysis</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-transparentGray { background-color: undefined; }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="19182a3e-9b73-800d-a02c-fe011f302ba3" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/solid_beige.png" style="object-position:center 40%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="https://www.notion.so/icons/clipping_gray.svg"/></div><h1 class="page-title">Network Analysis</h1><p class="page-description"></p><table class="properties"><tbody><tr class="property-row property-row-status"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/clipping_gray.svg" style="width:14px;height:14px;display:block"/></span>Note Type</th><td><span class="status-value select-value-color-gray"><div class="status-dot status-dot-color-gray"></div>Notebook Notes</span></td></tr><tr class="property-row property-row-checkbox"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/star_gray.svg" style="width:14px;height:14px;display:block"/></span>Favorite</th><td><div class="checkbox checkbox-off"></div></td></tr><tr class="property-row property-row-checkbox"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/archive_gray.svg" style="width:14px;height:14px;display:block"/></span>Archive</th><td><div class="checkbox checkbox-off"></div></td></tr><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>Created</th><td><time>@February 5, 2025 8:23 PM</time></td></tr><tr class="property-row property-row-last_edited_time"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>Last edited time</th><td><time>@February 10, 2025 1:41 PM</time></td></tr><tr class="property-row property-row-relation"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/book-closed_gray.svg" style="width:14px;height:14px;display:block"/></span>Notebooks</th><td><a href="SOC%20#4%2016382a3e9b73815c8567d0430a6e99a2.html"><img class="icon" src="https://www.notion.so/icons/book-closed_gray.svg"/>SOC #4</a></td></tr></tbody></table></header><div class="page-body"><hr id="19182a3e-9b73-811b-81ab-f99c199465b3"/><h1 id="19182a3e-9b73-81f4-8979-f45ba72802e1" class="">Network Analysis</h1><p id="19482a3e-9b73-8098-bb3b-dc95ee3d9144" class="">
+</p><h2 id="19482a3e-9b73-809d-86a0-e71f1c8ef784" class="">Tcpdump</h2><h2 id="19482a3e-9b73-808c-bc9d-c1f26f360c2f" class="">Wireshark</h2><h2 id="19482a3e-9b73-804a-a9a0-cd77b5dd3470" class="">Snort</h2><ul id="19682a3e-9b73-80b7-bae0-e32eba1f2190" class="bulleted-list"><li style="list-style-type:disc">Snort is an open source network intrusion detection system, capable of performing real-time traffic analysis and packet logging on IP networks. </li></ul><ul id="19682a3e-9b73-80f1-b83f-f6506d594928" class="bulleted-list"><li style="list-style-type:disc">It can perform protocol analysis and content searching/matching, and is used to detect a variety of attacks and probes, such as buffer overflows, stealth port scans, CGI attacks, SMB probes, and OS fingerprinting attempts.</li></ul><ul id="19682a3e-9b73-80d2-99ae-caeec19efa65" class="bulleted-list"><li style="list-style-type:disc">It uses flexible rules language to describe traffic that it should collect or pass, as well as a detection engine that utilizes a modular plug-in architecture.</li></ul><ul id="19682a3e-9b73-80b5-b39b-da1db49f9b1a" class="bulleted-list"><li style="list-style-type:disc"><strong>Uses of Snort:</strong><ol type="1" id="19682a3e-9b73-80d8-a47a-f08026f301ff" class="numbered-list" start="1"><li>Straight packet sniffer like tcpdump</li></ol><ol type="1" id="19682a3e-9b73-8021-a68b-e7efb1bc4f9e" class="numbered-list" start="2"><li>Packet logger (useful for network traffic debugging, etc.)</li></ol><ol type="1" id="19682a3e-9b73-804a-8c83-ce43392cf9b6" class="numbered-list" start="3"><li>Network intrusion prevention system</li></ol></li></ul><figure id="19682a3e-9b73-80de-823a-c3c117a5ba25" class="image"><a href="image%207.png"><img style="width:384px" src="image%207.png"/></a></figure><ul id="19682a3e-9b73-8064-880d-c1634ecb6193" class="bulleted-list"><li style="list-style-type:disc">Snort&#x27;s rule engine enables custom rules to meet the needs of the network.</li></ul><ul id="19682a3e-9b73-807c-aeed-f94beab70bf0" class="bulleted-list"><li style="list-style-type:disc">Snort rules help in differentiating between normal Internet activities and malicious activities.</li></ul><ul id="19682a3e-9b73-8062-b8f8-daa55557ac13" class="bulleted-list"><li style="list-style-type:disc">Snort rules must be contained on a single line, the Snort rule parser does not handle rules on multiple lines.</li></ul><ul id="19682a3e-9b73-8086-8b10-e6f16cd9416a" class="bulleted-list"><li style="list-style-type:disc">Snort rules with two logical parts:<ul id="19682a3e-9b73-806d-b051-d7fb633758c7" class="bulleted-list"><li style="list-style-type:circle"><strong>Rule header</strong>: Identifies rule&#x27;s actions such as alerts, log, pass, activate, dynamic, etc.</li></ul><ul id="19682a3e-9b73-80e3-ba7c-f8e03def29ca" class="bulleted-list"><li style="list-style-type:circle"><strong>Rule options:</strong> Identifies rule&#x27;s alert messages.</li></ul></li></ul><figure id="19682a3e-9b73-80a5-bd49-d672e5020700" class="image"><a href="image%208.png"><img style="width:480px" src="image%208.png"/></a></figure><p id="19682a3e-9b73-80d0-a853-dab2e18db002" class="">
+</p><p id="19682a3e-9b73-80cf-b663-e6219d812003" class=""><strong>Rule Actions:</strong></p><ul id="19682a3e-9b73-80c4-a77d-e33d79d37c23" class="bulleted-list"><li style="list-style-type:disc">The rule action tells Snort what to do when it finds a packet that matches the rule criteria.</li></ul><ul id="19682a3e-9b73-8065-8b53-c4cd96d88317" class="bulleted-list"><li style="list-style-type:disc">alert - generate an alert using the selected alert method, and then log the packet.</li></ul><ul id="19682a3e-9b73-80ac-b17e-d7f1f8fa72ad" class="bulleted-list"><li style="list-style-type:disc">log - log the packet</li></ul><ul id="19682a3e-9b73-800e-8d78-f490a63187c1" class="bulleted-list"><li style="list-style-type:disc">pass - ignore the packet</li></ul><ul id="19682a3e-9b73-8001-9a88-de826da5c305" class="bulleted-list"><li style="list-style-type:disc">activate - alert and then turn on another dynamic rule</li></ul><ul id="19682a3e-9b73-8059-a62d-e8366c3fea9e" class="bulleted-list"><li style="list-style-type:disc">dynamic - remain idle until activated by an activate rule, then act as a log rule.</li></ul><p id="19682a3e-9b73-8016-a6de-ca6c7c95ffed" class="">
+</p><p id="19682a3e-9b73-80be-a066-c8c6efb55aed" class=""><strong>Protocols</strong>.</p><ul id="19682a3e-9b73-80b2-a0e7-c4fdbc537f32" class="bulleted-list"><li style="list-style-type:disc">The next field in a rule is the protocol. There are three IP protocols that Snort currently analyzes for suspicious behavior, tcp, udp, and icmp. In the future there may be more, such as ARP, IGRP, GRE, OSPF, RIP, IPX, etc<ul id="19682a3e-9b73-80fe-8167-f8e103d49239" class="bulleted-list"><li style="list-style-type:circle">tcp</li></ul><ul id="19682a3e-9b73-80d4-ab0e-fa15bb17f3ed" class="bulleted-list"><li style="list-style-type:circle">udp</li></ul><ul id="19682a3e-9b73-8035-b2bf-df076bfb9937" class="bulleted-list"><li style="list-style-type:circle">icmp</li></ul></li></ul><p id="19682a3e-9b73-8092-a5b1-c2c0999b3d79" class="">
+</p><p id="19682a3e-9b73-80ef-933d-d42086d2df1b" class=""><strong>IP Addresses and Port numbers:</strong></p><ul id="19682a3e-9b73-8061-b338-c750adeeab3c" class="bulleted-list"><li style="list-style-type:disc">The next portion of the rule header deals with the IP address and port information for a given rule.</li></ul><ul id="19682a3e-9b73-80ed-82e8-f705ddbe2e06" class="bulleted-list"><li style="list-style-type:disc">The keyword &quot;any&quot; may be used to define any address. Snort does not have a mechanism to provide host name lookup for the IP address fields in the rules file.</li></ul><ul id="19682a3e-9b73-80c6-82e6-e14400c0c490" class="bulleted-list"><li style="list-style-type:disc">The addresses are formed by a straight numeric IP address and a CIDR block.</li></ul><ul id="19682a3e-9b73-8098-8243-c78618ecf123" class="bulleted-list"><li style="list-style-type:disc"><strong>Eg:</strong>, log udp any any -&gt; 192.168.1.0/24 1:1024</li></ul><p id="19682a3e-9b73-8041-8006-de9f97d71378" class="">
+</p><p id="19682a3e-9b73-8024-adef-e4c030840d08" class=""><strong>The Direction Operator</strong></p><ul id="19682a3e-9b73-805d-93bb-d55c0acdbfc8" class="bulleted-list"><li style="list-style-type:disc">The direction operator indicates the orientation, or &quot;direction&quot;, of the traffic that the rule applies to.</li></ul><ul id="19682a3e-9b73-80dd-bf91-c09644b5d265" class="bulleted-list"><li style="list-style-type:disc">The information on the left side of the direction operator is considered to be the traffic coming from the source host, and information on the right side of the operator is the destination host. There is also a bidirectional operator, which is indicated with a &quot;&lt;&gt;&quot; symbol.</li></ul><ul id="19682a3e-9b73-80f5-8a74-f3f86cd6241c" class="bulleted-list"><li style="list-style-type:disc"><strong>Eg:</strong> log !192.168.1.0/24 any 192.168.1.0/24 23</li></ul><p id="19682a3e-9b73-80d1-a99b-c25275ba8e07" class="">
+</p><p id="19682a3e-9b73-80bd-9696-c82c55d8e51d" class=""><strong>Activate/Dynamic Rules</strong></p><ul id="19682a3e-9b73-8029-82a3-c6ad6f966314" class="bulleted-list"><li style="list-style-type:disc">Activate/dynamic rule pairs give Snort a powerful capability. You can now have one rule activate another when it&#x27;s action is performed for a set number of packets. This is very useful if you want to set Snort up to perform follow on recording when a specific rule &quot;goes off. </li></ul><ul id="19682a3e-9b73-809a-ab4a-dfff799f1a25" class="bulleted-list"><li style="list-style-type:disc">Activate rules act just like alert rules, except they have a <em>required</em> option<br/>field: &quot;activates&quot; <br/></li></ul><ul id="19682a3e-9b73-80c7-9f8d-fe0e4e008eed" class="bulleted-list"><li style="list-style-type:disc"><strong>For Eg:</strong> activate tcp any $HOME_NET 143 (flags: PA;<br/>content: &quot;IE8COFFFFFFlflbinl; activates: 1; msg: &quot;IMAP buffer overflow!&quot;;)<br/></li></ul><p id="19682a3e-9b73-8054-90da-d6993add639c" class="">
+</p><p id="19682a3e-9b73-800b-82e8-d61df5b08db8" class=""><strong>Rule Options</strong></p><ul id="19682a3e-9b73-80ae-b624-db20795c86b3" class="bulleted-list"><li style="list-style-type:disc">Rule options form the heart of Snort&#x27;s intrusion detection engine, combining ease of use with power and flexibility. </li></ul><ul id="19682a3e-9b73-80ef-89e1-cf3a6ebaf7ec" class="bulleted-list"><li style="list-style-type:disc">All Snort rule options are separated from each other using the semicolon “;&quot; character. Rule option keywords are separated from their arguments with a colon “:”</li></ul><ul id="19682a3e-9b73-80c0-8e61-e1d54c73bb2c" class="bulleted-list"><li style="list-style-type:disc"><strong>For Eg:</strong> msg, logto, ttl, tos, id, fragbits, dsize, flag, resp, seq, ack, etc.</li></ul><p id="19682a3e-9b73-801c-80b6-ded0b5fa7a19" class="">
+</p><figure id="19682a3e-9b73-805e-97a3-f924be8df11e" class="image"><a href="image%209.png"><img style="width:709.9874877929688px" src="image%209.png"/></a></figure><p id="19682a3e-9b73-8000-ab69-ccb95322a62b" class="">
+</p><h3 id="19482a3e-9b73-8017-99f5-c23e5d916e19" class="">Snort Syntax Rules:</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19482a3e-9b73-80fc-9aee-d5ffd5a020e2" class="code"><code class="language-Java">alert icmp any any -&gt; 8.8.8.8 any (msg:&quot;ICMP traffic to 8.8.8.8 detected&quot;;sid:1000001; rev:1;)</code></pre><p id="19482a3e-9b73-800a-9ebe-d4e071c51fd6" class="">
+</p><div id="19482a3e-9b73-8027-b2ba-d8acb3778750" class="column-list"><div id="19482a3e-9b73-80d6-8482-f0446e7f386a" style="width:33.333333333333336%" class="column"><p id="19482a3e-9b73-80aa-a624-fbe0dd3dc418" class=""><strong>Action:</strong></p><ul id="19482a3e-9b73-802b-9429-dfd158ccc39d" class="bulleted-list"><li style="list-style-type:disc">Alert</li></ul><ul id="19482a3e-9b73-80bc-8986-fd416739e16c" class="bulleted-list"><li style="list-style-type:disc">Log</li></ul><ul id="19482a3e-9b73-8090-9265-d2c542ec7d9f" class="bulleted-list"><li style="list-style-type:disc">Drop</li></ul><ul id="19482a3e-9b73-80e0-8209-fcc557584afb" class="bulleted-list"><li style="list-style-type:disc">Reject</li></ul></div><div id="19482a3e-9b73-80b7-95f4-ddc69975c1c7" style="width:33.333333333333336%" class="column"><p id="19482a3e-9b73-806f-b241-e805600a4af9" class=""><strong>Protocol:</strong></p><ul id="19482a3e-9b73-8027-8230-e9ce7c84cbfb" class="bulleted-list"><li style="list-style-type:disc">IP</li></ul><ul id="19482a3e-9b73-8094-bd26-c24c737ff016" class="bulleted-list"><li style="list-style-type:disc">UDP</li></ul><ul id="19482a3e-9b73-802f-993c-ecefd628a816" class="bulleted-list"><li style="list-style-type:disc">TCP</li></ul><ul id="19482a3e-9b73-80d0-a118-fe216a1854fc" class="bulleted-list"><li style="list-style-type:disc">ICMP</li></ul></div><div id="19482a3e-9b73-80ca-8bc9-f035889dcbc5" style="width:33.33333333333333%" class="column"><p id="19482a3e-9b73-8022-8eec-f6c002f7a2f7" class=""><strong>Direction:</strong></p><ul id="19482a3e-9b73-80b0-bbd4-e3ccbedbe4ea" class="bulleted-list"><li style="list-style-type:disc">-&gt; (source to dest)</li></ul><ul id="19482a3e-9b73-80e9-8275-c4c0ace1bb72" class="bulleted-list"><li style="list-style-type:disc">&lt;&gt;(bidirectional)</li></ul></div></div><p id="19482a3e-9b73-8046-bb36-da1326cca54d" class="">
+</p><p id="19482a3e-9b73-80da-8d45-da8af4483feb" class="">.exe in link</p><figure id="19482a3e-9b73-801d-a899-d8b5e95c8b9e" class="image"><a href="image%2010.png"><img style="width:709.9750366210938px" src="image%2010.png"/></a></figure><p id="19482a3e-9b73-80bd-80a9-e5ede99bbfb4" class="">.exe in http header</p><figure id="19482a3e-9b73-8016-8aba-f7fb4a04ed2b" class="image"><a href="image%2011.png"><img style="width:709.8250122070312px" src="image%2011.png"/></a></figure><p id="19482a3e-9b73-8023-8760-dc7f023f31fe" class="">.exe in magic bytes of file download stream</p><figure id="19482a3e-9b73-80e9-b45d-f2a118c6997d" class="image"><a href="image%2012.png"><img style="width:709.7875366210938px" src="image%2012.png"/></a></figure><p id="19482a3e-9b73-8019-817e-c178ec3c3874" class="">Alert for http header User-Agent = SSLoad </p><figure id="19482a3e-9b73-806c-a205-fe0b60415fcf" class="image"><a href="image%2013.png"><img style="width:709.6749877929688px" src="image%2013.png"/></a></figure><p id="19482a3e-9b73-805f-bd6d-db01360b59d5" class="">
+</p><h3 id="19482a3e-9b73-80bb-9734-c1c09c6a1a68" class="">Example files with malware for network traffic analysis (pcap files)</h3><figure id="19482a3e-9b73-80a0-9e4d-d0d2ca02b9ff" class="image"><a href="image%2014.png"><img style="width:672px" src="image%2014.png"/></a></figure><p id="19482a3e-9b73-8012-ba9b-d1940f5c8e54" class="">
+</p><figure id="19482a3e-9b73-80b3-97d2-dd71ee5e1753" class="image"><a href="image%2015.png"><img style="width:709.9750366210938px" src="image%2015.png"/></a></figure><p id="19482a3e-9b73-80ea-8da6-e7aa4ad75a9a" class="">
+</p><figure id="19482a3e-9b73-8082-8772-c1d55710d1ce" class="image"><a href="image%2016.png"><img style="width:709.9874877929688px" src="image%2016.png"/></a></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

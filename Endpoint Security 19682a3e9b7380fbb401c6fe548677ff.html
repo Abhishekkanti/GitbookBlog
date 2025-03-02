@@ -1,0 +1,726 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Endpoint Security</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-transparentGray { background-color: undefined; }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="19682a3e-9b73-80fb-b401-c6fe548677ff" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/solid_beige.png" style="object-position:center 40%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="https://www.notion.so/icons/clipping_gray.svg"/></div><h1 class="page-title">Endpoint Security</h1><p class="page-description"></p><table class="properties"><tbody><tr class="property-row property-row-status"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/clipping_gray.svg" style="width:14px;height:14px;display:block"/></span>Note Type</th><td><span class="status-value select-value-color-gray"><div class="status-dot status-dot-color-gray"></div>Notebook Notes</span></td></tr><tr class="property-row property-row-checkbox"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/star_gray.svg" style="width:14px;height:14px;display:block"/></span>Favorite</th><td><div class="checkbox checkbox-off"></div></td></tr><tr class="property-row property-row-checkbox"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/archive_gray.svg" style="width:14px;height:14px;display:block"/></span>Archive</th><td><div class="checkbox checkbox-off"></div></td></tr><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>Created</th><td><time>@February 10, 2025 6:55 PM</time></td></tr><tr class="property-row property-row-last_edited_time"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>Last edited time</th><td><time>@February 18, 2025 8:07 PM</time></td></tr><tr class="property-row property-row-relation"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/book-closed_gray.svg" style="width:14px;height:14px;display:block"/></span>Notebooks</th><td><a href="SOC%20#4%2016382a3e9b73815c8567d0430a6e99a2.html"><img class="icon" src="https://www.notion.so/icons/book-closed_gray.svg"/>SOC #4</a></td></tr></tbody></table></header><div class="page-body"><hr id="19682a3e-9b73-8070-b651-d32e964ecc55"/><h1 id="19682a3e-9b73-809e-bf6e-edf69d88d455" class="">Endpoint Security</h1><p id="19682a3e-9b73-80c6-9c45-c0b77fe21532" class="">
+</p><h2 id="19682a3e-9b73-805b-afb0-c53600f7e293" class="">What is Endpoint?</h2><ul id="19682a3e-9b73-8037-9a10-f8a7befb4306" class="bulleted-list"><li style="list-style-type:disc">Endpoint is any physical hardware device that is connected over a network</li></ul><ul id="19682a3e-9b73-80ce-8d70-c9ca9da56300" class="bulleted-list"><li style="list-style-type:disc">It might wide range of devices like desktops, laptops, mobile devices, server(web, email, DB), IOT(printer, camera), routers, switches, firewalls, etc.  </li></ul><h2 id="19682a3e-9b73-8086-a36f-f6dc3b86ab6e" class="">Endpoint Security Controls</h2><ol type="1" id="19682a3e-9b73-808a-9fa3-c2ec8d764991" class="numbered-list" start="1"><li><strong>Antivirus / Antimalware</strong><ul id="19682a3e-9b73-805b-bdea-d9cb0edc6b9a" class="bulleted-list"><li style="list-style-type:disc">Scans files and activities</li></ul><ul id="19682a3e-9b73-80f0-b9b7-c5b8c9a2507d" class="bulleted-list"><li style="list-style-type:disc">Matching patterns and signatures</li></ul></li></ol><ol type="1" id="19682a3e-9b73-80c9-a60f-f05935ff1a78" class="numbered-list" start="2"><li><strong>Endpoint Detection and Response (EDR)</strong><ul id="19682a3e-9b73-8065-b9d7-d0c6b6940050" class="bulleted-list"><li style="list-style-type:disc">Real-time monitoring and response</li></ul><ul id="19682a3e-9b73-80b3-b3a8-c68be2fc1cfa" class="bulleted-list"><li style="list-style-type:disc">Agent-based deployment</li></ul><ul id="19682a3e-9b73-8036-82f9-c517fdb5ace2" class="bulleted-list"><li style="list-style-type:disc">Monitor process, file, registry, and network activity</li></ul></li></ol><ol type="1" id="19682a3e-9b73-80f1-9901-d43e344c6597" class="numbered-list" start="3"><li><strong>Extended Detection and Response (XDR)</strong><ul id="19682a3e-9b73-80c7-b9be-d713530fd5e5" class="bulleted-list"><li style="list-style-type:disc">Integration of multiple security controls and telemetry</li></ul><ul id="19682a3e-9b73-8011-ac54-c60e582d52ad" class="bulleted-list"><li style="list-style-type:disc">Runbooks and automated response to routine threats</li></ul></li></ol><ol type="1" id="19682a3e-9b73-80d3-9452-e11b4f2e7b84" class="numbered-list" start="4"><li><strong>Data Loss Prevention (DLP)</strong><ul id="19682a3e-9b73-80c5-9fbf-cfc7f052120d" class="bulleted-list"><li style="list-style-type:disc">Protect sensitive data at rest, transit, and in processing</li></ul><ul id="19682a3e-9b73-8034-9191-f466e69acd20" class="bulleted-list"><li style="list-style-type:disc">Access controls, data masking, prevention</li></ul></li></ol><ol type="1" id="19682a3e-9b73-808b-9a5f-ee54bf5c6791" class="numbered-list" start="5"><li><strong>User and Entity Behavior Analytics (UBA)</strong><ol type="a" id="19682a3e-9b73-80c3-bb62-ce5ef24e958b" class="numbered-list" start="1"><li>Monitoring user behavior patterns</li></ol><ol type="a" id="19682a3e-9b73-8049-86ac-c4b975a50957" class="numbered-list" start="2"><li>Detect deviations from historic and contextual baseline</li></ol><ol type="a" id="19682a3e-9b73-801f-9231-d6c2cea5fc9f" class="numbered-list" start="3"><li>Insider threats, account compromise, data exfiltration</li></ol></li></ol><ol type="1" id="19682a3e-9b73-80c7-bcf8-f8efb7476f0c" class="numbered-list" start="6"><li><strong>HIDS / HIPS</strong><ol type="a" id="19682a3e-9b73-80ca-8205-c6750c623c39" class="numbered-list" start="1"><li>Host-based Intrusion Detection System (HIDS)</li></ol><ol type="a" id="19682a3e-9b73-8046-9e2e-e86cc2f0e5dc" class="numbered-list" start="2"><li>Host-based Intrusion Prevention System (HIPS)</li></ol></li></ol><ol type="1" id="19682a3e-9b73-8041-a0ee-e6e2b0dc0d7e" class="numbered-list" start="7"><li><strong>Host-based Firewall</strong><ol type="a" id="19682a3e-9b73-8049-b437-c71bd1ab7331" class="numbered-list" start="1"><li>Controls incoming and outgoing traffic on a host<br/><br/></li></ol></li></ol><h2 id="19682a3e-9b73-80bd-827d-dce4824ca2e7" class="">Endpoint Security Monitoring</h2><ol type="1" id="19682a3e-9b73-80dc-a4e6-d5282cdcde92" class="numbered-list" start="1"><li><strong>Process Execution</strong><ol type="a" id="19682a3e-9b73-80c4-bebf-e51018eb434a" class="numbered-list" start="1"><li>Monitoring running processes</li></ol><ol type="a" id="19682a3e-9b73-80e2-8c4f-f785d13c2e73" class="numbered-list" start="2"><li>Executable files, PIDs, command-line arguments</li></ol><ol type="a" id="19682a3e-9b73-802b-8d9f-c3452612c90f" class="numbered-list" start="3"><li>Parent-child process hierarchy (rats and worms)</li></ol></li></ol><ol type="1" id="19682a3e-9b73-8075-aec3-da03b3eafae9" class="numbered-list" start="2"><li><strong>File System Changes</strong><ol type="a" id="19682a3e-9b73-8070-b1ed-cbe88b1152ee" class="numbered-list" start="1"><li>Creation, modification, deletion</li></ol><ol type="a" id="19682a3e-9b73-8084-965a-fbf7b76f5fa2" class="numbered-list" start="2"><li>File Integrity Monitoring (FIM) (checks against initial checksum of file)</li></ol></li></ol><ol type="1" id="19682a3e-9b73-806b-8e7e-d2a9ff37bcfb" class="numbered-list" start="3"><li><strong>Network Connections</strong><ol type="a" id="19682a3e-9b73-801d-9c55-c21bdd6457b6" class="numbered-list" start="1"><li>Traffic and connections initiated from the endpoint</li></ol><ol type="a" id="19682a3e-9b73-8053-8c1d-f997f4be532a" class="numbered-list" start="2"><li>Associated processes and executables.</li></ol></li></ol><ol type="1" id="19682a3e-9b73-80d1-aff0-c0b2026d9ac9" class="numbered-list" start="4"><li><strong>Registry Modifications</strong><ol type="a" id="19682a3e-9b73-8096-9e46-d6b8800a6654" class="numbered-list" start="1"><li>Monitor registry keys and values</li></ol><ol type="a" id="19682a3e-9b73-80fe-ab8c-c6c54b1975c8" class="numbered-list" start="2"><li>Detect backdoors, persistence, detection evasion. (disabling AV or EDR)</li></ol></li></ol><p id="19682a3e-9b73-8084-baf6-f28da90d697a" class="">
+</p><h2 id="19682a3e-9b73-80a3-8c61-c29adf087e2a" class="">Net Command in Windows</h2><p id="19682a3e-9b73-8072-8fac-c47467068d7e" class=""><em>Net Command provides a wide range of functionalities for managing network resources It is used for sharing resources.</em></p><p id="19682a3e-9b73-8050-b471-f6faca882e03" class="">
+</p><ul id="19682a3e-9b73-8056-9bc4-d5f6c29b8bdf" class="bulleted-list"><li style="list-style-type:disc"><em><strong>net view {ip}: </strong></em><em>Display</em><em><strong>  </strong></em><em>list of share resources on a network.</em></li></ul><ul id="19682a3e-9b73-8045-a185-ed643d62b361" class="bulleted-list"><li style="list-style-type:disc">net user : Display info about a specific user.</li></ul><ul id="19682a3e-9b73-8072-a906-e714684c440d" class="bulleted-list"><li style="list-style-type:disc">net share : Display a list of shared resources.</li></ul><ul id="19682a3e-9b73-8039-9ffc-eaf3a4670d6f" class="bulleted-list"><li style="list-style-type:disc">net share [sharename]= [drive:path/of/share]</li></ul><ul id="19682a3e-9b73-8086-8584-c618bd24642f" class="bulleted-list"><li style="list-style-type:disc">net session : Display info about active server sessions</li></ul><ul id="19682a3e-9b73-806d-a7dd-f9abffb778b5" class="bulleted-list"><li style="list-style-type:disc">net stat : Display network statistics</li></ul><h2 id="19682a3e-9b73-80da-9cd4-e05618e95604" class="">Tcpview</h2><p id="19682a3e-9b73-80e6-8c20-e4975fc13ce0" class=""><em><strong>It is windows tool used to display all the ongoing processes of the system in GUI. It is similar to       netstat -anob but has some additional functionalities.   </strong></em></p><p id="19782a3e-9b73-8080-8be4-e559807ab6aa" class="">
+</p><h1 id="19782a3e-9b73-8081-9c52-da36f03b86d7" class="">Processes Analysis</h1><h2 id="19b82a3e-9b73-8092-80ae-d34e45cf83e4" class="">1. Windows Process Analysis</h2><ol type="1" id="19782a3e-9b73-8008-9351-d7814f566e4e" class="numbered-list" start="1"><li><strong>Running instances of programs and applications</strong><ul id="19782a3e-9b73-8050-827b-cda0f075b141" class="bulleted-list"><li style="list-style-type:disc">Partitioned set of system resources (CPU, memory, 1/0)</li></ul></li></ol><ol type="1" id="19782a3e-9b73-8004-bbb0-ec0b1989e546" class="numbered-list" start="2"><li><strong>System (Windows) Processes:</strong><ul id="19782a3e-9b73-8034-acad-f2375ce4258a" class="bulleted-list"><li style="list-style-type:disc">OS core functions</li></ul><ul id="19782a3e-9b73-8011-9e54-d64cfae8f666" class="bulleted-list"><li style="list-style-type:disc">System, smss.exe, csrss.exe</li></ul></li></ol><ol type="1" id="19782a3e-9b73-8066-ba57-faf2f4653f6c" class="numbered-list" start="3"><li><strong>User (Application) Processes</strong><ul id="19782a3e-9b73-8081-abb7-d35ee7c1b37e" class="bulleted-list"><li style="list-style-type:disc">Initiated by users</li></ul><ul id="19782a3e-9b73-800c-b38a-f0ff4447b42b" class="bulleted-list"><li style="list-style-type:disc">chrome.exe, notepad.exe, minesweeper.exe</li></ul></li></ol><ul id="19782a3e-9b73-80ed-a946-da11fa0cbd47" class="bulleted-list"><li style="list-style-type:disc"><strong>Service (Background) Processes</strong><ul id="19782a3e-9b73-8052-b74e-dc02d9c210b9" class="bulleted-list"><li style="list-style-type:circle">Background functions</li></ul><ul id="19782a3e-9b73-80c9-a0d6-c62948ce044f" class="bulleted-list"><li style="list-style-type:circle">Windows Update, Print Spooler, Isass.exe</li></ul></li></ul><p id="19782a3e-9b73-801a-a14b-efacdafcaba0" class="">
+</p><p id="19782a3e-9b73-8056-9cef-de7358db4220" class=""><strong>There can be multiple processes (child) running for another process (parent).</strong></p><figure id="19782a3e-9b73-8076-a549-fe20c493a42b" class="image"><a href="image%2017.png"><img style="width:709.9625244140625px" src="image%2017.png"/></a></figure><h3 id="19982a3e-9b73-8066-a886-eed688b57638" class="">Process Monitoring Tools</h3><ol type="1" id="19782a3e-9b73-80e8-a00c-fea3a6887447" class="numbered-list" start="1"><li><em><strong>Tasklist : </strong></em>Lists down all the ongoing processes runnig on the windows system<ol type="a" id="19782a3e-9b73-80c6-80e4-d572c132062e" class="numbered-list" start="1"><li><strong>tasklist /M </strong>: list all the dll associated with the processes running.<ol type="i" id="19782a3e-9b73-80e8-af6c-c3c6e3395d35" class="numbered-list" start="1"><li><em><strong>tasklist /FI “PID eq 2008” </strong></em><em>: Filters the list based on the argument passed.</em></li></ol></li></ol></li></ol><ol type="1" id="19782a3e-9b73-807a-a164-e972e92e4788" class="numbered-list" start="2"><li><em><strong>wmin</strong></em> (windows management instrumentation command line): Allows us to interact  management instrumentation command line and query important data related to process.<ol type="a" id="19782a3e-9b73-80ff-a28a-c9725330f971" class="numbered-list" start="1"><li><em>wmic process where processid=2008 get name, parentprocessid, processid</em></li></ol><ol type="a" id="19782a3e-9b73-8036-9f24-f24c70d2e658" class="numbered-list" start="2"><li><em>wmic process where processid=2008 get commandline (returns command executed the process) &gt;&gt; C:\Windows\Explorer.EXE</em></li></ol></li></ol><ol type="1" id="19782a3e-9b73-8062-91e4-f4dfacd21abc" class="numbered-list" start="3"><li><strong>Task Manager : </strong>GUI tool for managing all the processes running in the system.</li></ol><ol type="1" id="19782a3e-9b73-8031-9bed-d67f9ca20f7c" class="numbered-list" start="4"><li><strong>Process Monitor : </strong>Used for troubleshooting, it show info about file system, registry, process running.</li></ol><ol type="1" id="19782a3e-9b73-8064-885e-f0233280ee7c" class="numbered-list" start="5"><li><strong>Process Explorer :</strong> Advance version of task manger with addition functionalities. It helps to find what files, registry keys, DLL, a particular process is using. It eliminates the manual work. Similar to tcpview but for processes.</li></ol><div id="19782a3e-9b73-80e0-8cb0-d3f54820bc7c" class="column-list"><div id="19782a3e-9b73-805d-a4fb-f5560fa55425" style="width:50%" class="column"><figure id="19782a3e-9b73-80dc-8cae-f77294ba6924" class="image"><a href="image%2018.png"><img style="width:432px" src="image%2018.png"/></a></figure></div><div id="19782a3e-9b73-80b8-be1b-c89041bbf906" style="width:50%" class="column"><figure id="19782a3e-9b73-80da-ad70-fd65fd33412c" class="image"><a href="image%2019.png"><img style="width:336px" src="image%2019.png"/></a></figure></div></div><p id="19782a3e-9b73-80e1-97c4-fc47046ae0af" class="">
+</p><h3 id="19782a3e-9b73-80f0-bb76-c8d8f2f3d31a" class="">Windows Core Processes</h3><ol type="1" id="19782a3e-9b73-80f9-9775-f913d9628a07" class="numbered-list" start="1"><li><strong>System Process</strong><ol type="a" id="19782a3e-9b73-80bc-885f-eba6f265efd1" class="numbered-list" start="1"><li><strong>System process is the main process it is responsible for kernel mode system thread (interacting with hardware), managing cpu, memory, disk, drivers, and core operations.</strong></li></ol><ol type="a" id="19782a3e-9b73-8002-915b-cf4f548817d2" class="numbered-list" start="2"><li><strong>It always has the PID of 4.</strong></li></ol><ol type="a" id="19782a3e-9b73-8004-981c-df109632e37a" class="numbered-list" start="3"><li><strong>If the System is not running with PID=4 then it is suspicious. </strong></li></ol></li></ol><figure id="19782a3e-9b73-80ff-bdf0-c5d8b963f5d3" class="image"><a href="image%2020.png"><img style="width:432px" src="image%2020.png"/></a><figcaption>Normal Condition of the process</figcaption></figure><ol type="1" id="19782a3e-9b73-8061-97d1-f83b8b20b2d6" class="numbered-list" start="2"><li><strong>smss.exe (Session manager subsystem)</strong><ol type="a" id="19782a3e-9b73-804d-a96a-d8fa3b361869" class="numbered-list" start="1"><li>Windows Session Manager</li></ol><ol type="a" id="19782a3e-9b73-802f-b5c9-cb2d63226652" class="numbered-list" start="2"><li>Initiating and managing user sessions</li></ol><ol type="a" id="19782a3e-9b73-8043-b74d-e76357fe03bd" class="numbered-list" start="3"><li>Launches child processes - wininit.exe, csrss.exe</li></ol></li></ol><figure id="19782a3e-9b73-806f-97d0-d6b4e3656e7d" class="image"><a href="image%2021.png"><img style="width:576px" src="image%2021.png"/></a><figcaption>Starts and creates child  processes </figcaption></figure><figure id="19782a3e-9b73-80cf-a3a9-e925f0bb0de0" class="image"><a href="image%2022.png"><img style="width:576px" src="image%2022.png"/></a><figcaption>After creating child processes it gets terminated.</figcaption></figure><figure id="19782a3e-9b73-801e-a962-e09ea2ed0759" class="image"><a href="image%2023.png"><img style="width:576px" src="image%2023.png"/></a><figcaption>Normal Conditions</figcaption></figure><ul id="19782a3e-9b73-8012-94bc-cfcd57211092" class="bulleted-list"><li style="list-style-type:disc">If more than &gt;1 smss processes are running  or path different  or parent process then it is suspicious.</li></ul><p id="19782a3e-9b73-8021-8285-e2f0e3df7429" class="">
+</p><ol type="1" id="19782a3e-9b73-80b7-8cc0-dd169bc270d4" class="numbered-list" start="3"><li><strong>csrr.exe (client/server runtime subsystem)</strong><ol type="a" id="19782a3e-9b73-803f-9f24-f3b086b2ec55" class="numbered-list" start="1"><li>responsible for managing console windows</li></ol><ol type="a" id="19782a3e-9b73-8063-a10c-cb1940f6b9e5" class="numbered-list" start="2"><li>Importing DLLs for the Windows API</li></ol><ol type="a" id="19782a3e-9b73-8069-9b38-d7ba3e64d945" class="numbered-list" start="3"><li>GUI tasks around shutdown.</li></ol></li></ol><figure id="19782a3e-9b73-806d-a1a8-e0d86c58263a" class="image"><a href="image%2024.png"><img style="width:576px" src="image%2024.png"/></a></figure><figure id="19782a3e-9b73-80ed-9e71-f732ee7ec6c3" class="image"><a href="image%2025.png"><img style="width:576px" src="image%2025.png"/></a></figure><figure id="19782a3e-9b73-808d-a540-cea2e3423a34" class="image"><a href="image%2026.png"><img style="width:576px" src="image%2026.png"/></a></figure><p id="19782a3e-9b73-809b-bbb8-ecaf2b1de2d7" class="">
+</p><p id="19782a3e-9b73-80e3-9205-f2c3ea8b38d3" class=""><strong>Each user has his own session separated for others for data and security purpose. </strong></p><p id="19782a3e-9b73-808c-b1fa-d730fef3efb6" class="">
+</p><ol type="1" id="19782a3e-9b73-8096-8fa6-cfdd681b7cca" class="numbered-list" start="4"><li><strong>wininit.exe (Windows Initialization)</strong><ol type="a" id="19782a3e-9b73-808d-985b-ef771cf1ea67" class="numbered-list" start="1"><li> Initialize all the things! (helps in booting)</li></ol><ol type="a" id="19782a3e-9b73-8095-8e66-d7defd2bd840" class="numbered-list" start="2"><li>Session 0</li></ol><ol type="a" id="19782a3e-9b73-803e-b4da-d26217e9bf7b" class="numbered-list" start="3"><li>Spawns child processes (services.exe, Isass.exe)</li></ol></li></ol><figure id="19782a3e-9b73-8043-a121-ca1ea1ff0b5e" class="image"><a href="image%2027.png"><img style="width:576px" src="image%2027.png"/></a></figure><figure id="19782a3e-9b73-80ae-8b28-dae18addebd9" class="image"><a href="image%2028.png"><img style="width:576px" src="image%2028.png"/></a></figure><figure id="19782a3e-9b73-801e-b9fb-cbec3cdd4386" class="image"><a href="image%2029.png"><img style="width:576px" src="image%2029.png"/></a></figure><p id="19782a3e-9b73-80af-9bf3-f533364f0d60" class="">
+</p><ol type="1" id="19782a3e-9b73-8031-9e0a-f752d7753551" class="numbered-list" start="5"><li><strong>services.exe (Service Control Manager)</strong><ol type="a" id="19782a3e-9b73-808f-8c1c-e961bc8a5d42" class="numbered-list" start="1"><li>Service Control Manager (SCM)</li></ol><ol type="a" id="19782a3e-9b73-8052-a262-c2180611b04b" class="numbered-list" start="2"><li>Starting, stopping, and interacting with services</li></ol><ol type="a" id="19782a3e-9b73-80fa-b646-f8a656c6f3c4" class="numbered-list" start="3"><li>Sets the LastKnownGood CurrentControlSet registry value</li></ol></li></ol><figure id="19782a3e-9b73-80f5-8076-fc71f56deed4" class="image"><a href="image%2030.png"><img style="width:624px" src="image%2030.png"/></a></figure><p id="19782a3e-9b73-80bb-b15b-c21661619878" class="">
+</p><ol type="1" id="19782a3e-9b73-8013-ac2c-c4fcbe6d4eb3" class="numbered-list" start="6"><li><strong>svchost.exe (Service Host)</strong><ol type="a" id="19782a3e-9b73-805f-bf4a-d2f28b05721d" class="numbered-list" start="1"><li>Hosting and managing Windows services</li></ol><ol type="a" id="19782a3e-9b73-8059-b496-c96017db70c8" class="numbered-list" start="2"><li>Used to run service DLLs</li></ol><ol type="a" id="19782a3e-9b73-800d-b801-d8925c63347d" class="numbered-list" start="3"><li>Runs with the -k parameter to differentiate instances/services in specific group.</li></ol></li></ol><div id="19782a3e-9b73-800d-b541-dd58b7e184e2" class="column-list"><div id="19782a3e-9b73-8066-a6fe-d6072477a695" style="width:53.333333333333336%" class="column"><figure id="19782a3e-9b73-804d-82b2-e974a0d73e75" class="image"><a href="image%2031.png"><img style="width:528px" src="image%2031.png"/></a></figure></div><div id="19782a3e-9b73-8065-8eab-d41852f9bbf1" style="width:46.666666666666664%" class="column"><figure id="19782a3e-9b73-8004-a9fe-e64a5be72fdb" class="image"><a href="image%2032.png"><img style="width:384px" src="image%2032.png"/></a></figure></div></div><p id="19782a3e-9b73-80f2-b190-d3875152d306" class="">
+</p><ol type="1" id="19782a3e-9b73-802e-9381-d4901dd29c83" class="numbered-list" start="7"><li><strong>Isass.exe (Local Security Authority Subsystem Service)</strong><ol type="a" id="19782a3e-9b73-80bb-a898-f5de28e93eeb" class="numbered-list" start="1"><li>Authenticating users</li></ol><ol type="a" id="19782a3e-9b73-803c-acdf-dc051edd7034" class="numbered-list" start="2"><li>Implementing local security policies</li></ol><ol type="a" id="19782a3e-9b73-80ea-bdd8-c925d347e102" class="numbered-list" start="3"><li>Writing events to the security event log</li></ol></li></ol><figure id="19782a3e-9b73-80bf-aa6f-fc4d06114d62" class="image"><a href="image%2033.png"><img style="width:624px" src="image%2033.png"/></a></figure><p id="19782a3e-9b73-80b2-9780-d135bb8fbdb7" class="">
+</p><ol type="1" id="19782a3e-9b73-80f4-a1e6-cbde2e252597" class="numbered-list" start="8"><li><strong>winlogon.exe (Windows Logon)</strong><ol type="a" id="19782a3e-9b73-80c3-9cde-d24ca822ef5c" class="numbered-list" start="1"><li>Manages login and logout procedures</li></ol><ol type="a" id="19782a3e-9b73-80d7-af1a-cfe50e6b6000" class="numbered-list" start="2"><li>Loads user profiles (NTUSER.DAT)</li></ol><ol type="a" id="19782a3e-9b73-80fd-bdfc-c2ebb2e3bf88" class="numbered-list" start="3"><li>Responds to the Secure Attention Sequence (SAS)</li></ol></li></ol><div id="19782a3e-9b73-80ce-b573-d6e98ddcb123" class="column-list"><div id="19782a3e-9b73-806e-a8b8-e12fa9dee2a8" style="width:50%" class="column"><figure id="19782a3e-9b73-8073-8df3-f90a0e4f0361" class="image"><a href="image%2034.png"><img style="width:576px" src="image%2034.png"/></a></figure></div><div id="19782a3e-9b73-8013-a9ed-d1fcbbc457a9" style="width:50%" class="column"><figure id="19782a3e-9b73-80c9-8e56-e6071c18b208" class="image"><a href="image%2035.png"><img style="width:432px" src="image%2035.png"/></a></figure></div></div><p id="19782a3e-9b73-80be-84cc-c7cb7c39dc7c" class="">
+</p><ol type="1" id="19782a3e-9b73-8079-a6a6-c5496da1f3e3" class="numbered-list" start="9"><li><strong>explorer.exe (Windows Explorer)</strong><ol type="a" id="19782a3e-9b73-8075-8929-c613852dcfbc" class="numbered-list" start="1"><li>Provides the GUI for files, folders, and system settings</li></ol><ol type="a" id="19782a3e-9b73-80d8-9758-c4f71a71bf03" class="numbered-list" start="2"><li>Manages the taskbar, Start Menu, and desktop</li></ol><ol type="a" id="19782a3e-9b73-802d-bd23-ea4a4464bb5f" class="numbered-list" start="3"><li>Responsible for the overall desktop environment</li></ol></li></ol><div id="19782a3e-9b73-8050-8966-fb6b0c9e4988" class="column-list"><div id="19782a3e-9b73-8025-9355-ebd632210775" style="width:50%" class="column"><figure id="19782a3e-9b73-80d1-811c-f304b9a47795" class="image"><a href="image%2036.png"><img style="width:576px" src="image%2036.png"/></a></figure></div><div id="19782a3e-9b73-806e-9d29-f2a27c33cf96" style="width:50%" class="column"><figure id="19782a3e-9b73-806f-8f5e-c9d877ad5174" class="image"><a href="image%2037.png"><img style="width:336px" src="image%2037.png"/></a></figure></div></div><p id="19782a3e-9b73-8085-ac57-d68f9688470b" class="">
+</p><h3 id="19782a3e-9b73-80ac-9e85-ef5d0af9b9e6" class="">Process Investigation</h3><ol type="1" id="19782a3e-9b73-8071-a001-db26246da5fd" class="numbered-list" start="1"><li><strong>Parent Process</strong><ul id="19782a3e-9b73-8010-96de-eac83a8794b3" class="bulleted-list"><li style="list-style-type:disc">Is this the expected process hierarchy?</li></ul></li></ol><ol type="1" id="19782a3e-9b73-80c8-8e6b-f422bd608e4f" class="numbered-list" start="2"><li><strong>Child Process</strong><ul id="19782a3e-9b73-8054-9b36-c7f66b797558" class="bulleted-list"><li style="list-style-type:disc">Is this the expected process hierarchy?</li></ul></li></ol><ol type="1" id="19782a3e-9b73-8090-8607-f3835f77315e" class="numbered-list" start="3"><li><strong>Command Line Arguments</strong><ul id="19782a3e-9b73-80e6-993f-ff990c8f4444" class="bulleted-list"><li style="list-style-type:disc">svchost -k</li></ul></li></ol><ol type="1" id="19782a3e-9b73-80de-8b4b-cb6f68d638e3" class="numbered-list" start="4"><li><strong>Process Names</strong><ul id="19782a3e-9b73-803b-9247-cd892cae1cac" class="bulleted-list"><li style="list-style-type:disc">Typos, lookalikes, copies</li></ul></li></ol><ol type="1" id="19782a3e-9b73-8078-8efa-e5492566ea34" class="numbered-list" start="5"><li><strong>User Account</strong><ul id="19782a3e-9b73-80bc-87f1-c2ffe218bfbd" class="bulleted-list"><li style="list-style-type:disc">Is this process running from the expected user account?</li></ul></li></ol><ol type="1" id="19782a3e-9b73-8085-be46-f587fa517dc4" class="numbered-list" start="6"><li><strong>Image Path</strong><ul id="19782a3e-9b73-8058-957b-d51b7134904a" class="bulleted-list"><li style="list-style-type:disc">Is this process running the expected executable?</li></ul></li></ol><p id="19882a3e-9b73-808b-ae41-da144d9d2aa0" class="">
+</p><h3 id="19882a3e-9b73-80ef-9f3b-f693d380ec73" class="">Windows Registry </h3><p id="19882a3e-9b73-80e3-8a8b-f55cb4810b50" class=""><strong>Autorun Registry Keys</strong></p><ol type="1" id="2d2cc118-7923-41e8-b1bf-3ce6cd2bfa90" class="numbered-list" start="1"><li>HKCU\Software\Microsoft\Windows\CurrentVersion\Run</li></ol><ol type="1" id="247e0dd3-7e1a-4323-bb61-b7ca285c0223" class="numbered-list" start="2"><li>HKCU\Software\Microsoft\Windows\CurrentVersion\RunOnce</li></ol><ol type="1" id="662fcfaa-dbc6-4295-a8e8-cd4ae4e0c424" class="numbered-list" start="3"><li>HKLM\Software\Microsoft\Windows\CurrentVersion\Run</li></ol><ol type="1" id="694d13ba-40b6-41a5-9550-65e8371cbfd3" class="numbered-list" start="4"><li>HKLM\Software\Microsoft\Windows\CurrentVersion\RunOnce </li></ol><ol type="1" id="5a143f30-f55b-420d-b5dd-88d5ca789a22" class="numbered-list" start="5"><li><strong>Service Configuration Keys</strong></li></ol><ul id="dbc61fd0-3c47-46cc-9b45-7fb3598e129a" class="bulleted-list"><li style="list-style-type:disc">HKLM\SYSTEM\CurrentControlSet\Services</li></ul><p id="19982a3e-9b73-80c4-829d-e7191daba0c3" class="">
+</p><h3 id="19982a3e-9b73-80b9-be29-d0bdc8fe8d61" class="">Autorun Tool for windows</h3><ul id="19982a3e-9b73-80df-a175-f345ea0f2b26" class="bulleted-list"><li style="list-style-type:disc">This utility, has the most comprehensive knowledge of auto-starting locations of any startup monitor, shows you what programs are configured to run during system bootup or<br/>login, and when you start various built-in Windows applications like Internet Explorer,<br/>Explorer and media players. <br/></li></ul><ul id="19982a3e-9b73-8083-a52c-e34a689aabb7" class="bulleted-list"><li style="list-style-type:disc">These programs and drivers include ones in your startup folder, Run, RunOnce, and other Registry keys. Autoruns reports Explorer shell extensions, toolbars, browser helper objects, Winlogon notifications, auto-start services, and much more. Autoruns goes way beyond other autostart utilities.</li></ul><ul id="19982a3e-9b73-8088-b19c-eb03c7a170c5" class="bulleted-list"><li style="list-style-type:disc"><em><strong>Using this tool you can create a baseline file that contains all the autoruns of a fresh system to cross checks against current system autoruns for security audits.</strong></em><em>  </em></li></ul><p id="19982a3e-9b73-8073-a7b9-d9c61b8debf2" class="">
+</p><h3 id="19982a3e-9b73-8011-8554-f6eed063eea6" class="">Windows Autorun Analysis</h3><p id="19982a3e-9b73-8004-a28d-c0aac3a70dd5" class="">
+</p><ol type="1" id="19982a3e-9b73-80a0-9e96-f1e86f772284" class="numbered-list" start="1"><li><strong>Windows SC (service control manger) : It controls all the services of windows system </strong></li></ol><figure id="19982a3e-9b73-8023-8945-c7f36c57dcc9" class="image"><a href="image%2038.png"><img style="width:709.9625244140625px" src="image%2038.png"/></a><figcaption>Command to create a service for the malware with auto start</figcaption></figure><ol type="1" id="19982a3e-9b73-80b8-9bec-f1f56f05565b" class="numbered-list" start="2"><li><strong>Check services.msc lists all the running services in the system and helps to find out any malicious services are running. </strong></li></ol><ol type="1" id="19982a3e-9b73-80de-8723-e8dfdd373222" class="numbered-list" start="3"><li><strong>net start does the same as services.msc.</strong></li></ol><ol type="1" id="19982a3e-9b73-80b2-91cd-dd89261aeb4d" class="numbered-list" start="4"><li><em><strong>“sc query “</strong></em><strong>can be helpful to list out all the running services in the system.</strong><ol type="a" id="19982a3e-9b73-8045-bbda-e0425a073bef" class="numbered-list" start="1"><li><strong>“sc qc {service_name}”</strong>  to find out more details of the service.</li></ol></li></ol><p id="19a82a3e-9b73-80fe-957d-d67b13431afd" class="">
+</p><p id="19a82a3e-9b73-8067-950f-f4bdbcfa0091" class="">
+</p><h3 id="19a82a3e-9b73-805c-a462-ffcfb393c4ca" class="">Windows Scheduled Task</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19a82a3e-9b73-8071-b07c-d682c9a9ad85" class="code"><code class="language-Java">&gt;&gt; schtasks /create /tn &quot;SystemCleanUp&quot; /tr &quot;C:\Users\Win_SOC\dowloads\evil.exe&quot; /sc daily /st 12:00 /ru SYSTEM</code></pre><p id="19a82a3e-9b73-8071-9ac0-fca41f9c40c6" class="">
+</p><p id="19982a3e-9b73-8024-bd18-f53800703dae" class="">Open Tasks Scheduler in windows and try finding suspicious scheduled tasks.</p><p id="19982a3e-9b73-80fb-b788-ee30c71505cb" class=""><strong> </strong></p><h2 id="19a82a3e-9b73-805c-a6c4-fe00fa2f1a3b" class="">Windows Event Logs</h2><figure id="19a82a3e-9b73-801b-9716-cabb5de79f3c" class="image"><a href="image%2039.png"><img style="width:480px" src="image%2039.png"/></a></figure><p id="19a82a3e-9b73-804d-b999-ce9d6e3bf7d5" class="">
+</p><figure id="19a82a3e-9b73-80f6-868f-e69047e4d52d" class="image"><a href="image%2040.png"><img style="width:720px" src="image%2040.png"/></a></figure><p id="19a82a3e-9b73-802c-a0bd-d036888830eb" class="">
+</p><h3 id="19a82a3e-9b73-803e-90cd-efed000f11c4" class=""><strong>Wevtutil (Windows Event Utility) &amp; Get-WinEvent (Powershell)</strong></h3><p id="19a82a3e-9b73-80f6-aefb-fc92ee67ef69" class=""><em>It is windows command line utility used to query and list out, export, archive and  even clear, windows events.  </em></p><p id="19a82a3e-9b73-807b-b5dc-f2d87d411595" class="">
+</p><h3 id="19a82a3e-9b73-8059-b2aa-f6e8ffbfa79f" class="">Sysmon</h3><p id="19a82a3e-9b73-8036-8baf-ece211c093d5" class="">&quot;Sysmon,&quot; short for &quot;System Monitor.&quot; Sysmon is a tool within the Sysinternals Suite by Microsoft, used to monitor and log system activity into the Windows Event Log. This can be incredibly useful for tracking and analyzing potential security incidents.</p><p id="19a82a3e-9b73-80c7-af21-cdcdcff54bf0" class="">Sysmon records detailed information about process creations, network connections, file creation time changes, and more. Here&#x27;s a brief overview of some of its main features:</p><ol type="1" id="19a82a3e-9b73-8018-b17a-fd69f1b451ae" class="numbered-list" start="1"><li><strong>Process Creation Monitoring:</strong> Logs details about process creations, including process IDs, parent process IDs, and command-line arguments.</li></ol><ol type="1" id="19a82a3e-9b73-8000-92bf-fc9cece85d64" class="numbered-list" start="2"><li><strong>Network Connection Monitoring:</strong> Captures information about network connections, such as source and destination IP addresses, ports, and protocols.</li></ol><ol type="1" id="19a82a3e-9b73-8044-ac57-f492a25e18d8" class="numbered-list" start="3"><li><strong>File Creation Monitoring:</strong> Tracks file creation and file modification events.</li></ol><p id="19a82a3e-9b73-8049-a917-e870002e3377" class="">
+</p><p id="19a82a3e-9b73-808f-8c6c-eefdd9c68fda" class="">Sysmon Lets you to filter log based on their type  given below. Sysmon generates a variety of event IDs, each corresponding to a specific type of system activity. Here are some of the key event IDs and what they represent:</p><ul id="19a82a3e-9b73-80f0-b611-d76b4bc2e515" class="bulleted-list"><li style="list-style-type:disc"><strong>Event ID 1:</strong> Process creation (logs process creation with command line and hash).</li></ul><ul id="19a82a3e-9b73-805f-91c6-d2e551c71d70" class="bulleted-list"><li style="list-style-type:disc"><strong>Event ID 2:</strong> File creation time changed (logs when a file creation time is changed).</li></ul><ul id="19a82a3e-9b73-80b7-969f-db346870834d" class="bulleted-list"><li style="list-style-type:disc"><strong>Event ID 3:</strong> Network connection (logs TCP/UDP connections).</li></ul><ul id="19a82a3e-9b73-80af-8afc-d5b9687e4c9a" class="bulleted-list"><li style="list-style-type:disc"><strong>Event ID 4:</strong> Sysmon service state changed (logs Sysmon service state changes).</li></ul><ul id="19a82a3e-9b73-80ea-9dfa-f11c81499e2f" class="bulleted-list"><li style="list-style-type:disc"><strong>Event ID 5:</strong> Process terminated (logs when a process terminates).</li></ul><ul id="19a82a3e-9b73-8001-8e7c-e1bb2f398175" class="bulleted-list"><li style="list-style-type:disc"><strong>Event ID 6:</strong> Driver loaded (logs when a driver is loaded).</li></ul><ul id="19a82a3e-9b73-8099-89c3-cb9a3797ca03" class="bulleted-list"><li style="list-style-type:disc"><strong>Event ID 7:</strong> Image loaded (logs when an image is loaded).</li></ul><ul id="19a82a3e-9b73-8077-8b92-cab847fb7070" class="bulleted-list"><li style="list-style-type:disc"><strong>Event ID 8:</strong> CreateRemoteThread (logs when a thread is created in another process).</li></ul><ul id="19a82a3e-9b73-8079-b930-f3754359105a" class="bulleted-list"><li style="list-style-type:disc"><strong>Event ID 9:</strong> RawAccessRead (logs when a process conducts reading of raw data from the disk).</li></ul><ul id="19a82a3e-9b73-806e-b0e1-f8a7fb1d1c27" class="bulleted-list"><li style="list-style-type:disc"><strong>Event ID 10:</strong> ProcessAccess (logs when one process opens another process).</li></ul><ul id="19a82a3e-9b73-80db-87e2-f3763a6f34e0" class="bulleted-list"><li style="list-style-type:disc"><strong>Event ID 11:</strong> FileCreate (logs when a file is created or overwritten).</li></ul><ul id="19a82a3e-9b73-80c4-87ef-dc87c0c1cf68" class="bulleted-list"><li style="list-style-type:disc"><strong>Event ID 12:</strong> RegistryEvent (Object create and delete - logs when registry keys and values are added/deleted).</li></ul><ul id="19a82a3e-9b73-80fd-b769-e2608b87a299" class="bulleted-list"><li style="list-style-type:disc"><strong>Event ID 13:</strong> RegistryEvent (Value Set - logs registry value modifications).</li></ul><ul id="19a82a3e-9b73-80e3-b968-c88c9b0e3556" class="bulleted-list"><li style="list-style-type:disc"><strong>Event ID 14:</strong> RegistryEvent (Key and Value Rename - logs registry key and value renames).</li></ul><ul id="19a82a3e-9b73-809e-b69f-e815c42cb843" class="bulleted-list"><li style="list-style-type:disc"><strong>Event ID 15 : </strong>FileCreateStreamHash (logs downloads and its hash)</li></ul><ul id="19a82a3e-9b73-806b-814e-fa32c860fddd" class="bulleted-list"><li style="list-style-type:disc"><strong>Event ID 22 : </strong>DNSEvent (DNS Query) (Log whenever process executes DNS query)</li></ul><ul id="19a82a3e-9b73-80b2-8e6f-dc56bcaa1f44" class="bulleted-list"><li style="list-style-type:disc"><strong>Event ID 29 : </strong>FileExecutableDetected (Log creation of new executable) <em>Examines file by checking file beginning for file signature.</em><br/><br/></li></ul><h2 id="19b82a3e-9b73-8022-ac40-c624e2b3b950" class="">Linux Network Analysis</h2><p id="19d82a3e-9b73-80c1-8d35-dc0053beb222" class="">
+</p><ol type="1" id="19d82a3e-9b73-8077-ab7e-e121d5b92c07" class="numbered-list" start="1"><li><strong>Netstat:</strong></li></ol><p id="19d82a3e-9b73-809b-81a4-e241bf46e2d4" class=""><em>We can see all the active connection using netstat.</em></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19d82a3e-9b73-8036-8b44-c8b7462e2be6" class="code"><code class="language-Java">&gt;&gt; sudo netstat -t -n -p </code></pre><figure id="19d82a3e-9b73-806e-9f50-e506f955f0cb" class="image"><a href="image%2041.png"><img style="width:576px" src="image%2041.png"/></a></figure><p id="19d82a3e-9b73-80ba-96dd-d09ebcea6bea" class="">
+</p><ol type="1" id="19d82a3e-9b73-807f-8c2d-fa11ba1850d8" class="numbered-list" start="2"><li><strong>SS : </strong>ss it a modern version of netstat, it has some addition functionalities (src, dst, sport, dport, )</li></ol><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19d82a3e-9b73-80e8-8785-eff1e5146947" class="code"><code class="language-Java">&gt;&gt; sudo ss -tnp</code></pre><figure id="19d82a3e-9b73-8043-823d-fa4ae1c1a67b" class="image"><a href="688eed61-c2ee-459c-a671-8be1c88644ea.png"><img style="width:720px" src="688eed61-c2ee-459c-a671-8be1c88644ea.png"/></a></figure><figure id="19d82a3e-9b73-80e7-9f6d-e8d384147f75" class="image"><a href="28a8d845-3f42-4913-b838-4b98b0f4e4d8.png"><img style="width:720px" src="28a8d845-3f42-4913-b838-4b98b0f4e4d8.png"/></a></figure><p id="19d82a3e-9b73-8048-a7f3-cdf041f92155" class="">
+</p><ol type="1" id="19d82a3e-9b73-8070-ab8d-f2d1694ad4fc" class="numbered-list" start="3"><li><strong>lsof (list open files): </strong>This command is used to list all the open files. It helps to list out all the information related to files and networking. It is useful as in linux everything is considered as file.</li></ol><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19d82a3e-9b73-8097-a957-d8868ebd2e9a" class="code"><code class="language-Java">&gt;&gt; sudo lsof -u kali -i -n -P</code></pre><p id="19d82a3e-9b73-8038-a3ba-c2281d063213" class="">You can list out the files associated with given process id</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19d82a3e-9b73-808d-a746-d386d8153336" class="code"><code class="language-Java">&gt;&gt; sudo lsof -p {pid of malware}</code></pre><h2 id="19d82a3e-9b73-802d-8515-fcc412856f8c" class="">Linux Process Analysis</h2><ol type="1" id="19d82a3e-9b73-8078-be82-f924665f1096" class="numbered-list" start="1"><li><strong>ps :- </strong>ps Command list outs all the running processes in the system.</li></ol><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19d82a3e-9b73-80cb-bc7e-ea62268a195c" class="code"><code class="language-Java">&gt;&gt; ps aux
+&gt;&gt; ps -AFH</code></pre><p id="19d82a3e-9b73-8059-8d8e-c4cf68f56b61" class="">On finding processes you want to investigate find out more details about using</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19d82a3e-9b73-800e-b708-df0363e3b1aa" class="code"><code class="language-Java">&gt;&gt; ps -pid {pid} -F
+&gt;&gt; ps --ppid {pid} -F</code></pre><p id="19d82a3e-9b73-8058-b579-f18bdff512b7" class="">
+</p><ol type="1" id="19d82a3e-9b73-809e-a002-c82d16bf5a5e" class="numbered-list" start="2"><li><strong>Pstree : </strong>This command helps to display the hierarchical structure of the processes.</li></ol><figure id="19d82a3e-9b73-8045-a275-e5c4f6db03b4" class="image"><a href="image%2042.png"><img style="width:709.9000244140625px" src="image%2042.png"/></a><figcaption>-p = pid, -S = to dsiplay its parent process.</figcaption></figure><p id="19d82a3e-9b73-805c-b173-c16dfa7a7c59" class="">
+</p><ol type="1" id="19d82a3e-9b73-80c5-9cde-f2df5b0d9ad8" class="numbered-list" start="3"><li><strong>Top: </strong>This command helps to display all the processes running in the real time.</li></ol><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19d82a3e-9b73-806c-8989-cbdefb974551" class="code"><code class="language-Java">&gt;&gt; top</code></pre><p id="19d82a3e-9b73-80f3-b5f8-f5af8fe06d6e" class="">
+</p><ol type="1" id="19d82a3e-9b73-80c3-95e1-f8cb275874fa" class="numbered-list" start="4"><li><strong>/proc : </strong>This is the directory stored in the system which stores all the information about the processes, kernel parameter, system resource with in form of directories (pids as its name).</li></ol><figure id="19d82a3e-9b73-80bf-ab74-de7aee8c580d" class="image"><a href="image%2043.png"><img style="width:709.9874877929688px" src="image%2043.png"/></a></figure><p id="19d82a3e-9b73-8047-8849-f444da173c6e" class="">You can open the directories of the process you want to investigate, this will list out all the files required to execute the process (this includes files like command which stores command use to execute the process, arch_status stores architecture status).</p><figure id="19d82a3e-9b73-800d-8ec8-eafbac9d01dc" class="image"><a href="image%2044.png"><img style="width:709.9874877929688px" src="image%2044.png"/></a><figcaption>some files store the symbolic link (pointer ), like <em>cwd </em>stores the link to the current file executing.</figcaption></figure><blockquote id="19e82a3e-9b73-8036-9d24-c643229d94b5" class="">A process can still be running in the system even after the source file is deleted. This is because the file is stored in memory while it is executing. (like if delete the payload while it is running the payload is still active until its process is killed). </blockquote><p id="19e82a3e-9b73-80bf-b824-e313769b255b" class="">
+</p><h2 id="19e82a3e-9b73-80b9-8a83-f7ee26e4cd7e" class="">Scheduled Tasks in Linux</h2><h2 id="19e82a3e-9b73-8097-b6c3-ff2e0ad7ac70" class=""><strong>Cron :</strong></h2><p id="19e82a3e-9b73-80e8-a64c-df3e5d1d6a0c" class="">Cron is a powerful tool for automating file management, process execution, and task scheduling in Linux systems. By leveraging Cron, you can efficiently manage repetitive tasks, automate workflows, and improve system efficiency.  </p><p id="19e82a3e-9b73-801c-b5fe-c5b2b1fdb419" class="">Cron allows users to schedule tasks, often referred to as Cron jobs, to run periodically at fixed times, or dates or intervals.</p><p id="19e82a3e-9b73-806b-8ae8-d447f46ea0a2" class="">It is widely used to automate tasks like like running backups or system maintenance or regular data processing jobs.</p><p id="19e82a3e-9b73-8063-9f0a-c240a5968f98" class="">
+</p><p id="19e82a3e-9b73-8002-8640-cafdd8407975" class=""><em>Each user has his own Cron job files, and a system wide Cron job files for system</em></p><p id="19e82a3e-9b73-80e6-b150-cfd166293cb3" class=""><strong>Format:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19e82a3e-9b73-80c1-bc5d-c39502b7d1a6" class="code"><code class="language-Java">&gt;&gt; 05 00 * * * /tmp/backup.sh</code></pre><ul id="19e82a3e-9b73-80c4-8974-de5b31a3b636" class="bulleted-list"><li style="list-style-type:disc">The first 2 places represents interval in minutes (here, execute after interval of 5 min for given hour, */5 = to execute every 5th minute), </li></ul><ul id="19e82a3e-9b73-8062-b855-c192b41b3cef" class="bulleted-list"><li style="list-style-type:disc">The next 2 places represents hour (time) of day to execute (here every day at 12:00), </li></ul><ul id="19e82a3e-9b73-8018-810d-f27cbf3ba2e1" class="bulleted-list"><li style="list-style-type:disc">The next “*  *  * “represents day/month/day of week for execution, you can use month number or short form Jan, Feb, etc / for day of week use  week number of short name (sun, mon or 0=7= sun, 1 = mon,…) here, its execute everyday.</li></ul><ul id="19e82a3e-9b73-805f-bf6a-f9ebc41ffe9e" class="bulleted-list"><li style="list-style-type:disc"> command field is used to execute specific file.  </li></ul><p id="19e82a3e-9b73-8029-a66d-c5a0826b33eb" class="">
+</p><p id="19e82a3e-9b73-80af-8672-cb9586049b53" class="">Use <a href="http://corntab.guru">corntab.guru</a> site to create Cron jobs : </p><figure id="19e82a3e-9b73-803b-8790-f5697f708ba8" class="image"><a href="image%2045.png"><img style="width:624px" src="image%2045.png"/></a></figure><p id="19e82a3e-9b73-8029-bc94-dfe13fcf95d1" class="">
+</p><p id="19e82a3e-9b73-80ab-85d2-f16cf2795e62" class="">Command “<em><strong>etc/crontab” </strong></em>is used to display all the Cron job entries files. As you can see there are some pre defined Cron jobs like daily, weekly, monthly that gets executed.</p><figure id="19e82a3e-9b73-80a4-baa4-fea51c9cdcb4" class="image"><a href="image%2046.png"><img style="width:709.9750366210938px" src="image%2046.png"/></a></figure><p id="19e82a3e-9b73-80d4-8179-c9fa2c718638" class="">
+</p><p id="19e82a3e-9b73-80e6-939e-ebf200f76af5" class="">You can open Cron jobs files for further investigate (like extracting hashes for each files). </p><figure id="19e82a3e-9b73-80df-95ad-ce6db032781d" class="image"><a href="image%2047.png"><img style="width:709.9874877929688px" src="image%2047.png"/></a></figure><figure id="19e82a3e-9b73-804d-8b66-e193ccde0367" class="image"><a href="image%2048.png"><img style="width:709.9625244140625px" src="image%2048.png"/></a></figure><p id="19e82a3e-9b73-80f8-b899-f4b8739d45ef" class="">
+</p><ol type="1" id="19e82a3e-9b73-80cf-8d60-c2c4b4ac4065" class="numbered-list" start="1"><li>&gt;&gt; <em><strong>ls -al /var/spool/cron/crontabs : </strong></em>To list out all the Cron tabs files of the system (all user levels).</li></ol><ol type="1" id="19e82a3e-9b73-8028-8fdc-edde92685e9f" class="numbered-list" start="2"><li>&gt;&gt; <em><strong>crontab -e [1-3] :  </strong></em>To create your own Cron job for user level jobs (run this command &amp; select editor).<p id="19e82a3e-9b73-8069-8a97-f47da03a6b38" class=""><em>      Eg : */5  *  * * * ~/home/kali/Download/evil.elf</em></p></li></ol><ol type="1" id="19e82a3e-9b73-801a-aeb5-d7d29286dd48" class="numbered-list" start="3"><li>&gt;&gt; <em><strong>sudo crontab -u  user : </strong></em>To display all the Cron jobs </li></ol><p id="19e82a3e-9b73-80e0-9873-e16a58b1a8c6" class="">
+</p><blockquote id="19e82a3e-9b73-807b-9df3-ed0892914d02" class="">Traverse all the Cron files to find any malicious Cron jobs.</blockquote><p id="19e82a3e-9b73-80f5-b768-f098c4d9148a" class="">
+</p><h3 id="19e82a3e-9b73-8029-818e-db3b27691dca" class="">Lima Charlie </h3><p id="19e82a3e-9b73-8066-83eb-f6bd4c395627" class="">Lima Charlie is ERD tool that offers a free trial of EDR solution </p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

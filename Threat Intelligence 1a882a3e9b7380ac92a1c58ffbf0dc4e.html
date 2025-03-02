@@ -1,0 +1,699 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Threat Intelligence</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-transparentGray { background-color: undefined; }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1a882a3e-9b73-80ac-92a1-c58ffbf0dc4e" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/solid_beige.png" style="object-position:center 40%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="https://www.notion.so/icons/clipping_gray.svg"/></div><h1 class="page-title">Threat Intelligence</h1><p class="page-description"></p><table class="properties"><tbody><tr class="property-row property-row-status"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/clipping_gray.svg" style="width:14px;height:14px;display:block"/></span>Note Type</th><td><span class="status-value select-value-color-gray"><div class="status-dot status-dot-color-gray"></div>Notebook Notes</span></td></tr><tr class="property-row property-row-checkbox"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/star_gray.svg" style="width:14px;height:14px;display:block"/></span>Favorite</th><td><div class="checkbox checkbox-off"></div></td></tr><tr class="property-row property-row-checkbox"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/archive_gray.svg" style="width:14px;height:14px;display:block"/></span>Archive</th><td><div class="checkbox checkbox-off"></div></td></tr><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>Created</th><td><time>@February 28, 2025 10:52 AM</time></td></tr><tr class="property-row property-row-last_edited_time"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>Last edited time</th><td><time>@March 1, 2025 1:27 PM</time></td></tr><tr class="property-row property-row-relation"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/book-closed_gray.svg" style="width:14px;height:14px;display:block"/></span>Notebooks</th><td><a href="SOC%20#4%2016382a3e9b73815c8567d0430a6e99a2.html"><img class="icon" src="https://www.notion.so/icons/book-closed_gray.svg"/>SOC #4</a></td></tr></tbody></table></header><div class="page-body"><hr id="1a882a3e-9b73-8044-b3d8-f15165d4f6b4"/><h1 id="1a882a3e-9b73-8067-9e8f-c86b689253aa" class="">Threat Intelligence</h1><p id="1a882a3e-9b73-8048-9672-da8a70566a73" class="">Threat intelligence refers to the process of gathering, analyzing, and sharing information related to potential threats to an organization&#x27;s systems or data. </p><p id="1a882a3e-9b73-80fe-9a01-ddd972100f78" class="">This information can come from a variety of sources, including security monitoring tools, vulnerability scans, and threat actor activity. </p><p id="1a882a3e-9b73-809d-9bcb-c0f4c95b5046" class="">By leveraging this intelligence, organizations can proactively protect themselves against cyber threats by identifying and responding to potential risks before they become full-fledged attacks. Additionally, threat intelligence can help inform broader security strategies and policies, such as incident response plans and disaster recovery procedures.</p><p id="1a882a3e-9b73-80ac-b0c0-ef70f5b8665a" class="">
+</p><h3 id="1a882a3e-9b73-806b-bff7-e0a1e719b2a4" class="">Types of Threat Intelligence</h3><p id="1a882a3e-9b73-80ae-be7f-d3867ded0166" class="">Threat intelligence can be divided into several types based on its purpose and the stage of an attack lifecycle it focuses on:</p><ol type="1" id="1a882a3e-9b73-801c-aeb5-e88762eaed6f" class="numbered-list" start="1"><li><strong>Strategic Threat Intelligence: </strong>This type of threat intelligence provides an overview of the current landscape of cyber threats, including emerging trends, techniques, and actors. It helps organizations understand the broader context in which they operate and informs their overall security strategy.(Includes threat reports)<ol type="a" id="1a882a3e-9b73-80ca-b8a3-f34a3758c2f4" class="numbered-list" start="1"><li>High level analysis - trends, risks, impacts</li></ol><ol type="a" id="1a882a3e-9b73-80aa-8e7f-ec1fa92842f1" class="numbered-list" start="2"><li>Threat actor motives, goals, and capabilities</li></ol><ol type="a" id="1a882a3e-9b73-80f8-be78-c7c5297dcb87" class="numbered-list" start="3"><li>Deciding long-term security strategy</li></ol></li></ol><ol type="1" id="1a882a3e-9b73-805c-961b-d40e695f7250" class="numbered-list" start="2"><li><strong>Tactical Threat Intelligence:</strong> Also known as Indicator-of-Compromise (IoC) or Indicator-of-Attack (IoA), this type of intelligence focuses on specific signs of malicious activity, such as IP addresses, domain names, file hashes, or attack patterns. This information can be used to quickly detect and respond to ongoing threats.<ol type="a" id="1a882a3e-9b73-80a7-aaab-e097a84caeee" class="numbered-list" start="1"><li>Tactics, techniques, and procedures (TTPs)</li></ol><ol type="a" id="1a882a3e-9b73-8077-8c30-fbbb2012a7f5" class="numbered-list" start="2"><li>Threat actor behavior and methodologies</li></ol><ol type="a" id="1a882a3e-9b73-808f-aa81-debf051fce77" class="numbered-list" start="3"><li>Tools, infrastructure, and technical capabilities</li></ol><ol type="a" id="1a882a3e-9b73-80a6-9629-de0c2dd1aa42" class="numbered-list" start="4"><li>Indicators of Compromise (IOCs)</li></ol><ol type="a" id="1a882a3e-9b73-80af-9678-c08d56a1fe21" class="numbered-list" start="5"><li>Integrate into tooling to enhance detection methods</li></ol></li></ol><ol type="1" id="1a882a3e-9b73-801e-a88c-c79b078bf733" class="numbered-list" start="3"><li><strong>Operational Threat Intelligence:</strong> This type of intelligence is more granular and provides detailed information about a specific threat actor or group. It includes information on their motivations, capabilities, tactics, techniques, and procedures (TTPs), which can help organizations tailor their defenses against targeted attacks.<ol type="a" id="1a882a3e-9b73-80ba-b7a4-e2284c54cc13" class="numbered-list" start="1"><li>Imminent threats, plans, and timelines</li></ol><ol type="a" id="1a882a3e-9b73-80de-a4b3-dbaba4478ff1" class="numbered-list" start="2"><li>Tracking threat actors and groups</li></ol></li></ol><ol type="1" id="1a882a3e-9b73-80d9-a132-edbbc0b71a20" class="numbered-list" start="4"><li><strong>Predictive Threat Intelligence: </strong>This type of intelligence uses machine learning algorithms to analyze historical data and identify patterns that may indicate future threats. By predicting potential risks before they materialize, organizations can proactively strengthen their defenses.</li></ol><ol type="1" id="1a882a3e-9b73-80f9-90e9-e3af30ac3483" class="numbered-list" start="5"><li><strong>Contextual Threat Intelligence</strong>: This type of intelligence is tailored to an organization&#x27;s specific industry or infrastructure, providing information on the unique threats and vulnerabilities that pertain to it. It helps organizations understand how general threat trends apply to their own environment and prioritize their security efforts accordingly.</li></ol><p id="1a882a3e-9b73-807f-85cc-ed3c970e47e4" class="">By leveraging these different types of threat intelligence, organizations can better protect themselves against cyber attacks and respond quickly when they do occur.</p><p id="1a982a3e-9b73-808d-aa3e-cfe240badb1f" class="">
+</p><h2 id="1a982a3e-9b73-80a9-8739-d334ecafe570" class="">Threat Intelligence Frameworks:</h2><h3 id="1a882a3e-9b73-800f-9a5f-f3ff5589402b" class="">The Intelligence Cycle</h3><figure id="1a882a3e-9b73-80d7-8d13-c7a4050b6643" class="image"><a href="image%2063.png"><img style="width:672px" src="image%2063.png"/></a></figure><p id="1a882a3e-9b73-8053-b0ec-db7ef5ef2536" class="">The Intelligence Cycle is a framework for managing the process of gathering, analyzing, and disseminating information related to potential threats. It consists of several stages that are repeated in an iterative manner:</p><ol type="1" id="1a882a3e-9b73-8035-856f-ccdf6929c588" class="numbered-list" start="1"><li><strong>Planning and Direction: </strong>This stage sets the objectives and scope of the intelligence effort, determining what information is needed to address a specific threat or problem.</li></ol><ol type="1" id="1a882a3e-9b73-80a7-ae82-dce54ca9d848" class="numbered-list" start="2"><li><strong>Collection: </strong>In this stage, data is gathered from various sources, including open-source intelligence (OSINT), human intelligence (HUMINT), signals intelligence (SIGINT), and others. The collected data may include reports, images, intercepted communications, and other evidence related to the threat at hand.</li></ol><ol type="1" id="1a882a3e-9b73-8053-b669-d37bd8319f1a" class="numbered-list" start="3"><li><strong>Processing: </strong>During this stage, raw data is analyzed, sorted, and filtered to identify relevant information that can be used to address the identified threats or problems. This process involves removing duplicates, organizing data by category or time, and translating foreign languages if necessary.</li></ol><ol type="1" id="1a882a3e-9b73-8080-8a80-d5526718153c" class="numbered-list" start="4"><li><strong>Analysis:</strong> In this phase, analysts examine the processed data to identify patterns, correlations, and trends that may indicate potential threats or vulnerabilities. They also assess the reliability of the sources and information, ensuring that conclusions are based on sound evidence.</li></ol><ol type="1" id="1a882a3e-9b73-80dc-be07-cbd50dcb55a2" class="numbered-list" start="5"><li><strong>Dissemination: </strong>Once the intelligence has been analyzed and validated, it is shared with decision-makers who can use it to inform their strategies and tactics. This may involve providing briefings, preparing reports, or delivering presentations on key findings.</li></ol><ol type="1" id="1a882a3e-9b73-80a4-b0af-c36afad78d94" class="numbered-list" start="6"><li><strong>Feedback: </strong>Finally, feedback from users helps refine the intelligence process by identifying areas where improvements can be made. This information is used to update plans and procedures, ensuring that future efforts are more effective in addressing emerging threats.</li></ol><p id="1a882a3e-9b73-8035-b63b-d6d34cc3d469" class="">By following The Intelligence Cycle, organizations can ensure that they have access to the most accurate and relevant information needed to protect their systems and data from potential cyber threats.</p><p id="1a882a3e-9b73-80b7-82a9-e48a0a823632" class="">
+</p><h3 id="1a882a3e-9b73-8022-a78d-e31e4b7cfb4f" class="">The Diamond Model of Intrusion Analysis</h3><figure id="1a882a3e-9b73-8013-bf19-ec2fa3e02c4e" class="image"><a href="image%2064.png"><img style="width:709.9874877929688px" src="image%2064.png"/></a></figure><p id="1a882a3e-9b73-8097-bb36-c4c6205d3813" class="">
+</p><p id="1a882a3e-9b73-8093-949a-c958d791822b" class="">The Diamond Model is a framework for analyzing cyber attacks that breaks down the attack. The Diamond Model of Intrusion Analysis is a framework for understanding and responding to cyber attacks. process into four distinct categories:</p><ol type="1" id="1a882a3e-9b73-802c-9763-e3b27fa43818" class="numbered-list" start="1"><li><strong>Adversary: </strong>This refers to the actor behind the attack, including their motivations, capabilities, and objectives. By understanding who is responsible for the attack, organizations can better prepare for future incidents and tailor their defenses accordingly.</li></ol><ol type="1" id="1a882a3e-9b73-8093-847d-c719ade4ba2b" class="numbered-list" start="2"><li><strong>Infrastructure: </strong>This category focuses on the tools and systems used by the attacker to carry out their campaign. It includes elements such as command-and-control servers, malware repositories, and proxy servers that may be used to obscure the attacker&#x27;s true identity or location.</li></ol><ol type="1" id="1a882a3e-9b73-8054-9734-c59edd74f56d" class="numbered-list" start="3"><li><strong>Capability:</strong> The capabilities category examines the technical aspects of an attack, including the types of exploits used, the methods employed for lateral movement within a network, and any additional tools or techniques that were utilized during the course of the attack.</li></ol><ol type="1" id="1a882a3e-9b73-80f4-a486-c3d162c9e1cc" class="numbered-list" start="4"><li><strong>Victim:</strong> In this final category, organizations assess the impact of the attack on their systems and data. This includes identifying which assets were targeted, the extent of the damage caused, and any steps that need to be taken to remediate the situation and prevent future incidents.</li></ol><p id="1a882a3e-9b73-805b-b825-e34c89674235" class="">By applying the Diamond Model to analyze a specific cyber attack, security professionals can gain a comprehensive understanding of the threat landscape and develop more effective strategies for protecting their organizations from similar attacks in the future.</p><p id="1a882a3e-9b73-8051-a778-dc5d3332c65f" class="">
+</p><figure id="1a882a3e-9b73-8060-9fa7-d81aadec01c4" class="image"><a href="image%2065.png"><img style="width:709.9874877929688px" src="image%2065.png"/></a></figure><p id="1a882a3e-9b73-804f-a3fd-c5de91fb9ba4" class="">
+</p><h3 id="1a882a3e-9b73-80dd-92a4-c5a4b2420f1e" class="">The Cyber Kill Chain</h3><p id="1a882a3e-9b73-808f-90dc-f501dda5dd4e" class="">The Cyber Kill Chain is a framework is used to describe the various stages involved in a successful cyber attack. It helps organizations understand how attacks progress through different phases and identify opportunities for disrupting or preventing them. The kill chain consists of the following stages:</p><figure id="1a882a3e-9b73-80fa-9ec6-dc20ce50ce96" class="image"><a href="image%2066.png"><img style="width:709.9874877929688px" src="image%2066.png"/></a></figure><p id="1a882a3e-9b73-80ad-9a16-da211ee0ea71" class="">The Cyber Kill Chain is a framework developed by Lockheed Martin that describes the various stages an attacker must go through to successfully carry out a cyber attack. It helps organizations understand the different points at which they can detect and disrupt an attack in progress. Here&#x27;s an example of each stage in the Cyber Kill Chain:</p><ol type="1" id="1a882a3e-9b73-807c-8d97-d2034aab2035" class="numbered-list" start="1"><li>Reconnaissance: In this stage, attackers gather information about their target organization, including its network infrastructure, employee roles, and potential vulnerabilities. For example, an attacker might use Google Dorks to find publicly accessible files containing sensitive information.</li></ol><ol type="1" id="1a882a3e-9b73-80b3-a783-d0b8e6e0bfe0" class="numbered-list" start="2"><li>Weaponization: Attackers develop the tools and techniques they will use to exploit identified vulnerabilities. This could involve creating custom malware or adapting existing malware for a specific purpose. For example, an attacker might create a new variant of ransomware designed to target a specific organization.</li></ol><ol type="1" id="1a882a3e-9b73-8098-bef2-d100a2a712a1" class="numbered-list" start="3"><li>Delivery: Attackers deliver the weaponized payload to their target, often through phishing emails or exploiting unpatched vulnerabilities in software applications. For example, an attacker might send a malicious email attachment that, when opened, installs malware on the victim&#x27;s computer.</li></ol><ol type="1" id="1a882a3e-9b73-80ab-a3b0-cd92d5525e07" class="numbered-list" start="4"><li>Exploitation: Once the payload has been delivered, attackers use it to gain control over targeted systems by exploiting known vulnerabilities. This could involve taking advantage of weak or default passwords, unpatched software bugs, or other security weaknesses. For example, an attacker might use a recently discovered vulnerability in popular web browser to gain access to a target system.</li></ol><ol type="1" id="1a882a3e-9b73-8038-aa66-c39675ed33a8" class="numbered-list" start="5"><li>Installation: After gaining access to a target system, attackers install additional malware or persistent backdoors to maintain their foothold within the network. This could involve creating new user accounts, modifying registry settings, or installing rootkits. For example, an attacker might use a Trojan horse to install a keylogger that captures keystrokes and sends them back to the attacker&#x27;s command-and-control server.</li></ol><ol type="1" id="1a882a3e-9b73-80a2-931a-fa2d0f0e5f23" class="numbered-list" start="6"><li>Command &amp; Control: Attackers establish a communication channel between their systems and those they have compromised, allowing them to issue commands and receive data from infected devices. This could involve setting up a custom domain name or using existing infrastructure like botnets. For example, an attacker might set up a server in a remote location that communicates with infected computers to receive stolen data.</li></ol><ol type="1" id="1a882a3e-9b73-80e4-a77e-cae0d332bf02" class="numbered-list" start="7"><li>Actions on Objectives: In this final stage, attackers achieve their ultimate goal by using the access they have gained to perform various malicious activities, such as stealing sensitive data, disrupting operations, or causing other forms of damage. For example, an attacker might exfiltrate customer records from a target organization&#x27;s database and demand a ransom in exchange for not releasing the information publically.</li></ol><p id="1a882a3e-9b73-80d8-8f1d-c3c5af7b3c9f" class="">By understanding each stage of the Cyber Kill Chain and implementing appropriate security controls to disrupt attacks at various points along the chain, organizations can significantly reduce their risk of becoming victims of cyber crime.</p><p id="1a982a3e-9b73-8014-b562-f5aebb3f4fae" class="">
+</p><h2 id="1a982a3e-9b73-8024-a6da-fe9bbc38d657" class="">Pyramid of Pain</h2><figure id="1a982a3e-9b73-8063-a39b-efae701f1e77" class="image"><a href="image%2067.png"><img style="width:709.9874877929688px" src="image%2067.png"/></a></figure><p id="1a982a3e-9b73-80af-9eb8-e124e86d8bdf" class="">The Pyramid of Pain is a model that represents the relative difficulty and impact of different types of cyber attacks on an organization. It consists of six levels, arranged from highest to lowest impact:</p><ol type="1" id="1a982a3e-9b73-800d-9c1e-ea6c69659aac" class="numbered-list" start="1"><li><strong>Tough</strong>: At the top of the pyramid, we have the most challenging and damaging attacks, such as advanced persistent threats (APTs) conducted by well-funded nation-state actors or highly sophisticated cybercriminals. These attacks often involve complex techniques like zero-day exploits or supply chain attacks, requiring significant resources to defend against.</li></ol><ol type="1" id="1a982a3e-9b73-80fc-babd-d15cddf6076a" class="numbered-list" start="2"><li><strong>Challenging: </strong>Below APTs, we find attacks that are still difficult to detect and mitigate but may not have the same level of sophistication or impact. Examples include sophisticated ransomware variants that use advanced obfuscation techniques to evade detection or targeted phishing campaigns designed to steal valuable intellectual property.</li></ol><ol type="1" id="1a982a3e-9b73-804c-a7d1-fc6a2ccd5ae5" class="numbered-list" start="3"><li><strong>Annoying: </strong>Moving down the pyramid, we find attacks that cause inconvenience but do not pose a significant threat to an organization&#x27;s security posture. These may include simple script kiddie attacks aimed at disrupting services or defacing websites, as well as low-level spam campaigns designed to gather personal information from unsuspecting victims.</li></ol><ol type="1" id="1a982a3e-9b73-8089-91bf-dd1019dc6394" class="numbered-list" start="4"><li><strong>Simple: </strong>At this level, we find relatively easy-to-detect attacks that typically do not cause significant harm but can still consume valuable resources when dealt with. Examples include basic botnet infections or malware families that have been widely publicized and are now easily detectable by most security tools.</li></ol><ol type="1" id="1a982a3e-9b73-80b4-be29-e956ed5ed8a4" class="numbered-list" start="5"><li><strong>Easy: </strong>In the middle of the pyramid, we find attacks that are relatively easy to defend against due to their simplicity or lack of sophistication. These may include common phishing scams, basic Trojans, or other low-level threats that can be mitigated through basic security hygiene practices like patch management and user awareness training.</li></ol><ol type="1" id="1a982a3e-9b73-8075-8153-c50c40d4d262" class="numbered-list" start="6"><li><strong>Trivial:</strong> At the bottom of the pyramid, we find attacks that are easily detected and mitigated by even the most basic security measures. These may include simple website defacements or generic spam campaigns that do not pose a significant threat to an organization&#x27;s security posture.</li></ol><p id="1a982a3e-9b73-803d-ba3e-caee86a041bd" class="">By understanding the relative impact and difficulty of different types of cyber attacks, security professionals can prioritize their efforts and resources more effectively when defending against potential threats.</p><p id="1a982a3e-9b73-8068-aeff-f6682f214611" class="">
+</p><p id="1a982a3e-9b73-806f-b5c9-d2b909474c42" class=""><strong>Attacker’s Perspective </strong></p><p id="1a982a3e-9b73-80a7-94af-e0fc18a44a05" class="">From the perspective of an attacker, the Pyramid of Pain represents the relative ease and effectiveness of different types of cyber attacks in achieving their objectives. The pyramid consists of six levels, arranged from easiest to most difficult:</p><ol type="1" id="1a982a3e-9b73-8012-9b04-e38a0dd7ff9f" class="numbered-list" start="1"><li><strong>Trivial:</strong> At the bottom of the pyramid, we have basic cyber attacks that are easy to carry out but may not yield significant rewards. These may include simple website defacements or generic spam campaigns targeting unsuspecting victims.</li></ol><ol type="1" id="1a982a3e-9b73-8032-bec5-e8fd6794c0d9" class="numbered-list" start="2"><li><strong>Easy:</strong> Moving up the pyramid, we find attacks that require slightly more skill and resources but still have a relatively high success rate. Examples include basic phishing scams or Trojan horse malware designed to steal personal information or install backdoors on victim computers.</li></ol><ol type="1" id="1a982a3e-9b73-806d-a8c8-e3500a997a9e" class="numbered-list" start="3"><li><strong>Simple: </strong>As we reach the middle of the pyramid, attacks become more complex but are still within the capabilities of many less-skilled attackers. These may include simple ransomware variants that encrypt files on infected systems until a ransom is paid or basic botnet infections designed to hijack computational resources for cryptocurrency mining.</li></ol><ol type="1" id="1a982a3e-9b73-8049-aaab-e072df5195ff" class="numbered-list" start="4"><li><strong>Annoying:</strong> In this level, attacks become more sophisticated and difficult to execute but can still cause significant disruption if successful. Examples include targeted phishing campaigns aimed at stealing valuable intellectual property or advanced persistent threats (APTs) conducted by nation-state actors or highly sophisticated cybercriminals.</li></ol><ol type="1" id="1a982a3e-9b73-805b-80e6-e80559d6d7af" class="numbered-list" start="5"><li><strong>Challenging:</strong> Moving towards the top of the pyramid, we find attacks that require significant resources and expertise to pull off but can yield high-value payoffs. These may include complex supply chain attacks that leverage zero-day exploits to infiltrate high-profile targets or advanced ransomware variants designed to target critical infrastructure systems.</li></ol><ol type="1" id="1a982a3e-9b73-80ec-a596-d78acfe693c8" class="numbered-list" start="6"><li><strong>Tough:</strong> At the pinnacle of the pyramid, we have the most challenging and difficult-to-execute attacks, such as sophisticated nation-state cyber weapons like Stuxnet or advanced persistent threats (APTs) conducted by highly skilled threat actors. These attacks often involve cutting-edge techniques like 0-day exploits or supply chain attacks, making them extremely difficult to detect and mitigate.</li></ol><p id="1a982a3e-9b73-80bc-b881-e8b6ef9043f3" class="">By understanding the relative difficulty and effectiveness of different types of cyber attacks from both the attacker&#x27;s and defender&#x27;s perspectives, security professionals can better prioritize their efforts when defending against potential threats.</p><p id="1a982a3e-9b73-80e9-9297-ec0bdaf010d9" class="">
+</p><h3 id="1a982a3e-9b73-8029-8067-e39ab375d9bf" class="">MITRE ATT&amp;CK</h3><p id="1a982a3e-9b73-807f-8a5a-e0ba4708b981" class="">The <strong>MITRE ATT&amp;CK Framework is a knowledge base </strong>that provides detailed information on various <strong>tactics, techniques, and procedures (TTPs)</strong> used by cyber adversaries to compromise systems and steal valuable data. The framework consists of two main components: the Enterprise Attack Matrix (EAM), which focuses on attacks targeting enterprise environments, and the Mobile Attack Matrix (MAM), which focuses on attacks targeting mobile devices.</p><p id="1a982a3e-9b73-8005-b9fb-d27656fbbfc5" class="">The ATT&amp;CK Framework is organized into multiple matrices, each focusing on a specific aspect of cyber attacks:</p><ol type="1" id="1a982a3e-9b73-8060-af61-c66c00988efb" class="numbered-list" start="1"><li><strong>Enterprise Matrix:</strong> This matrix covers the most common TTPs used by attackers targeting large organizations, including techniques like credential theft, process injection, and lateral movement. It provides detailed information on how these techniques are employed in various types of attacks and offers guidance for detecting and mitigating them.</li></ol><ol type="1" id="1a982a3e-9b73-8009-9a9e-ece0f01b7463" class="numbered-list" start="2"><li><strong>Mobile Matrix: </strong>This matrix focuses on the unique challenges faced by organizations that manage mobile devices, such as smartphones and tablets. It covers common TTPs like app manipulation, privilege escalation, and network traffic analysis specific to mobile platforms.</li></ol><ol type="1" id="1a982a3e-9b73-80dd-8cdd-c364800e14fb" class="numbered-list" start="3"><li><strong>ICS (Industrial Control Systems) Matrix:</strong> This matrix is designed for organizations involved in the operation of critical infrastructure systems, such as power plants, water treatment facilities, and manufacturing plants. It covers TTPs related to industrial control system components like programmable logic controllers (PLCs), human machine interfaces (HMIs), and SCADA systems.</li></ol><ol type="1" id="1a982a3e-9b73-8011-a585-f1e54f64ca1a" class="numbered-list" start="4"><li><strong>Web Matrix:</strong> This matrix focuses on attacks targeting web applications and infrastructure, including techniques like SQL injection, cross-site scripting (XSS), and server-side request forgery (SSRF). It provides detailed information on how these techniques are employed in various types of attacks and offers guidance for detecting and mitigating them.</li></ol><ol type="1" id="1a982a3e-9b73-806c-a5f1-cff4710e0ba4" class="numbered-list" start="5"><li><strong>Cloud Matrix: </strong>This matrix covers the unique challenges faced by organizations that manage cloud-based resources, such as virtual machines, containers, and serverless functions. It covers common TTPs like cloud credential theft, container manipulation, and unauthorized cryptocurrency mining specific to cloud environments.</li></ol><p id="1a982a3e-9b73-8065-8680-da855e15a749" class="">
+</p><p id="1a982a3e-9b73-80d7-9bcb-d52e40e08fa9" class=""><strong>The MITRE ATT&amp;CK Framework is organized into several categories, including:</strong></p><ol type="1" id="1a982a3e-9b73-8080-999f-e367236bda9d" class="numbered-list" start="1"><li><strong>Initial Access</strong>: This category covers tactics used by attackers to gain an initial foothold within a target network, such as exploiting vulnerabilities in software applications or using phishing campaigns to trick users into providing login credentials.</li></ol><ol type="1" id="1a982a3e-9b73-8024-b65d-d49a618bdfcf" class="numbered-list" start="2"><li><strong>Execution: </strong>Once attackers have gained access, they use various techniques to execute their malware on victim systems, including creating new user accounts or modifying registry settings.</li></ol><ol type="1" id="1a982a3e-9b73-8039-b5b2-d114b215c266" class="numbered-list" start="3"><li><strong>Persistence:</strong> This category covers tactics used by attackers to maintain their presence within a target network after initial access has been achieved. Common techniques include setting up backdoors or using legitimate system processes to hide malicious activity.</li></ol><ol type="1" id="1a982a3e-9b73-803d-b58c-ea867c015e3d" class="numbered-list" start="4"><li><strong>Privilege Escalation:</strong> Attackers use this category of techniques to elevate their privileges within the compromised system, allowing them to gain more control over the target environment and access sensitive information.</li></ol><ol type="1" id="1a982a3e-9b73-8048-95c9-d011b2385880" class="numbered-list" start="5"><li><strong>Defense Evasion:</strong> This category covers tactics used by attackers to avoid detection by security tools and processes, such as obfuscating malware code or using advanced encryption techniques.</li></ol><ol type="1" id="1a982a3e-9b73-802c-a87d-c90d9e549b7d" class="numbered-list" start="6"><li><strong>Credential Access: </strong>Attackers use this category of techniques to steal login credentials from victim systems, either directly by stealing stored passwords or indirectly by observing user interactions with the system.</li></ol><ol type="1" id="1a982a3e-9b73-8017-9d46-d14d50e1b8c0" class="numbered-list" start="7"><li><strong>Discovery</strong>: Once inside a target network, attackers use various methods to gather information about the organization&#x27;s infrastructure and assets, including scanning networks for vulnerable devices or monitoring system logs for valuable intelligence.</li></ol><ol type="1" id="1a982a3e-9b73-8040-a314-d92ae1c3bb19" class="numbered-list" start="8"><li><strong>Lateral Movement:</strong> This category covers tactics used by attackers to move laterally within a compromised network, often using legitimate system processes or tools like PowerShell scripts to bypass security controls.</li></ol><ol type="1" id="1a982a3e-9b73-8070-ad70-d7aa002b2b1a" class="numbered-list" start="9"><li><strong>Collection:</strong> After gaining access to sensitive information, attackers use this category of techniques to extract and exfiltrate data from the target environment, either through direct transfer methods like FTP or indirect methods like using cloud storage services.</li></ol><ol type="1" id="1a982a3e-9b73-8000-bd4d-ef0dbff5410f" class="numbered-list" start="10"><li><strong>Command &amp; Control:</strong> This category covers tactics used by attackers to establish a communication channel between their systems and those they have compromised, often involving the use of secure, encrypted connections to avoid detection.</li></ol><ol type="1" id="1a982a3e-9b73-8032-a260-c69f264f98ca" class="numbered-list" start="11"><li><strong>Impact:</strong> Finally, this category covers the various ways in which attackers can cause damage or disrupt operations within a target network, including deploying ransomware, destroying data, or launching denial-of-service attacks against critical systems.</li></ol><p id="1a982a3e-9b73-80c6-a460-e1eec4829e34" class="">By understanding the different tactics, techniques, and procedures used by cyber adversaries, security professionals can better prepare their organizations to defend against potential threats and mitigate the impact of successful attacks.</p><p id="1a982a3e-9b73-80a8-a713-f9c687afaab2" class="">
+</p><p id="1a982a3e-9b73-8010-8559-d5fa5b20d4a9" class=""><strong>The framework consists of three primary components:</strong></p><ol type="1" id="1a982a3e-9b73-80e8-8ec5-f6966564755c" class="numbered-list" start="1"><li><strong>Tactics: </strong>These are high-level categories that describe the objectives an attacker may have during a cyber attack. Examples include Initial Access, Persistence, Defense Evasion, and Credential Access. Each tactic is associated with specific techniques used by attackers to achieve their goals.</li></ol><ol type="1" id="1a982a3e-9b73-80da-a349-dd742bb885ca" class="numbered-list" start="2"><li><strong>Techniques: </strong>These are detailed descriptions of the methods and tools used by attackers to carry out specific actions within each tactic. For example, under Initial Access, techniques might include Phishing Attacks or Exploitation of Remote Desktop Protocol (RDP) Vulnerabilities.</li></ol><ol type="1" id="1a982a3e-9b73-8061-84e5-fe21487f2071" class="numbered-list" start="3"><li><strong>Mitigations:</strong> These represent recommended security controls that can be implemented to detect and prevent the use of certain techniques by attackers. For example, patching known RDP vulnerabilities could be a mitigation for the exploitation of RDP vulnerabilities technique.</li></ol><figure id="1a982a3e-9b73-80d7-af68-caf8b9fca6ca" class="image"><a href="image%2068.png"><img style="width:709.9750366210938px" src="image%2068.png"/></a></figure><p id="1a982a3e-9b73-808c-afcb-dba7edeaac68" class="">
+</p><p id="1a982a3e-9b73-80f1-a488-e7116d4968c7" class="">
+</p><h2 id="1a982a3e-9b73-8019-ada4-d8bceeb6e344" class="">YARA </h2><p id="1a982a3e-9b73-80c0-b118-f92da12d004c" class="">YARA is a powerful tool for malware analysis and threat hunting that allows users to create rules-based signatures to detect specific types of malicious activity within files, network traffic, or other data sources. It is an open-source language developed by Victor Julien and includes a command-line utility for running scans and matching signatures against target datasets.</p><p id="1a982a3e-9b73-806e-80fe-cc553557755d" class="">YARA rules are written in a high-level programming language that allows for the creation of complex and highly specific detection patterns. These patterns can be used to match various characteristics of malware, such as specific strings of text, file headers or footers, or even more advanced features like opcode sequences or function call signatures.</p><p id="1a982a3e-9b73-8007-8234-c1458ff5337a" class="">When a YARA rule is executed, it scans the input data for matching patterns and generates a score based on how well each pattern aligns with the specified criteria. If enough patterns are matched, the rule will trigger an alert, indicating that potentially malicious content has been detected. This allows security professionals to quickly identify known threats or develop custom signatures for new and emerging forms of malware.</p><p id="1a982a3e-9b73-804e-a66f-fcd231942330" class="">In addition to its primary use in malware analysis and threat hunting, YARA can also be integrated with other tools like IDS/IPS systems, sandboxing solutions, and SIEMs to enhance their detection capabilities and provide greater visibility into potential security threats. Overall, YARA is a versatile and effective tool for helping organizations detect and respond to malicious activity across a wide range of data sources.</p><p id="1a982a3e-9b73-804a-8cdc-e6e468d7b644" class="">
+</p><p id="1a982a3e-9b73-8098-989f-fa70cf6f45ab" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,707 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Security Operation Fundamentals</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-transparentGray { background-color: undefined; }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="18982a3e-9b73-8072-aea2-f0f2b3273cd5" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/solid_beige.png" style="object-position:center 40%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="https://www.notion.so/icons/clipping_gray.svg"/></div><h1 class="page-title">Security Operation Fundamentals</h1><p class="page-description"></p><table class="properties"><tbody><tr class="property-row property-row-status"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/clipping_gray.svg" style="width:14px;height:14px;display:block"/></span>Note Type</th><td><span class="status-value select-value-color-gray"><div class="status-dot status-dot-color-gray"></div>Notebook Notes</span></td></tr><tr class="property-row property-row-checkbox"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/star_gray.svg" style="width:14px;height:14px;display:block"/></span>Favorite</th><td><div class="checkbox checkbox-off"></div></td></tr><tr class="property-row property-row-checkbox"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/archive_gray.svg" style="width:14px;height:14px;display:block"/></span>Archive</th><td><div class="checkbox checkbox-off"></div></td></tr><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>Created</th><td><time>@January 28, 2025 11:22 AM</time></td></tr><tr class="property-row property-row-last_edited_time"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>Last edited time</th><td><time>@February 16, 2025 2:23 PM</time></td></tr><tr class="property-row property-row-relation"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/book-closed_gray.svg" style="width:14px;height:14px;display:block"/></span>Notebooks</th><td><a href="SOC%20#4%2016382a3e9b73815c8567d0430a6e99a2.html"><img class="icon" src="https://www.notion.so/icons/book-closed_gray.svg"/>SOC #4</a></td></tr></tbody></table></header><div class="page-body"><h2 id="18982a3e-9b73-80d8-b1f4-cc1a72d75f62" class="">Security Operation Fundamentals</h2><p id="18982a3e-9b73-809a-bc63-c1f8f5dea748" class=""><br/>A Security Operations Center is a centralized unit within an organization that deals with security issues, incidents, and events.<br/><br/></p><ul id="18982a3e-9b73-80df-a4e1-d5910f4f965a" class="bulleted-list"><li style="list-style-type:disc"><strong>Monitor</strong><ul id="18982a3e-9b73-8012-a103-f5eb66c4da81" class="bulleted-list"><li style="list-style-type:circle">Continuous observation for unusual activity.</li></ul><ul id="18982a3e-9b73-8015-be59-ebccacb98c5a" class="bulleted-list"><li style="list-style-type:circle">Utilization of monitoring tools (IDS, SIEM, etc.) for real-time visibility.</li></ul><ul id="18982a3e-9b73-80fe-90ec-ed31826a0db4" class="bulleted-list"><li style="list-style-type:circle">Early detections of potential security threats</li></ul></li></ul><ul id="18982a3e-9b73-80f7-8b7f-ec5d19ca1776" class="bulleted-list"><li style="list-style-type:disc"><strong>Detect</strong><ul id="18982a3e-9b73-8073-9ab0-de8cd8632eb0" class="bulleted-list"><li style="list-style-type:circle">Confirm security events identified during monitoring.</li></ul><ul id="18982a3e-9b73-8015-9aca-eb3769d88fd8" class="bulleted-list"><li style="list-style-type:circle">Utilize threat detection techniques.</li></ul><ul id="18982a3e-9b73-80c1-a140-d626360b6194" class="bulleted-list"><li style="list-style-type:circle">Identify known indicators of compromise (IOCs).</li></ul></li></ul><ul id="18982a3e-9b73-80ff-9c04-ec2c41d2eacc" class="bulleted-list"><li style="list-style-type:disc"><strong>Analyze:</strong><ul id="18982a3e-9b73-8065-b78d-edec96dd892a" class="bulleted-list"><li style="list-style-type:circle">Perform in-depth investigations to understand security incidents.</li></ul><ul id="18982a3e-9b73-8083-a84d-d09dc2ee05c5" class="bulleted-list"><li style="list-style-type:circle">Examine affected systems, build a timeline of events.</li></ul><ul id="18982a3e-9b73-80b5-9365-d2b2041c773f" class="bulleted-list"><li style="list-style-type:circle">Trace tactics, techniques, and procedures (TTPs).</li></ul></li></ul><ul id="18982a3e-9b73-80fe-8cf3-fdedf275a229" class="bulleted-list"><li style="list-style-type:disc"><strong>Respond:</strong><ul id="18982a3e-9b73-8077-bc68-e05c5dd4aeff" class="bulleted-list"><li style="list-style-type:circle">Formulate a response plan based on findings.</li></ul><ul id="18982a3e-9b73-805c-9229-e268b271c8c3" class="bulleted-list"><li style="list-style-type:circle">Contain threats, mitigate impact, and restore normal operations.</li></ul></li></ul><figure id="18982a3e-9b73-8025-bc30-e535a49dcb92" class="image"><a href="image.png"><img style="width:336px" src="image.png"/></a></figure><p id="18982a3e-9b73-80b3-b2cf-f506f2015bb9" class="">
+</p><h3 id="18982a3e-9b73-8062-9e14-cf389b44f96f" class="">Key Functions of a SOC<br/><br/></h3><p id="18982a3e-9b73-807e-8f23-d95fcdcd736a" class=""><strong>Reactive</strong></p><ul id="18982a3e-9b73-8099-9ed7-e78da64729da" class="bulleted-list"><li style="list-style-type:disc"><strong>Monitoring and Detection</strong><ul id="18982a3e-9b73-806c-a0cb-d6b558dde429" class="bulleted-list"><li style="list-style-type:circle">Network and system logs, alerts</li></ul><ul id="18982a3e-9b73-8034-ad83-ee2702aca601" class="bulleted-list"><li style="list-style-type:circle">SIEM, IDS, log analysis</li></ul><ul id="18982a3e-9b73-806f-9b6e-cb6b6e29f31f" class="bulleted-list"><li style="list-style-type:circle">Alert triage</li></ul></li></ul><ul id="18982a3e-9b73-80b3-9c5c-ebb128e82adf" class="bulleted-list"><li style="list-style-type:disc"><strong>Incident Response</strong><ul id="18982a3e-9b73-80a9-9f33-e4b70a663214" class="bulleted-list"><li style="list-style-type:circle">Investigate, contain, and mitigate threats</li></ul><ul id="18982a3e-9b73-8051-aa52-d8a0ce7b15a3" class="bulleted-list"><li style="list-style-type:circle">Collect evidence and artifacts</li></ul><ul id="18982a3e-9b73-8036-abc2-ee1fd0144bc2" class="bulleted-list"><li style="list-style-type:circle">Engage with stakeholders</li></ul></li></ul><ul id="18982a3e-9b73-80e6-b115-dc0731f7172f" class="bulleted-list"><li style="list-style-type:disc"><strong>Forensic Analysis</strong><ul id="18982a3e-9b73-805e-ab45-cb6bebea085a" class="bulleted-list"><li style="list-style-type:circle">In-house or third-party</li></ul><ul id="18982a3e-9b73-803a-ab8c-d12f8d9c9379" class="bulleted-list"><li style="list-style-type:circle">Determine cause and scope</li></ul><ul id="18982a3e-9b73-80e2-bc6d-dc2fe6b7a452" class="bulleted-list"><li style="list-style-type:circle">Preserve evidence and engage legal</li></ul></li></ul><ul id="18982a3e-9b73-80f8-a1d9-fbc0c71cf357" class="bulleted-list"><li style="list-style-type:disc"><strong>Malware Analysis</strong><ul id="18982a3e-9b73-802b-a4fe-fa98c587f27e" class="bulleted-list"><li style="list-style-type:circle">In-house or third-party</li></ul><ul id="18982a3e-9b73-80a7-876c-fc647cf1d46d" class="bulleted-list"><li style="list-style-type:circle">Sandbox and reverse engineer malware</li></ul><ul id="18982a3e-9b73-8093-8c08-d0fa524bd251" class="bulleted-list"><li style="list-style-type:circle">Study malware behavior</li></ul><ul id="18982a3e-9b73-80e1-a481-ecd7c871f572" class="bulleted-list"><li style="list-style-type:circle">Collect indicators of compromise</li></ul></li></ul><p id="18982a3e-9b73-8067-92da-f9c71a0f63cb" class="">
+</p><p id="18982a3e-9b73-80fa-b3f3-dc715a1df92c" class=""><strong>Proactive </strong></p><ul id="18982a3e-9b73-80c5-a033-df22445d9d72" class="bulleted-list"><li style="list-style-type:disc"><strong>Threat Intelligence</strong><ul id="18982a3e-9b73-80ee-be88-cf9d6b86a7fe" class="bulleted-list"><li style="list-style-type:circle">Gather and analyze intelligence</li></ul><ul id="18982a3e-9b73-80b3-94ef-ed1e56399544" class="bulleted-list"><li style="list-style-type:circle">Study emerging threats, vulnerabilities, and attacks</li></ul><ul id="18982a3e-9b73-80ab-8359-e373287c0271" class="bulleted-list"><li style="list-style-type:circle">Feed intel into detection tools for proactive defense<br/><br/></li></ul></li></ul><ul id="18982a3e-9b73-8013-b795-cdf4fa51c7c9" class="bulleted-list"><li style="list-style-type:disc"><strong>Threat Hunting</strong><ul id="18982a3e-9b73-8077-8b6d-f721dc430075" class="bulleted-list"><li style="list-style-type:circle">Search for malicious activity or intrusions</li></ul><ul id="18982a3e-9b73-8015-adfb-fc2bad12f51f" class="bulleted-list"><li style="list-style-type:circle">Logs, network traffic, endpoint telemetry</li></ul><ul id="18982a3e-9b73-80be-b95e-c775d44b9b06" class="bulleted-list"><li style="list-style-type:circle">Utilize threat intelligence to hunt for known indicators<br/><br/></li></ul></li></ul><ul id="18982a3e-9b73-80cb-8106-d6f1bc7b293f" class="bulleted-list"><li style="list-style-type:disc"><strong>Vulnerability Management</strong><ul id="18982a3e-9b73-80cc-a038-e010c8b31f0c" class="bulleted-list"><li style="list-style-type:circle">Identify and address vulnerabilities</li></ul><ul id="18982a3e-9b73-808b-83db-fef642716fdb" class="bulleted-list"><li style="list-style-type:circle">Scan, assess, and patch</li></ul><ul id="18982a3e-9b73-80af-91eb-d59f1fc6fa40" class="bulleted-list"><li style="list-style-type:circle">Coordinate remediation activity<br/><br/></li></ul></li></ul><ul id="18982a3e-9b73-801f-90dc-e2edbd73c605" class="bulleted-list"><li style="list-style-type:disc"><strong>Security Awareness Training</strong><ul id="18982a3e-9b73-8039-a8c0-eec6d6d9acaf" class="bulleted-list"><li style="list-style-type:circle">Promote security awareness within the organization</li></ul><ul id="18982a3e-9b73-80a5-a6a0-c4117e105cf2" class="bulleted-list"><li style="list-style-type:circle">Educate best practices, policies, and procedures</li></ul></li></ul><p id="18982a3e-9b73-8024-8ebf-ea7a42756aed" class="">
+</p><h3 id="18982a3e-9b73-809c-8797-f956c20c33fb" class="">Day in the Life of a SOC Analyst<br/><br/></h3><ul id="18982a3e-9b73-8047-8c6e-c537fc185258" class="bulleted-list"><li style="list-style-type:disc"><strong>Rotating schedules (sometimes)</strong></li></ul><ul id="18982a3e-9b73-8051-a979-f06729c29905" class="bulleted-list"><li style="list-style-type:disc"><strong>Alert Triage</strong><ul id="18982a3e-9b73-8036-a9a6-fcef24c85e6f" class="bulleted-list"><li style="list-style-type:circle">Monitoring the alert ticket queue</li></ul><ul id="18982a3e-9b73-802c-a43d-f6ecf7eefdc5" class="bulleted-list"><li style="list-style-type:circle">Assess credibility and severity</li></ul></li></ul><ul id="18982a3e-9b73-803a-bb2b-d7952277b040" class="bulleted-list"><li style="list-style-type:disc"><strong>Incident Triage</strong><ul id="18982a3e-9b73-80e3-8705-c01857fad945" class="bulleted-list"><li style="list-style-type:circle">Information gathering</li></ul><ul id="18982a3e-9b73-8046-ae64-c074c0a35882" class="bulleted-list"><li style="list-style-type:circle">Follow processes</li></ul></li></ul><ul id="18982a3e-9b73-80b2-82d2-de913e6b00fd" class="bulleted-list"><li style="list-style-type:disc"><strong>First-Line Analysis and Investigation</strong><ul id="18982a3e-9b73-8032-bd78-c7795897238a" class="bulleted-list"><li style="list-style-type:circle">Use tools and techniques to assess the incident</li></ul><ul id="18982a3e-9b73-80ec-a2d4-ca6abe912de7" class="bulleted-list"><li style="list-style-type:circle">Logs, network traffic, configurations, OSINT</li></ul></li></ul><ul id="18982a3e-9b73-8009-8c04-c72f828b9d30" class="bulleted-list"><li style="list-style-type:disc"><strong>Documentation and Reporting</strong><ul id="18982a3e-9b73-80ae-864a-f217fa44547b" class="bulleted-list"><li style="list-style-type:circle">Clear and concise</li></ul><ul id="18982a3e-9b73-8068-bb5b-cb65f49e1316" class="bulleted-list"><li style="list-style-type:circle">Findings, actions, resolutions</li></ul><ul id="18982a3e-9b73-801f-8643-ffdb3c9925b1" class="bulleted-list"><li style="list-style-type:circle">Escalation and Collaboration</li></ul></li></ul><h2 id="18982a3e-9b73-80ac-bf66-eed00078a36e" class="">Information Security Refresher</h2><h3 id="18982a3e-9b73-8069-b680-c0d63e77fe3b" class=""><strong>CIA Triad</strong></h3><ul id="18982a3e-9b73-80b9-9442-e02b583a9c8b" class="bulleted-list"><li style="list-style-type:disc"><strong>Confidentiality:</strong><ul id="18982a3e-9b73-8088-8e2e-dc65af1cefb4" class="bulleted-list"><li style="list-style-type:circle">Protection of sensitive information from unauthorized access</li></ul><ul id="18982a3e-9b73-80bd-b7e9-e1639c4e3674" class="bulleted-list"><li style="list-style-type:circle">Ensures data is only accessible to those with proper authorization</li></ul></li></ul><p id="18982a3e-9b73-80c8-8f96-cfbbf28cdce1" class="">
+</p><ul id="18982a3e-9b73-8048-8e23-ff71b3bc431f" class="bulleted-list"><li style="list-style-type:disc"><strong>Integrity:</strong><ul id="18982a3e-9b73-8031-a153-e842b70fc74a" class="bulleted-list"><li style="list-style-type:circle">Ensures that data remains accurate, reliable, and consistent.</li></ul></li></ul><p id="18982a3e-9b73-8043-ae36-d0d5aa945022" class="">
+</p><ul id="18982a3e-9b73-8015-97e3-e6f9888215f4" class="bulleted-list"><li style="list-style-type:disc"><strong>Availability:</strong><ul id="18982a3e-9b73-809e-ade1-ccb4c58c34e9" class="bulleted-list"><li style="list-style-type:circle">Ensures that data and resources are accessible and usable when needed.</li></ul></li></ul><p id="18982a3e-9b73-807a-9acb-d0bb58521bb3" class="">
+</p><h3 id="18982a3e-9b73-80a7-9ecf-d9a7a52a74fc" class="">AAA Framework<br/><br/></h3><ul id="18982a3e-9b73-80d9-9ca7-e384a0e756e7" class="bulleted-list"><li style="list-style-type:disc"><strong>Authentication</strong><ul id="18982a3e-9b73-80fe-8085-f0b718c2610c" class="bulleted-list"><li style="list-style-type:circle">Verifies the identity of users attempting to access a system or resource.</li></ul><ul id="18982a3e-9b73-8070-a120-c22315dfcd7e" class="bulleted-list"><li style="list-style-type:circle">Password, key, or other authentication methods.</li></ul></li></ul><p id="18982a3e-9b73-80e7-96ba-d2af14252ccf" class="">
+</p><ul id="18982a3e-9b73-8015-b588-d969dd2f71d5" class="bulleted-list"><li style="list-style-type:disc"><strong>Authorization</strong><ul id="18982a3e-9b73-80c2-8d12-d7e71d065ec1" class="bulleted-list"><li style="list-style-type:circle">What actions or operations are we allowed to perform?.</li></ul><ul id="18982a3e-9b73-80ab-baa8-f8e5c5c5ce22" class="bulleted-list"><li style="list-style-type:circle">Access levels based on roles, permissions, or privileges.</li></ul></li></ul><p id="18982a3e-9b73-803a-a8f8-e9132d8135e8" class="">
+</p><ul id="18982a3e-9b73-8088-8eb0-f56ad678a121" class="bulleted-list"><li style="list-style-type:disc"><strong>Accounting</strong><ul id="18982a3e-9b73-805c-8489-f332ea51d918" class="bulleted-list"><li style="list-style-type:circle">Tracking and recording activities within a system.</li></ul></li></ul><p id="18982a3e-9b73-8053-a1fe-cf14f6b98b80" class="">
+</p><h2 id="18982a3e-9b73-8030-89bd-eca93e6af1df" class="">Vulnerablity:</h2><ul id="18982a3e-9b73-800a-9d59-eca713a2d96a" class="bulleted-list"><li style="list-style-type:disc">Weaknesses in systems, networks, or processes.</li></ul><ul id="18982a3e-9b73-800b-9b9c-dbc5a8211f78" class="bulleted-list"><li style="list-style-type:disc">Can be exploited by threats to compromise CIA.</li></ul><ul id="18982a3e-9b73-802c-b61d-e64216eb713c" class="bulleted-list"><li style="list-style-type:disc">Exposes the organization to threats</li></ul><h2 id="18982a3e-9b73-803c-ae4b-f61fa3114b74" class=""><strong>Threat:</strong></h2><ul id="18982a3e-9b73-8010-bb11-e4adfae672e7" class="bulleted-list"><li style="list-style-type:disc">Any potential danger to information or systems.</li></ul><ul id="18982a3e-9b73-80de-a792-f08990a896a3" class="bulleted-list"><li style="list-style-type:disc">Malware, phishing, denial of service.</li></ul><ul id="18982a3e-9b73-80ad-86ff-d7e655481a6a" class="bulleted-list"><li style="list-style-type:disc">Takes advantage of a vulnerability.</li></ul><h2 id="18982a3e-9b73-806a-8d88-cc7fabcda476" class=""><strong>Risk:</strong></h2><ul id="18982a3e-9b73-8037-9b3e-fbaf938b10f3" class="bulleted-list"><li style="list-style-type:disc">Likelihood of a threat exploiting a vulnerability.</li></ul><ul id="18982a3e-9b73-807c-bda3-db90686fbadf" class="bulleted-list"><li style="list-style-type:disc">Potential for loss and damage when a threat occurs.</li></ul><p id="18982a3e-9b73-806d-98d0-da56b9e4050e" class="">
+</p><figure id="18982a3e-9b73-8094-8a60-c4571ce50c95" class="image"><a href="image%201.png"><img style="width:480px" src="image%201.png"/></a></figure><p id="18982a3e-9b73-80cc-80ae-cb0190e25638" class="">
+</p><h2 id="18982a3e-9b73-806b-b9d5-c3bba15ab338" class=""><strong>Log:</strong></h2><ul id="18982a3e-9b73-80f8-b4bb-fdba4e17578b" class="bulleted-list"><li style="list-style-type:disc">A record of events or actions that have occurred within a system</li></ul><ul id="18982a3e-9b73-80c2-82a5-dfa954234f49" class="bulleted-list"><li style="list-style-type:disc">Used for monitoring and troubleshooting security incidents</li></ul><p id="18982a3e-9b73-80c8-80fc-effe3d6fc7a1" class="">
+</p><figure id="18982a3e-9b73-805c-a5cc-f04102b397d4" class="image"><a href="image%202.png"><img style="width:709.9500122070312px" src="image%202.png"/></a></figure><p id="18982a3e-9b73-80d1-bcfc-d49c4f9a8cb4" class="">
+</p><h2 id="18982a3e-9b73-802c-a8bc-d59d90bcff84" class="">Security Events</h2><ul id="18982a3e-9b73-8051-83d4-e70a5ea1234c" class="bulleted-list"><li style="list-style-type:disc">Actions.</li></ul><ul id="18982a3e-9b73-80fb-94b0-d7889ce84466" class="bulleted-list"><li style="list-style-type:disc">Any observable occurrence that has a potential significance for security.</li></ul><ul id="18982a3e-9b73-80fe-be19-df12e36d7e2c" class="bulleted-list"><li style="list-style-type:disc">All incidents are events, but not all events are incidents.</li></ul><h2 id="18982a3e-9b73-8038-8254-d01193ab4b06" class="">Security Incidents </h2><ul id="18982a3e-9b73-8079-84cf-dc5e1845a10e" class="bulleted-list"><li style="list-style-type:disc">An occurrence that actually harms or jeopardizes information or systems.</li></ul><ul id="18982a3e-9b73-803c-bb82-f65a40eea07e" class="bulleted-list"><li style="list-style-type:disc">Constitutes a violation of law, security policies, procedures, or acceptable use.</li></ul><h2 id="18982a3e-9b73-804d-8e50-d39b0d3f7409" class="">Alert</h2><ul id="18982a3e-9b73-80cc-9ee5-d9255fa73615" class="bulleted-list"><li style="list-style-type:disc">A notification generated by security systems or personnel.</li></ul><ul id="18982a3e-9b73-80b8-b29a-ce76fa0330f9" class="bulleted-list"><li style="list-style-type:disc">Indication of a potential security issue or suspicious activity.</li></ul><p id="18982a3e-9b73-8056-a584-cf02e8a4b4fb" class="">
+</p><h2 id="18982a3e-9b73-802f-9e57-c05004b4a0ca" class="">Risk Control Strategy </h2><p id="18982a3e-9b73-80a4-ac83-d0b3acb96764" class=""><strong>Risk Transference</strong><div class="indented"><p id="18982a3e-9b73-8030-953e-cf906523afbb" class="">Shifting responsibility to a third-party<br/>Cybersecurity insurance, cloud service providers<br/><br/></p></div></p><p id="18982a3e-9b73-801c-9b9c-f99220185b56" class=""><strong>Risk Acceptance</strong><div class="indented"><p id="18982a3e-9b73-80fa-b564-d1762480f45a" class="">Acknowledge and tolerate a risk<br/>Exempt or except<br/></p></div></p><p id="18982a3e-9b73-80e0-840d-ca29f36c1cac" class=""><br/><br/><strong>Risk Avoidance</strong><div class="indented"><p id="18982a3e-9b73-8033-a2a7-c79740b88a12" class="">Proactively eliminate or avoid exposure to a risk<br/>Limiting the type of data stored on a server<br/></p></div></p><p id="18982a3e-9b73-80fd-9e88-c6424932b505" class=""><br/><br/><strong>Risk Mitigation</strong><div class="indented"><p id="18982a3e-9b73-8019-8a0a-e2d1891bdb4c" class="">Reduce the likelihood or impact of a risk<br/>Implementing patch management.<br/></p><p id="18982a3e-9b73-803f-8d5c-cbbb31a39cfd" class="">
+</p></div></p><h2 id="18982a3e-9b73-8003-9d54-fb32a682185b" class="">Security Policies</h2><p id="18982a3e-9b73-80f5-8326-ea24ce1fd713" class=""><strong>Acceptable Use Policy (AUP</strong>)<div class="indented"><p id="18982a3e-9b73-805e-9d0e-d468de44a762" class="">What is and isn&#x27;t allowed within the organization.<br/>Bring Your Own Device (BYOD)<br/></p></div></p><p id="18982a3e-9b73-8074-9f09-e81e652b0be3" class=""><br/><br/><strong>Password Policy</strong><div class="indented"><p id="18982a3e-9b73-8073-9770-c0ac753dbfee" class="">Specific requirements for creating and managing passwords<br/>Complexity, length, expiration, reuse<br/><br/></p></div></p><p id="18982a3e-9b73-8077-b494-f544e4fa7172" class=""><strong>Data Classification Policy</strong><div class="indented"><p id="18982a3e-9b73-80ba-b799-ece53a76fb39" class="">Categorize data based on sensitivity and importance<br/>How to handle data at each level<br/></p><p id="18982a3e-9b73-80f6-ae21-c5f47dc4bec9" class="">
+</p></div></p><p id="18982a3e-9b73-8048-98fc-e83278dc9a76" class=""><strong>Change Management Policy</strong><div class="indented"><p id="18982a3e-9b73-8036-af67-ce14a13bee04" class="">Planning and implementing changes to systems or processes</p></div></p><p id="18982a3e-9b73-8007-9464-cd08509b350a" class="">
+</p><h3 id="18982a3e-9b73-800e-aeb0-f108e9be01b8" class="">SOC Model </h3><p id="18982a3e-9b73-8093-b47a-ed28905b9d7c" class=""><strong>Internal SOC</strong><div class="indented"><ul id="18982a3e-9b73-8001-be14-c8006f6a60f7" class="bulleted-list"><li style="list-style-type:disc">Owned and operated by the organization it serves.</li></ul><ul id="18982a3e-9b73-80b2-9e3d-e43da1c9c4f3" class="bulleted-list"><li style="list-style-type:disc">Monitors and defends internal networks, systems, and data.</li></ul><ul id="18982a3e-9b73-8018-9b57-e367af53073d" class="bulleted-list"><li style="list-style-type:disc">Requires significant upfront investment in training and resources.</li></ul></div></p><p id="18982a3e-9b73-802a-98c7-ca8115f9b12b" class="">
+</p><p id="18982a3e-9b73-807e-bf2e-d60abf8d1ece" class=""><strong>Managed SOC</strong><div class="indented"><ul id="18982a3e-9b73-8067-820d-cbdfbae22b1e" class="bulleted-list"><li style="list-style-type:disc">Third-party provider of security operations.</li></ul><ul id="18982a3e-9b73-8047-8f6c-cddf92eb817d" class="bulleted-list"><li style="list-style-type:disc">Basic monitoring or comprehensive threat detection and response</li></ul><ul id="18982a3e-9b73-80bc-bfc3-c7b9af105155" class="bulleted-list"><li style="list-style-type:disc">Subscription-based SLAs, more cost-effective.</li></ul></div></p><p id="18982a3e-9b73-809d-96bc-e92de9a22b70" class="">
+</p><p id="18982a3e-9b73-8053-b56e-e859b5af9ada" class=""><strong>Hybrid SOC</strong><div class="indented"><ul id="18982a3e-9b73-805b-b239-f97f9ab3a9d9" class="bulleted-list"><li style="list-style-type:disc">Elements of internal and managed SOC services.</li></ul><ul id="18982a3e-9b73-80f5-b977-eb98d9523dd3" class="bulleted-list"><li style="list-style-type:disc">Incident response, forensic analysis, malware analysis.</li></ul><ul id="18982a3e-9b73-8029-a42a-d2ad196bd7b7" class="bulleted-list"><li style="list-style-type:disc">Flexible compromise - call in the experts as needed.</li></ul></div></p><p id="18982a3e-9b73-8002-a115-fc2869d9e17b" class="">
+</p><h2 id="18982a3e-9b73-80d7-b8a0-f47da17cd529" class="">SOC Roles</h2><figure id="18982a3e-9b73-80c0-b052-fddaf9f555e7" class="image"><a href="image%203.png"><img style="width:709.9874877929688px" src="image%203.png"/></a></figure><p id="18982a3e-9b73-8047-98ac-cd292191243a" class="">
+</p><h2 id="18982a3e-9b73-8040-92a0-d4740aab8fb2" class="">Event Management</h2><ul id="18982a3e-9b73-80cf-97b4-d3f8cafcf876" class="bulleted-list"><li style="list-style-type:disc"><strong>Collection, normalization, analysis</strong><ul id="18982a3e-9b73-8022-a843-ca54ae23d093" class="bulleted-list"><li style="list-style-type:circle">Generated by systems and devices</li></ul></li></ul><ul id="18982a3e-9b73-80cd-b4d1-ef1caf828760" class="bulleted-list"><li style="list-style-type:disc"><strong>Logs, alerts, endpoints</strong><ul id="18982a3e-9b73-80e2-ac0a-c22032f2b4dc" class="bulleted-list"><li style="list-style-type:circle">Firewalls, IDS, antivirus, EDR, web servers, routers</li></ul></li></ul><ul id="18982a3e-9b73-80cd-b4f9-f05d328fe38b" class="bulleted-list"><li style="list-style-type:disc"><strong>Identify abnormal or suspicious activities</strong><ul id="18982a3e-9b73-8064-8181-f1f7a9a6c0c6" class="bulleted-list"><li style="list-style-type:circle">Rules and alerts on behavior, known malicious artifacts</li></ul></li></ul><ul id="18982a3e-9b73-80ee-9353-eed9072aabe6" class="bulleted-list"><li style="list-style-type:disc"><strong>Security Information and Event Management (SIEM)</strong><ul id="18982a3e-9b73-8036-8239-f091282799a4" class="bulleted-list"><li style="list-style-type:circle">Splunk</li></ul><ul id="18982a3e-9b73-8036-97c1-e17ff222613e" class="bulleted-list"><li style="list-style-type:circle">QRadar</li></ul></li></ul><h2 id="18982a3e-9b73-8042-a1dc-d9d397056890" class="">Incident Management</h2><ul id="18982a3e-9b73-80bb-b7ed-c444d3f27b5f" class="bulleted-list"><li style="list-style-type:disc"><strong>Incident Identification</strong><ul id="18982a3e-9b73-80ee-841d-d7c44468d35d" class="bulleted-list"><li style="list-style-type:circle">Event management escalation.</li></ul><ul id="18982a3e-9b73-8033-baec-e0a6daa2179a" class="bulleted-list"><li style="list-style-type:circle">Detection mechanisms.</li></ul></li></ul><ul id="18982a3e-9b73-8082-9dbd-c98beb68ee83" class="bulleted-list"><li style="list-style-type:disc"><strong>Incident Classification</strong><ul id="18982a3e-9b73-8089-a36b-d3a98cf14d9e" class="bulleted-list"><li style="list-style-type:circle">Severity, impact, and nature</li></ul></li></ul><ul id="18982a3e-9b73-80c9-8b95-e02378a3086b" class="bulleted-list"><li style="list-style-type:disc"><strong>Incident Investigation</strong><ul id="18982a3e-9b73-80f2-bf63-ece48021f432" class="bulleted-list"><li style="list-style-type:circle">Gather evidence, determine scope</li></ul></li></ul><ul id="18982a3e-9b73-8073-a1a6-c5456276cf54" class="bulleted-list"><li style="list-style-type:disc"><strong>Incident Containment</strong><ul id="18982a3e-9b73-8059-baf6-daf53d8527ac" class="bulleted-list"><li style="list-style-type:circle">Prevent further escalation</li></ul></li></ul><ul id="18982a3e-9b73-800a-8d65-f09cc885ccda" class="bulleted-list"><li style="list-style-type:disc"><strong>Incident Eradication</strong><ul id="18982a3e-9b73-8077-9673-ef7b03c9bd9c" class="bulleted-list"><li style="list-style-type:circle">Remove evil</li></ul><ul id="18982a3e-9b73-80ea-9c36-fdf5185011ef" class="bulleted-list"><li style="list-style-type:circle">Incident Recovery</li></ul></li></ul><p id="18982a3e-9b73-80f3-b619-e52b949e6663" class="">
+</p><h2 id="18982a3e-9b73-80da-b5bb-d8cf7e9f77d9" class="">SOC Metrics</h2><ul id="18982a3e-9b73-80fc-aed0-d67637abbe6b" class="bulleted-list"><li style="list-style-type:disc"><strong>Mean time to Detect:</strong><ul id="18982a3e-9b73-8079-8d29-e80bf9099aef" class="bulleted-list"><li style="list-style-type:circle">Lower MTTD = faster detection</li></ul></li></ul><ul id="18982a3e-9b73-80c6-b57e-e2acf8094a79" class="bulleted-list"><li style="list-style-type:disc"><strong>Mean Time to Resolution (MTTR)</strong><ul id="18982a3e-9b73-804c-9a4f-f3ffa442b310" class="bulleted-list"><li style="list-style-type:circle">Lower MTTR = more efficient IR</li></ul></li></ul><ul id="18982a3e-9b73-8021-8bda-eef5282c9d9d" class="bulleted-list"><li style="list-style-type:disc"><strong>Mean Time to Attend an Analyze (MTTA&amp;A)</strong><ul id="18982a3e-9b73-8048-a5c1-e6de9e88e59e" class="bulleted-list"><li style="list-style-type:circle">Lower MTTA&amp;A = reduced response latency</li></ul></li></ul><ul id="18982a3e-9b73-80fe-aca1-c10ea97db2d1" class="bulleted-list"><li style="list-style-type:disc"><strong>Incident Detection Rate</strong><ul id="18982a3e-9b73-8049-9378-fec3c4187ad3" class="bulleted-list"><li style="list-style-type:circle">Higher rate = better visibility and monitoring</li></ul></li></ul><ul id="18982a3e-9b73-804a-bf00-e35c31dca7ca" class="bulleted-list"><li style="list-style-type:disc"><strong>False Positive Rate</strong><ul id="18982a3e-9b73-80b2-8e8d-e958f935a242" class="bulleted-list"><li style="list-style-type:circle">lower rate = more accurate detection</li></ul></li></ul><ul id="18982a3e-9b73-8083-97d5-ccf4769bae48" class="bulleted-list"><li style="list-style-type:disc"><strong>False Negative Rate</strong><ul id="18982a3e-9b73-80ad-abc5-f2e75556175e" class="bulleted-list"><li style="list-style-type:circle">lower rate = more accurate detection</li></ul></li></ul><ul id="18982a3e-9b73-8066-9875-c7569df3d6e9" class="bulleted-list"><li style="list-style-type:disc"><strong>Key Performance Indicators (KPIs)</strong><ul id="18982a3e-9b73-8018-8005-ddb492cd0a5c" class="bulleted-list"><li style="list-style-type:circle">Measurable values to track performance</li></ul></li></ul><ul id="18982a3e-9b73-806a-86d8-ee003038d9f8" class="bulleted-list"><li style="list-style-type:disc"><strong>Key Risk Indicators (KRIS)</strong><ul id="18982a3e-9b73-8066-a137-ead99ab336b4" class="bulleted-list"><li style="list-style-type:circle">Measurable values to assess risk.</li></ul></li></ul><ul id="18982a3e-9b73-8042-819b-f1c59c60d968" class="bulleted-list"><li style="list-style-type:disc"><strong>Service Level Agreements (SLAs)</strong></li></ul><h2 id="18982a3e-9b73-802a-aec2-ccc46f0856f1" class="">SOC Tools</h2><ol type="1" id="18982a3e-9b73-80f2-b227-da9461900f2a" class="numbered-list" start="1"><li><strong>Security Incident Event Management(SIEM)</strong><ul id="18982a3e-9b73-8071-9a9c-f204b346c722" class="bulleted-list"><li style="list-style-type:disc">Log Management </li></ul><ul id="18982a3e-9b73-8006-a38d-c7db11925449" class="bulleted-list"><li style="list-style-type:disc">Real time Monitoring</li></ul><ul id="18982a3e-9b73-8051-84e7-ee11a281c1a5" class="bulleted-list"><li style="list-style-type:disc">Alerting and Notification </li></ul><ul id="18982a3e-9b73-80ad-9ca1-f825e550a7f0" class="bulleted-list"><li style="list-style-type:disc">Incident Response</li></ul><ul id="18982a3e-9b73-801d-9d59-f387370c795a" class="bulleted-list"><li style="list-style-type:disc">Dashboards, Reports, and Visualization</li></ul><ul id="18982a3e-9b73-80c0-a06c-f987afb43e01" class="bulleted-list"><li style="list-style-type:disc">Threat Intelligence Integration</li></ul></li></ol><ol type="1" id="18982a3e-9b73-805d-af16-c6c89017e111" class="numbered-list" start="2"><li><strong>Security Orchestration, Automation, and Response (SOAR)</strong><ul id="18982a3e-9b73-80fe-9a89-ee1fc5d193c7" class="bulleted-list"><li style="list-style-type:disc"><strong>Orchestration —</strong> <ul id="18982a3e-9b73-804d-841b-cd3ed6802ee8" class="bulleted-list"><li style="list-style-type:disc">Workflow</li></ul><ul id="18982a3e-9b73-80e0-83ac-c2bf5ad7ecf0" class="bulleted-list"><li style="list-style-type:disc"> Collaboration of tool</li></ul></li></ul><ul id="18982a3e-9b73-800f-a942-fa270828b9ce" class="bulleted-list"><li style="list-style-type:disc"><strong>Automation</strong></li></ul><ul id="18982a3e-9b73-801f-986a-e59ec4d318d4" class="bulleted-list"><li style="list-style-type:disc"><strong>Incident Response</strong></li></ul><ul id="18982a3e-9b73-8047-bfb4-f3ef15036d46" class="bulleted-list"><li style="list-style-type:disc"><strong>Integration</strong></li></ul><ul id="18982a3e-9b73-8054-a59b-eb8cbff229a9" class="bulleted-list"><li style="list-style-type:disc"><strong>Analytics and Intelligence</strong></li></ul><ul id="18982a3e-9b73-8008-9ff3-e95e57b58d27" class="bulleted-list"><li style="list-style-type:disc"><strong>Reporting</strong></li></ul></li></ol><ol type="1" id="18982a3e-9b73-806e-95c2-fe86b48bf6de" class="numbered-list" start="3"><li><strong>Incident Management Tools</strong><ul id="18982a3e-9b73-80ad-b713-f5c3accc2dbc" class="bulleted-list"><li style="list-style-type:disc"><strong>Incident Ticketing</strong><ul id="18982a3e-9b73-805d-a9cb-d33bfe2da974" class="bulleted-list"><li style="list-style-type:circle">Documentation</li></ul><ul id="18982a3e-9b73-80bd-ad68-c2271259a6c9" class="bulleted-list"><li style="list-style-type:circle">Tracking</li></ul><ul id="18982a3e-9b73-807f-b49e-da4021b61e3d" class="bulleted-list"><li style="list-style-type:circle">Assigning</li></ul></li></ul><ul id="18982a3e-9b73-801f-8338-e057407d4fe8" class="bulleted-list"><li style="list-style-type:disc"><strong>Alert Management </strong></li></ul><ul id="18982a3e-9b73-8010-8ab0-ca1edc858e80" class="bulleted-list"><li style="list-style-type:disc">Alert Management</li></ul><ul id="18982a3e-9b73-8006-8ace-e954f5f9bdee" class="bulleted-list"><li style="list-style-type:disc">Workflow Automation</li></ul><ul id="18982a3e-9b73-808e-acbd-d124fcae37da" class="bulleted-list"><li style="list-style-type:disc">Collaboration</li></ul></li></ol><ol type="1" id="18982a3e-9b73-80cc-acac-e0703236ee9a" class="numbered-list" start="4"><li><strong>Network Security Monitoring (NSM)</strong><ol type="a" id="18982a3e-9b73-8088-a025-f8fd891ca9a7" class="numbered-list" start="1"><li><strong>Packet Capture and Analysis</strong><ol type="i" id="18982a3e-9b73-80c7-a838-ea04bbad34ef" class="numbered-list" start="1"><li>Real time, or with captures</li></ol></li></ol><ol type="a" id="18982a3e-9b73-80b9-a657-da288c049c9a" class="numbered-list" start="2"><li><strong>Network Traffic Analysis</strong><ol type="i" id="18982a3e-9b73-8089-8f4c-c83e6b5ac23c" class="numbered-list" start="1"><li>Statistical analysis</li></ol><ol type="i" id="18982a3e-9b73-80f6-91f1-cf5624f3dafe" class="numbered-list" start="2"><li>Machine learning</li></ol><ol type="i" id="18982a3e-9b73-80ed-9a6f-fd77a86956a5" class="numbered-list" start="3"><li>Behavior analysis</li></ol></li></ol><ol type="a" id="18982a3e-9b73-80d3-9403-e9c7986bd0df" class="numbered-list" start="3"><li><strong>Intrusion Detection</strong><ol type="i" id="18982a3e-9b73-8062-a506-c581811c9eeb" class="numbered-list" start="1"><li>IDS functionality</li></ol></li></ol><ol type="a" id="18982a3e-9b73-80cd-85aa-f37a48f04f50" class="numbered-list" start="4"><li><strong>Integration with SIEM</strong><ol type="i" id="18982a3e-9b73-801f-9f5f-c818d6e19afb" class="numbered-list" start="1"><li>Correlate network events with endpoint telemetry</li></ol></li></ol></li></ol><ol type="1" id="18982a3e-9b73-8094-8feb-cc4b3006fb60" class="numbered-list" start="5"><li><strong>Intrusion Detection &amp; Prevention System (IDS/IPS)</strong><ol type="a" id="18982a3e-9b73-803e-9142-e1280092a205" class="numbered-list" start="1"><li>Passive or active monitoring</li></ol><ol type="a" id="18982a3e-9b73-80b2-8d68-e91252d45fe1" class="numbered-list" start="2"><li>Generate alerts</li></ol><ol type="a" id="18982a3e-9b73-8083-8b10-d6871837eac6" class="numbered-list" start="3"><li>Actively block and prevent threats</li></ol><ol type="a" id="18982a3e-9b73-8056-93c0-f45b3d75253b" class="numbered-list" start="4"><li>Logging and reporting</li></ol></li></ol><ol type="1" id="18982a3e-9b73-8014-94cb-da14c421ac7a" class="numbered-list" start="6"><li><strong>Endpoint Detection &amp; Response (EDR)</strong><ol type="a" id="18982a3e-9b73-80f8-b776-c0aaa9c9f3cf" class="numbered-list" start="1"><li>Real time Endpoint Monitoring</li></ol><ol type="a" id="18982a3e-9b73-8075-8200-ffe37b2a2db0" class="numbered-list" start="2"><li>User Entity Behavior Analytics (UEBA)</li></ol><ol type="a" id="18982a3e-9b73-8063-9812-cccc824a01a6" class="numbered-list" start="3"><li>Threat Detection and Prevention</li></ol><ol type="a" id="18982a3e-9b73-8032-a71c-ef2a267d2914" class="numbered-list" start="4"><li>Incident Investigation</li></ol><ol type="a" id="18982a3e-9b73-8010-b522-c97e2120df9b" class="numbered-list" start="5"><li>Remediation and Response</li></ol><ol type="a" id="18982a3e-9b73-8036-803d-eab943c7bc82" class="numbered-list" start="6"><li>Integration with SIEM</li></ol></li></ol><ol type="1" id="18982a3e-9b73-8087-a96e-d01cb4ce7396" class="numbered-list" start="7"><li><strong>Firewalls</strong><ol type="a" id="18982a3e-9b73-8041-b0c0-e1f7c43ce73e" class="numbered-list" start="1"><li><strong>Network Fierewalls</strong><ol type="i" id="18982a3e-9b73-8039-a68b-c146b1dd7fc5" class="numbered-list" start="1"><li>Examine packets</li></ol><ol type="i" id="18982a3e-9b73-80d7-8581-d6b71d255c62" class="numbered-list" start="2"><li>Layer 3</li></ol><ol type="i" id="18982a3e-9b73-8093-8f6b-cfa11e95ac05" class="numbered-list" start="3"><li>Make decisions based on rules</li></ol></li></ol><ol type="a" id="18982a3e-9b73-80db-bc08-cf19309da1eb" class="numbered-list" start="2"><li><strong>Next-Generation Firewalls (NGFW)</strong><ol type="i" id="18982a3e-9b73-8090-9a58-ed8a5b5f710a" class="numbered-list" start="1"><li>Stateful packet inspection</li></ol><ol type="i" id="18982a3e-9b73-8071-bad3-d10a2f86e6f5" class="numbered-list" start="2"><li>Deep packet inspection</li></ol><ol type="i" id="18982a3e-9b73-8019-b54b-fc9864f72802" class="numbered-list" start="3"><li>Layer 7</li></ol></li></ol><ol type="a" id="18982a3e-9b73-8055-9fab-fb7167237844" class="numbered-list" start="3"><li><strong>Web Application Firewalls</strong><ol type="i" id="18982a3e-9b73-80d1-b862-ebaae1efe439" class="numbered-list" start="1"><li>Inspect HTTP(S) traffic</li></ol><ol type="i" id="18982a3e-9b73-80d9-b392-eed6f43217c3" class="numbered-list" start="2"><li>Protect web applications from attacks</li></ol><ol type="i" id="18982a3e-9b73-806e-a59a-cf0139a2b38d" class="numbered-list" start="3"><li>Layer 7</li></ol></li></ol></li></ol><ol type="1" id="18982a3e-9b73-8084-a3ad-eb7913ae7631" class="numbered-list" start="8"><li><strong>Threat Intelligence Platforms </strong><ol type="a" id="18982a3e-9b73-8055-839f-f5d69365918e" class="numbered-list" start="1"><li>Data Aggregation and Enrichment</li></ol><ol type="a" id="18982a3e-9b73-80df-b656-ead34a26a48c" class="numbered-list" start="2"><li>Indicators of Compromise (IOCs)</li></ol><ol type="a" id="18982a3e-9b73-80cd-8ad7-f4a351cb349c" class="numbered-list" start="3"><li>Normalization and Standardization</li></ol><ol type="a" id="18982a3e-9b73-803c-bd64-df1e4fecaf54" class="numbered-list" start="4"><li>Analysis and Prioritization</li></ol><ol type="a" id="18982a3e-9b73-803a-a8d8-cdabe5ac42b2" class="numbered-list" start="5"><li>Integration with SIEM</li></ol></li></ol><ol type="1" id="18982a3e-9b73-8010-b0ec-e2e476159672" class="numbered-list" start="9"><li><strong>Forensics Analysis Tools</strong><ol type="a" id="18982a3e-9b73-8067-ae57-faf2bcbb1af5" class="numbered-list" start="1"><li>Data Acquisition and Imaging</li></ol><ol type="a" id="18982a3e-9b73-8084-9975-f63934b59810" class="numbered-list" start="2"><li>File System Analysis</li></ol><ol type="a" id="18982a3e-9b73-8051-bb16-cd3eb7d8d95c" class="numbered-list" start="3"><li>Memory Forensics</li></ol><ol type="a" id="18982a3e-9b73-8080-bdf4-c66628eb5eaa" class="numbered-list" start="4"><li>Registry Forensics</li></ol><ol type="a" id="18982a3e-9b73-8011-bab0-c4de7f6b8b62" class="numbered-list" start="5"><li>Network Traffic Forensics</li></ol></li></ol><ol type="1" id="18982a3e-9b73-80b9-9216-ea18d7a36fd2" class="numbered-list" start="10"><li><strong>Malware Analysis Tools</strong><ol type="a" id="18982a3e-9b73-8098-ab53-c89715245e65" class="numbered-list" start="1"><li>Dynamic Analysis</li></ol><ol type="a" id="18982a3e-9b73-80f1-bb2b-f4b8c14fbc00" class="numbered-list" start="2"><li>Static Analysis</li></ol><ol type="a" id="18982a3e-9b73-8083-a6d0-d082f31d99f2" class="numbered-list" start="3"><li>Behavioral Analysis</li></ol><ol type="a" id="18982a3e-9b73-804d-a63f-c45a397e2c3a" class="numbered-list" start="4"><li>Signature and Pattern Matching</li></ol><ol type="a" id="18982a3e-9b73-80d0-8369-e9eda0afce9c" class="numbered-list" start="5"><li>Integration with TIPS</li></ol></li></ol><p id="18982a3e-9b73-8081-b793-e1b6867bcb68" class="">
+</p><h2 id="18982a3e-9b73-8069-84e1-fc1a5fac1882" class="">Common Threats and Attacks</h2><ol type="1" id="18982a3e-9b73-808d-87d5-de93da81a81d" class="numbered-list" start="1"><li><strong>Social Engineering</strong><ol type="a" id="18982a3e-9b73-80bd-a860-e38afb534a36" class="numbered-list" start="1"><li>Phishing</li></ol><ol type="a" id="18982a3e-9b73-8075-af53-dafa657f9d09" class="numbered-list" start="2"><li>Spoofing</li></ol><ol type="a" id="18982a3e-9b73-8093-85a8-c5f6e0db7933" class="numbered-list" start="3"><li>Vishing (Voice Call Phishing)</li></ol><ol type="a" id="18982a3e-9b73-8092-95cc-e33fdf08a556" class="numbered-list" start="4"><li>SMiShing (SMS Phishing)</li></ol><ol type="a" id="18982a3e-9b73-802a-a44d-f3f9504a817f" class="numbered-list" start="5"><li>Quishing (QR code Phishing)</li></ol></li></ol><ol type="1" id="18982a3e-9b73-80b2-8177-f81aad5168bb" class="numbered-list" start="2"><li><strong>Malware</strong><ol type="a" id="18982a3e-9b73-8018-af3a-d85a59ef85c8" class="numbered-list" start="1"><li>Worm, Spyware, Adware</li></ol><ol type="a" id="18982a3e-9b73-803a-be69-e83ece0fe83e" class="numbered-list" start="2"><li>Ransomware</li></ol><ol type="a" id="18982a3e-9b73-8006-84d1-fb3b894a5bbf" class="numbered-list" start="3"><li>Trojan</li></ol><ol type="a" id="18982a3e-9b73-8003-ad84-c2e1d17fded1" class="numbered-list" start="4"><li>Fileless Malware</li></ol></li></ol><ol type="1" id="18982a3e-9b73-80c5-a1d0-c81d083a4769" class="numbered-list" start="3"><li><strong>Identity and Account Compromise</strong><ol type="a" id="18982a3e-9b73-8036-9191-d668ef32cefd" class="numbered-list" start="1"><li>Credential Theft</li></ol></li></ol><ol type="1" id="18982a3e-9b73-804b-9800-c9964aeba902" class="numbered-list" start="4"><li><strong>Insider Threats</strong></li></ol><ol type="1" id="18982a3e-9b73-8010-a867-ccd6cd85cbec" class="numbered-list" start="5"><li><strong>Advanced Persistent Threats (APTs).</strong></li></ol><ol type="1" id="18982a3e-9b73-8056-b4b6-d1572e0d25ee" class="numbered-list" start="6"><li><strong>Denial-of-Service Attacks.</strong></li></ol><ol type="1" id="18982a3e-9b73-8087-8407-d7d88b32b999" class="numbered-list" start="7"><li><strong>Data Breaches.</strong></li></ol><ol type="1" id="18982a3e-9b73-8025-aaf9-f3cdd07db6d3" class="numbered-list" start="8"><li><strong>Zero-Days.</strong></li></ol><ol type="1" id="18982a3e-9b73-8091-b865-c06b9491a1b7" class="numbered-list" start="9"><li><strong>Supply Chain Attacks.</strong></li></ol></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
